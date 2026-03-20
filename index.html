@@ -308,6 +308,21 @@
     .footer-logo img { height: 36px; object-fit: contain; }
     .footer-text { font-size: 11px; color: var(--text-muted); }
 
+    /* ── GUIDES SECTION ── */
+    .guides-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4px; }
+    .guide-btn {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 8px; padding: 16px 10px 14px;
+      border-radius: 16px; border: 1.5px solid rgba(8,145,178,0.25);
+      background: rgba(8,145,178,0.06); cursor: pointer; text-decoration: none;
+      font-family: inherit; transition: var(--t); color: #0891b2;
+      text-align: center; min-height: 90px;
+    }
+    .guide-btn:hover { transform: translateY(-2px); border-color: #0891b2; box-shadow: 0 4px 14px rgba(8,145,178,0.18); }
+    .guide-btn .guide-icon { font-size: 26px; line-height: 1; }
+    .guide-btn .guide-title { font-size: 12px; font-weight: 700; color: var(--text); line-height: 1.3; }
+    .guide-btn .guide-sub { font-size: 10px; color: var(--text-muted); line-height: 1.3; }
+
     /* ── STICKY BAR ── */
     .sticky-cta {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
@@ -518,6 +533,23 @@
 </div></div>
   </div>
 
+  <!-- GUIDES -->
+  <div class="glass section-card reveal">
+    <div class="section-title" id="sec-guides">מדריכים</div>
+    <div class="guides-grid">
+      <a class="guide-btn" href="ondemand3d-guide-gal-or.html" target="_blank" rel="noopener">
+        <span class="guide-icon">🖥️</span>
+        <span class="guide-title">מדריך OnDemand3D</span>
+        <span class="guide-sub">מדריך מלא לתוכנה</span>
+      </a>
+      <a class="guide-btn" href="מדריך_גל_אור_מלא.html" target="_blank" rel="noopener">
+        <span class="guide-icon">📥</span>
+        <span class="guide-title">התקנת Viewer</span>
+        <span class="guide-sub">מדריך התקנת OnDemand3D</span>
+      </a>
+    </div>
+  </div>
+
   <!-- CONTACT -->
   <div class="glass section-card reveal">
     <div class="section-title" id="sec-contact">צור קשר</div>
@@ -602,7 +634,7 @@ const S = {
     secAbout:'אודות',
     about:'אבי גולדפרב, מנכ״ל רשת גל אור מכוני רנטגן בע״מ וטכנאי רנטגן בכיר, מוביל את פעילות הרשת מתוך ניסיון ניהולי עשיר, מחויבות למקצועיות, שירות ברמה גבוהה, חדשנות מתמשכת ובקרת איכות ללא פשרות על טיב הצילומים ואיכותם.',
     secServices:'שירותים', secTrust:'מדוע לבחור בנו',
-    secBranches:'סניפים', secContact:'צור קשר',
+    secBranches:'סניפים', secContact:'צור קשר', secGuides:'מדריכים',
     lblPhone:'טלפון מרכזי', lblWeb:'אתר',
     navTitle:'בחר סניף לניווט', navCancel:'ביטול',
     hoursLbl:'שעות:', footerLogo:'גל אור מכוני רנטגן',
@@ -647,7 +679,7 @@ const S = {
     secAbout:'About',
     about:'Avi Goldfarb, CEO of Gal Or X-Ray Centers Ltd. and senior radiology technician, leads the network with extensive managerial experience, a commitment to professionalism, high-level service, continuous innovation, and uncompromising quality control over imaging standards.',
     secServices:'Services', secTrust:'Why Choose Us',
-    secBranches:'Branches', secContact:'Contact',
+    secBranches:'Branches', secContact:'Contact', secGuides:'Guides',
     lblPhone:'Main Phone', lblWeb:'Website',
     navTitle:'Select branch to navigate', navCancel:'Cancel',
     hoursLbl:'Hours:', footerLogo:'Gal Or X-Ray Centers',
@@ -715,6 +747,7 @@ function setLang(l) {
   document.getElementById('sec-services').textContent = s.secServices;
   document.getElementById('sec-trust').textContent    = s.secTrust;
   document.getElementById('sec-branches').textContent = s.secBranches;
+  document.getElementById('sec-guides').textContent   = s.secGuides;
   document.getElementById('sec-contact').textContent  = s.secContact;
   document.getElementById('about-text').textContent   = s.about;
   document.getElementById('lbl-phone').textContent    = s.lblPhone;
