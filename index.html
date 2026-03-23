@@ -1,125 +1,681 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <title>אבי גולדפרב — מנכ"ל, גל אור מכוני רנטגן</title>
-  <meta id="meta-desc" name="description" content="כרטיס ביקור דיגיטלי של אבי גולדפרב, מנכ"ל גל אור מכוני רנטגן בע"מ — רשת מכוני רנטגן מובילה בשרון."/>
-  <meta property="og:type" content="profile"/>
-  <meta property="og:url" content="https://avigoldfarb1.github.io/gal-or-card/"/>
-  <meta id="og-title" property="og:title" content="אבי גולדפרב — מנכ"ל, גל אור מכוני רנטגן"/>
-  <meta id="og-desc" property="og:description" content="כרטיס ביקור דיגיטלי של אבי גולדפרב, מנכ"ל גל אור מכוני רנטגן בע"מ — רשת מכוני רנטגן מובילה בשרון."/>
-  <meta id="og-locale" property="og:locale" content="he_IL"/>
-  <meta property="og:image" content="https://avigoldfarb1.github.io/gal-or-card/preview.jpg"/>
-  <meta property="og:image:width" content="1200"/>
-  <meta property="og:image:height" content="630"/>
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="אבי גולדפרב — מנכ"ל, גל אור מכוני רנטגן"/>
-  <meta name="twitter:description" content="כרטיס ביקור דיגיטלי של אבי גולדפרב, מנכ"ל גל אור מכוני רנטגן בע"מ — רשת מכוני רנטגן מובילה בשרון."/>
-  <meta name="twitter:image" content="https://avigoldfarb1.github.io/gal-or-card/preview.jpg"/>
-  <link rel="canonical" href="https://avigoldfarb1.github.io/gal-or-card/"/>
-  <style>@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap");</style>
-  <!-- PASTE YOUR ORIGINAL <style> BLOCK HERE -->
+  <meta id="meta-desc" name="description" content='כרטיס ביקור דיגיטלי של אבי גולדפרב, מנכ"ל גל אור מכוני רנטגן בע"מ — רשת מכוני רנטגן מובילה בשרון.' />
+  <meta property="og:type"        content="profile" />
+  <meta property="og:url"         content="https://super-tiramisu-764466.netlify.app" />
+  <meta id="og-title"  property="og:title"       content="אבי גולדפרב | מנכ&quot;ל גל אור מכוני רנטגן" />
+  <meta id="og-desc"   property="og:description" content="צילומי רנטגן והדמיית CT דנטלי | פנורמי, CT, CBCT, סטטוס | רשת 4 סניפים בשרון" />
+  <meta id="og-locale" property="og:locale"      content="he_IL" />
+  <meta property="og:locale:alternate"            content="en_US" />
+  <meta property="og:image"       content="https://super-tiramisu-764466.netlify.app/preview.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="אבי גולדפרב | מנכ&quot;ל גל אור מכוני רנטגן" />
+  <meta name="twitter:description" content="צילומי רנטגן והדמיית CT דנטלי | פנורמי, CT, CBCT, סטטוס | רשת 4 סניפים בשרון" />
+  <meta name="twitter:image"       content="https://super-tiramisu-764466.netlify.app/preview.jpg" />
+  <link rel="canonical" href="https://super-tiramisu-764466.netlify.app" />
+  <link rel="alternate" hreflang="he"        href="https://super-tiramisu-764466.netlify.app?lang=he" />
+  <link rel="alternate" hreflang="en"        href="https://super-tiramisu-764466.netlify.app?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="."       />
+  <style>
+  @import url("https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap");
+  /* Fallback: system fonts if offline */
+  :root { font-family: -apple-system, "Segoe UI", Arial, sans-serif; }
+</style>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:    #0d1117;
+      --accent:     #F5C518;
+      --accent-glow:rgba(245,197,24,0.35);
+      --navy:       #1B3B6F;
+      --bg:         #F0F2F5;
+      --card:       #FFFFFF;
+      --text:       #1a1a2e;
+      --text-muted: #6b7280;
+      --green:      #25D366;
+      --blue:       #2563eb;
+      --ease:       cubic-bezier(0.4,0,0.2,1);
+      --t:          0.3s var(--ease);
+      --r:          18px;
+    }
+
+    html, body {
+      min-height: 100%;
+      font-family: 'Heebo', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      direction: rtl;
+    }
+
+    /* ── LANG BAR ── */
+    .lang-bar { display:flex; justify-content:flex-end; padding:10px 0 6px; }
+    .lang-btn {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px; padding: 5px 16px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.8px;
+      color: var(--accent); cursor: pointer; font-family: inherit;
+      transition: var(--t);
+    }
+    .lang-btn:hover { background: var(--accent); color: var(--primary); border-color: var(--accent); }
+
+    /* ── PAGE WRAP ── */
+    .page-wrap { max-width: 480px; margin: 0 auto; padding: 0 0 100px; }
+
+    /* ── GLASS (neutralized — same as card) ── */
+    .glass {
+      background: var(--card);
+      border: none; backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    }
+
+    /* ── HERO ── */
+    .hero-card {
+      background: var(--primary) !important;
+      border-radius: 0 !important;
+      border: none !important;
+      padding: 20px 20px 36px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: none !important;
+    }
+    .hero-card::before {
+      content: '';
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 300px 200px at 20% 0%, rgba(245,197,24,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 300px 200px at 80% 100%, rgba(27,59,111,0.2) 0%, transparent 70%);
+    }
+    .hero-card::after {
+      content: '';
+      position: absolute; bottom: -1px; left: 0; right: 0; height: 32px;
+      background: var(--bg);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+
+    /* BRAND BADGE */
+    .brand-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(245,197,24,0.15); border: 1px solid rgba(245,197,24,0.3);
+      border-radius: 20px; padding: 4px 14px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.8px;
+      color: var(--accent); margin-bottom: 16px;
+      position: relative; z-index: 1;
+    }
+    .brand-badge::before { content: '✦'; font-size: 9px; }
+
+    /* LOGO */
+    .hero-logo-wrap { margin-bottom: 16px; position: relative; z-index: 1; }
+    .hero-logo { height: 72px; width: auto; max-width: 240px; object-fit: contain; filter: brightness(0) invert(1); }
+
+    /* PORTRAIT */
+    .portrait-wrap { position: relative; display: inline-block; margin-bottom: 18px; z-index: 1; }
+    .portrait-ring  {
+      position: absolute; inset: -5px; border-radius: 50%;
+      background: conic-gradient(var(--accent), #fff9c4, var(--accent));
+      animation: spin-ring 6s linear infinite;
+    }
+    .portrait-ring2 { display: none; }
+    @keyframes spin-ring { to { transform: rotate(360deg); } }
+    .portrait-inner {
+      position: relative; z-index: 1;
+      width: 130px; height: 130px;
+      border-radius: 50%; background: white; padding: 4px;
+      box-shadow: 0 0 0 3px var(--accent), 0 8px 30px var(--accent-glow);
+    }
+    .portrait-img {
+      width: 100%; height: 100%; border-radius: 50%;
+      object-fit: cover; object-position: center top; display: block;
+    }
+
+    /* HERO TEXT */
+    .name-main {
+      font-size: 27px; font-weight: 800; color: #ffffff;
+      line-height: 1.15; letter-spacing: -0.5px;
+      position: relative; z-index: 1;
+    }
+    .name-sub {
+      font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.5);
+      margin-top: 3px; position: relative; z-index: 1;
+    }
+    .job-title {
+      font-size: 15px; font-weight: 600; color: var(--accent);
+      margin-top: 8px; position: relative; z-index: 1;
+    }
+    .company-nm {
+      font-size: 12px; color: rgba(255,255,255,0.5);
+      margin-top: 2px; position: relative; z-index: 1;
+    }
+    .tagline {
+      font-size: 12px; color: rgba(255,255,255,0.45);
+      margin-top: 12px; line-height: 1.9; font-style: italic;
+      position: relative; z-index: 1;
+    }
+
+    /* Contact chips in hero */
+    .contact-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; margin-top: 14px; position: relative; z-index: 1; }
+    .contact-chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px; padding: 5px 12px;
+      font-size: 11px; color: rgba(255,255,255,0.8); text-decoration: none;
+      transition: var(--t);
+    }
+    .contact-chip:hover { background: var(--accent); color: var(--primary); border-color: var(--accent); }
+
+    /* ── ACTION CARD ── */
+    .action-card {
+      background: var(--card) !important;
+      border-radius: 0 0 var(--r) var(--r) !important;
+      border: none !important;
+      padding: 20px 16px 22px !important;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
+      margin-bottom: 14px !important;
+    }
+
+    /* CTA Button Grid */
+    .btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .btn-grid .btn-full { grid-column: 1 / -1; }
+
+    .btn {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 5px; padding: 12px 6px 10px;
+      border-radius: 14px; border: 1.5px solid #E5E7EB;
+      background: #F9FAFB; cursor: pointer; text-decoration: none;
+      font-family: inherit; transition: var(--t);
+      font-size: 10px; font-weight: 600; color: var(--text-muted);
+      min-height: 70px;
+    }
+    .btn span:first-child { font-size: 22px; line-height: 1; }
+    .btn:hover { transform: translateY(-2px); border-color: var(--accent); box-shadow: 0 4px 14px var(--accent-glow); }
+
+    /* Full-width buttons */
+    .btn.btn-full, .btn-save.btn-full {
+      flex-direction: row; gap: 10px; min-height: 52px;
+      border-radius: 26px; font-size: 15px; font-weight: 800;
+      background: linear-gradient(135deg, #F5C518, #e6b800);
+      color: var(--primary); border: none;
+      box-shadow: 0 8px 24px rgba(245,197,24,0.4);
+    }
+    .btn.btn-full span:first-child, .btn-save.btn-full span:first-child { font-size: 20px; }
+    .btn-share.btn-full {
+      flex-direction: row; gap: 10px; min-height: 52px;
+      border-radius: 26px; font-size: 14px; font-weight: 700;
+      background: var(--bg); color: var(--text-muted); border: 1.5px solid #E5E7EB;
+      box-shadow: none;
+    }
+
+    .btn-call  { color: var(--blue);  border-color: rgba(37,99,235,0.2);  background: rgba(37,99,235,0.06);  }
+    .btn-wa    { color: var(--green); border-color: rgba(37,211,102,0.2); background: rgba(37,211,102,0.06); }
+    .btn-web   { color: var(--navy);  border-color: rgba(27,59,111,0.2);  background: rgba(27,59,111,0.05);  }
+    .btn-nav   { color: #7c3aed;      border-color: rgba(124,58,237,0.2); background: rgba(124,58,237,0.05); }
+    .btn-d     { color: #b45309;      border-color: rgba(180,83,9,0.2);   background: rgba(255,197,24,0.07); }
+
+    /* ── SECTIONS ── */
+    .section-card {
+      border-radius: var(--r) !important;
+      border: none !important;
+      padding: 20px 16px !important;
+      margin: 0 12px 12px !important;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06) !important;
+    }
+    .section-title {
+      font-size: 16px; font-weight: 700; color: var(--text);
+      margin-bottom: 14px; padding-bottom: 10px;
+      border-bottom: 3px solid var(--accent);
+      display: inline-block;
+    }
+
+    /* ── ABOUT ── */
+    .about-text {
+      font-size: 14px; color: var(--text-muted);
+      line-height: 1.9;
+    }
+
+    /* ── SERVICES ── */
+    .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .service-item {
+      background: var(--bg); border-radius: 14px;
+      padding: 16px 12px; text-align: center;
+      border: 1px solid #E5E7EB;
+      transition: var(--t);
+    }
+    .service-item:hover { border-color: var(--accent); box-shadow: 0 4px 14px var(--accent-glow); }
+    .svc-icon { font-size: 28px; margin-bottom: 8px; }
+    .svc-title { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .svc-desc  { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
+
+    /* ── TRUST ── */
+    .trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .trust-block {
+      background: var(--bg); border-radius: 14px;
+      padding: 16px 12px; text-align: center;
+      border: 1px solid #E5E7EB;
+    }
+    .trust-icon  { font-size: 26px; margin-bottom: 6px; }
+    .trust-num   { font-size: 20px; font-weight: 800; color: var(--navy); }
+    .trust-label { font-size: 12px; font-weight: 600; color: var(--text); margin-top: 2px; }
+    .trust-desc  { font-size: 10px; color: var(--text-muted); margin-top: 3px; }
+
+    /* ── BRANCHES ── */
+    .branch-list { display: flex; flex-direction: column; gap: 10px; }
+    .branch-item {
+      background: var(--bg); border-radius: 12px;
+      padding: 13px 14px;
+      border-right: 4px solid var(--accent);
+      transition: var(--t);
+    }
+    .branch-item:hover { box-shadow: 0 4px 14px var(--accent-glow); }
+    .branch-hdr { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px; }
+    .branch-name  { font-size: 14px; font-weight: 700; color: var(--navy); }
+    .branch-phone { font-size: 12px; font-weight: 600; color: var(--blue); text-decoration: none; direction: ltr; }
+    .branch-addr  { font-size: 11px; color: var(--text-muted); margin-bottom: 3px; line-height: 1.5; }
+    .branch-hours { font-size: 10px; color: var(--text-muted); }
+    .branch-hours-lbl { font-weight: 700; color: var(--navy); }
+    .branch-wa {
+      display: inline-block; margin-top: 8px;
+      font-size: 11px; font-weight: 600; color: var(--green);
+      text-decoration: none; background: rgba(37,211,102,0.1);
+      border: 1px solid rgba(37,211,102,0.25); border-radius: 12px;
+      padding: 3px 10px; transition: var(--t);
+    }
+    .branch-wa:hover { background: rgba(37,211,102,0.2); }
+
+    /* ── CONTACT ── */
+    .contact-list { display: flex; flex-direction: column; gap: 12px; }
+    .contact-row  { display: flex; align-items: center; gap: 12px; }
+    .contact-ico  { font-size: 22px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: var(--bg); border-radius: 50%; flex-shrink: 0; }
+    .contact-lbl  { font-size: 11px; color: var(--text-muted); margin-bottom: 2px; }
+    .contact-val  { font-size: 14px; font-weight: 600; color: var(--text); }
+    .contact-val a { color: var(--navy); text-decoration: none; }
+    .contact-val a:hover { color: var(--accent); }
+
+    /* ── FOOTER ── */
+    .footer { text-align: center; padding: 20px 16px 10px; }
+    .footer-logo { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .footer-logo img { height: 36px; object-fit: contain; }
+    .footer-text { font-size: 11px; color: var(--text-muted); }
+
+    /* ── GUIDES SECTION ── */
+    .guides-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4px; }
+    .guide-btn {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 8px; padding: 16px 10px 14px;
+      border-radius: 16px; border: 1.5px solid rgba(8,145,178,0.25);
+      background: rgba(8,145,178,0.06); cursor: pointer; text-decoration: none;
+      font-family: inherit; transition: var(--t); color: #0891b2;
+      text-align: center; min-height: 90px;
+    }
+    .guide-btn:hover { transform: translateY(-2px); border-color: #0891b2; box-shadow: 0 4px 14px rgba(8,145,178,0.18); }
+    .guide-btn .guide-icon { font-size: 26px; line-height: 1; }
+    .guide-btn .guide-title { font-size: 12px; font-weight: 700; color: var(--text); line-height: 1.3; }
+    .guide-btn .guide-sub { font-size: 10px; color: var(--text-muted); line-height: 1.3; }
+
+    /* ── STICKY BAR ── */
+    .sticky-cta {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+      background: var(--primary);
+      border-radius: 20px 20px 0 0;
+      display: flex; gap: 8px;
+      padding: 12px 16px 20px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+    }
+    .sticky-btn {
+      flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
+      padding: 10px 6px;
+      border-radius: 14px; border: none; cursor: pointer;
+      font-size: 11px; font-weight: 600; text-decoration: none;
+      font-family: inherit; transition: var(--t); color: white;
+      background: rgba(255,255,255,0.1);
+    }
+    .sticky-btn:first-child { background: rgba(37,99,235,0.3); color: #93c5fd; }
+    .sticky-btn:nth-child(2) { background: rgba(37,211,102,0.2); color: #4ade80; }
+    .sticky-btn:last-child {
+      background: linear-gradient(135deg, #F5C518, #e6b800);
+      color: var(--primary); font-weight: 800;
+    }
+    .s-ico { font-size: 20px; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+      align-items: flex-end; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-sheet {
+      background: var(--card); border-radius: 24px 24px 0 0;
+      width: 100%; max-width: 480px; padding: 20px 16px 32px;
+    }
+    .modal-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 14px; text-align: center; }
+    .nav-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+    .nav-btn {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 16px; background: var(--bg); border-radius: 12px;
+      text-decoration: none; color: var(--text); transition: var(--t);
+      border: 1px solid #E5E7EB;
+    }
+    .nav-btn:hover { border-color: var(--accent); background: #fffbeb; }
+    .nav-btn span:first-child { font-size: 14px; font-weight: 600; color: var(--navy); }
+    .nav-btn-sub { font-size: 11px; color: var(--text-muted); display: block; margin-top: 2px; }
+    .nav-arrow { color: var(--accent); font-size: 18px; font-weight: 700; }
+    .modal-cancel {
+      width: 100%; padding: 12px; border-radius: 12px; border: none;
+      background: var(--bg); color: var(--text-muted); font-size: 14px;
+      font-weight: 600; cursor: pointer; font-family: inherit; transition: var(--t);
+    }
+    .modal-cancel:hover { background: #E5E7EB; }
+
+    /* ── TOAST ── */
+    .toast {
+      display: none; position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%);
+      background: var(--primary); color: white; padding: 10px 20px;
+      border-radius: 20px; font-size: 13px; font-weight: 600; z-index: 300;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+    .toast.show { display: block; }
+
+    /* ── REVEAL ANIMATION ── */
+    .reveal { opacity: 1; transform: translateY(20px); transition: opacity 0.5s var(--ease), transform 0.5s var(--ease); }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── [dir=ltr] overrides ── */
+    [dir=ltr] .branch-hdr { flex-direction: row; }
+    [dir=ltr] .branch-item { border-right: none; border-left: 4px solid var(--accent); }
+
+  </style>
+
+<style>
+  .section-card, .glass, .reveal { opacity: 1 !important; transform: none !important; visibility: visible !important; }
+  body { opacity: 1 !important; }
+  .lang-fade { opacity: 1 !important; }
+</style>
 </head>
 <body>
+
 <div class="page-wrap">
-  <div class="glass hero-card">
-    <div class="lang-bar"><button class="lang-btn" id="lang-btn" onclick="toggleLang()">EN</button></div>
+
+  <div class="lang-bar">
+    <button class="lang-btn" id="lang-btn" onclick="toggleLang()">EN</button>
+  </div>
+
+  <!-- HERO -->
+  <div class="glass hero-card reveal">
     <div class="brand-badge" id="brand-badge">גל אור · מכוני רנטגן</div>
-    <div class="hero-logo-wrap"><img class="hero-logo" src="gal-or-logo.png" alt="גל אור"/></div>
+
+    <div class="hero-logo-wrap" style="margin-bottom:18px;text-align:center;">
+      <img src="data:image/png;base64,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" alt="גל אור" style="height:70px;width:auto;object-fit:contain;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.3));" />
+    </div>
+
     <div class="portrait-wrap">
       <div class="portrait-ring"></div>
+      <div class="portrait-ring2"></div>
       <div class="portrait-inner">
-        <img class="portrait-img" id="portrait-img" src="https://avigoldfarb1.github.io/gal-or-card/avi.jpg" alt="אבי גולדפרב" width="130" height="130"/>
+        <img class="portrait-img" id="portrait-img"
+             src="data:image/jpeg;base64,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"
+             alt="אבי גולדפרב" width="106" height="106" />
       </div>
     </div>
+
     <div class="name-main" id="name-main">אבי גולדפרב</div>
-    <div class="name-sub" id="name-sub" dir="ltr">Avi Goldfarb</div>
+    <div class="name-sub"  id="name-sub" dir="ltr">Avi Goldfarb</div>
     <div class="job-title" id="job-title">מנכ"ל הרשת</div>
     <div class="company-nm" id="company-nm">גל אור מכוני רנטגן בע"מ</div>
-    <p class="tagline" id="tagline">חדשנות, מקצועיות, שירות, אמינות. איכות מרבית בקרינה מינימלית.</p>
+    <p class="tagline" id="tagline">חדשנות, מקצועיות, שירות, אמינות.<br>איכות מרבית בקרינה מינימלית.</p>
+
     <div class="divider"></div>
+
     <div class="contact-chips">
       <a class="contact-chip" href="tel:0747840744">📞 074-7840744</a>
       <a class="contact-chip" href="https://wa.me/972527474949" target="_blank" rel="noopener">💬 WhatsApp</a>
       <a class="contact-chip" href="https://galorx-ray.co.il" target="_blank" rel="noopener">🌐 galorx-ray.co.il</a>
     </div>
   </div>
-  <div class="glass action-card reveal"><div class="btn-grid"><a class="btn btn-call" href="tel:0747840744"><span>📞</span><span id="btn-call">התקשר</span></a><a class="btn btn-wa" href="https://wa.me/972527474949" target="_blank" rel="noopener"><span>💬</span><span id="btn-wa">WhatsApp</span></a><a class="btn btn-email" href="mailto:avigoldfarb1@gmail.com" style="color:#1B3B6F;border-color:rgba(27,59,111,0.25);background:rgba(27,59,111,0.05);"><span>✉️</span><span>אימייל</span></a><button class="btn btn-save btn-full" onclick="downloadVCard()"><span>👤</span><span id="btn-save">שמור איש קשר</span></button><a class="btn btn-web" href="https://galorx-ray.co.il" target="_blank" rel="noopener"><span>🌐</span><span id="btn-web">אתר האינטרנט</span></a><button class="btn btn-nav" onclick="openNavModal()"><span>🗺️</span><span id="btn-nav">נווט לסניף</span></button><a class="btn btn-d" href="http://galorxray.com/s/" target="_blank" rel="noopener"><span>🩺</span><span id="btn-doctor">כניסת רופאים</span></a><a class="btn" href="https://galorx-ray.help/" target="_blank" rel="noopener" style="color:#0891b2;border-color:rgba(8,145,178,0.25);background:rgba(8,145,178,0.06);display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;"><span>🤖</span><span>העוזר הדיגיטלי</span></a><button class="btn btn-share btn-full" onclick="shareCard()"><span>↗</span><span id="btn-share">שתף כרטיס</span></button></div></div>
-  <div class="glass section-card reveal"><div class="section-title" id="sec-about">אודות</div><p class="about-text" id="about-text">אבי גולדפרב, מנכ״ל רשת גל אור מכוני רנטגן בע״מ וטכנאי רנטגן בכיר, מוביל את פעילות הרשת מתוך ניסיון ניהולי עשיר, מחויבות למקצועיות, שירות ברמה גבוהה, חדשנות מתמשכת ובקרת איכות ללא פשרות על טיב הצילומים ואיכותם.</p></div>
-  <div class="glass section-card reveal"><div class="section-title" id="sec-services">שירותים</div><div class="services-grid" id="services-grid"></div></div>
-  <div class="glass section-card reveal"><div class="section-title" id="sec-trust">מדוע לבחור בנו</div><div class="trust-grid" id="trust-grid"></div></div>
-  <div class="glass section-card reveal"><div class="section-title" id="sec-branches">סניפים</div><div class="branch-list" id="branch-list"></div></div>
-  <div class="glass section-card reveal"><div class="section-title" id="sec-guides">מדריכים</div><div class="guides-grid">
-      <a class="guide-btn" href="ondemand3d-guide-gal-or.html" target="_blank" rel="noopener"><span class="guide-icon">🖥️</span><span class="guide-title">מדריך OnDemand3D</span><span class="guide-sub">מדריך מלא לתוכנה</span></a>
-      <a class="guide-btn" href="מדריך_גל_אור_מלא.html" target="_blank" rel="noopener"><span class="guide-icon">📥</span><span class="guide-title">התקנת Viewer</span><span class="guide-sub">מדריך התקנת OnDemand3D</span></a>
-      <a class="guide-btn" href="gal-or-doctor-guide.html" target="_blank" rel="noopener"><span class="guide-icon">🦷</span><span class="guide-title">מדריך פורטל רופאים גל אור</span><span class="guide-sub">כניסה והסבר שימוש במערכת</span></a></div></div>
-  
-  <div class="glass section-card reveal"><div class="section-title">מאמרים ועדכונים</div><div class="guides-grid"><a class="guide-btn" href="file:///C:/Users/USER/Desktop/%D7%A7%D7%9C%D7%95%D7%93%20%D7%A7%D7%95%D7%93/%D7%9B%D7%A8%D7%98%D7%99%D7%A1%20%D7%91%D7%99%D7%A7%D7%95%D7%A8%20%D7%93%D7%99%D7%92%D7%99%D7%98%D7%90%D7%9C%D7%99%20%D7%90%D7%91%D7%99/gal_or_cbct_v3.html" target="_blank" rel="noopener"><span class="guide-icon">📰</span><span class="guide-title">חשיבות ה-CT הדנטלי ושיטת ה-CBCT ברפואת השיניים המודרנית</span><span class="guide-sub">דיוק אבחנתי, תכנון טיפולי מתקדם ובטיחות קרינתית — המדריך המקצועי לרופאי השיניים</span></a></div></div>
-  <div class="glass section-card reveal"><div class="section-title" id="sec-contact">צור קשר</div>
-    <div class="contact-list">
-      <div class="contact-row"><div class="contact-ico">📞</div><div><div class="contact-lbl" id="lbl-phone">טלפון מרכזי</div><div class="contact-val"><a href="tel:0747840744">074-7840744</a></div></div></div>
-      <div class="contact-row"><div class="contact-ico">💬</div><div><div class="contact-lbl">WhatsApp</div><div class="contact-val"><a href="https://wa.me/972527474949" target="_blank" rel="noopener">+972-52-747-4949</a></div></div></div>
-      <div class="contact-row"><div class="contact-ico">🌐</div><div><div class="contact-lbl" id="lbl-web">אתר</div><div class="contact-val"><a href="https://galorx-ray.co.il" target="_blank" rel="noopener">galorx-ray.co.il</a></div></div></div>
-      <div class="contact-row"><div class="contact-ico">✉️</div><div><div class="contact-lbl">אימייל</div><div class="contact-val"><a href="mailto:avigoldfarb1@gmail.com">avigoldfarb1@gmail.com</a></div></div></div>
+
+  <!-- ACTIONS -->
+  <div class="glass action-card reveal">
+    <div class="btn-grid">
+      <a class="btn btn-call" href="tel:0747840744">
+        <span>📞</span><span id="btn-call">התקשר</span>
+      </a>
+      <a class="btn btn-wa" href="https://wa.me/972527474949" target="_blank" rel="noopener">
+        <span>💬</span><span id="btn-wa">WhatsApp</span>
+      </a>
+      <a class="btn btn-email" href="mailto:avigoldfarb1@gmail.com" style="color:#1B3B6F;border-color:rgba(27,59,111,0.25);background:rgba(27,59,111,0.05);">
+        <span>✉️</span><span>אימייל</span>
+      </a>
+      <button class="btn btn-save btn-full" onclick="downloadVCard()">
+        <span>👤</span><span id="btn-save">שמור איש קשר</span>
+      </button>
+      <a class="btn btn-web" href="https://galorx-ray.co.il" target="_blank" rel="noopener">
+        <span>🌐</span><span id="btn-web">אתר האינטרנט</span>
+      </a>
+      <button class="btn btn-nav" onclick="openNavModal()">
+        <span>🗺️</span><span id="btn-nav">נווט לסניף</span>
+      </button>
+      <a class="btn btn-d" href="http://galorxray.com/s/" target="_blank" rel="noopener">
+        <span>🩺</span><span id="btn-doctor">כניסת רופאים</span>
+      </a>
+      <a class="btn" href="https://galorx-ray.help/" target="_blank" rel="noopener" style="color:#0891b2;border-color:rgba(8,145,178,0.25);background:rgba(8,145,178,0.06);display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;">
+        <span>🤖</span><span>העוזר הדיגיטלי</span>
+      </a>
+      <button class="btn btn-share btn-full" onclick="shareCard()">
+        <span>↗</span><span id="btn-share">שתף כרטיס</span>
+      </button>
     </div>
   </div>
-  <div class="footer reveal"><div class="footer-logo" id="footer-logo">גל אור מכוני רנטגן בע"מ</div><div class="footer-text" id="footer-tag">גל אור מכוני רנטגן בע"מ · מאז 1982</div></div>
+
+  <!-- ABOUT -->
+  <div class="glass section-card reveal">
+    <div class="section-title" id="sec-about">אודות</div>
+    <p class="about-text" id="about-text">אבי גולדפרב, מנכ״ל רשת גל אור מכוני רנטגן בע״מ וטכנאי רנטגן בכיר, מוביל את פעילות הרשת מתוך ניסיון ניהולי עשיר, מחויבות למקצועיות, שירות ברמה גבוהה, חדשנות מתמשכת ובקרת איכות ללא פשרות על טיב הצילומים ואיכותם.</p>
+  </div>
+
+  <!-- SERVICES -->
+  <div class="glass section-card reveal">
+    <div class="section-title" id="sec-services">שירותים</div>
+    <div class="services-grid" id="services-grid"><div class="service-item"><div class="svc-icon">🩻</div><div class="svc-title">צילום פנורמי</div><div class="svc-desc">צילום פנורמי ותיעוד פה מלא</div></div>
+<div class="service-item"><div class="svc-icon">🔬</div><div class="svc-title">CT / CBCT דנטלי</div><div class="svc-desc">הדמיה תלת-ממדית עם ניתוח מקצועי</div></div>
+<div class="service-item"><div class="svc-icon">😁</div><div class="svc-title">סט אורתודונטיה</div><div class="svc-desc">תכנון טיפול ומעקב התקדמות</div></div>
+<div class="service-item"><div class="svc-icon">📱</div><div class="svc-title">סריקה אינטראורלית</div><div class="svc-desc">תיעוד דיגיטלי ללא קרינה</div></div>
+<div class="service-item"><div class="svc-icon">🦷</div><div class="svc-title">צילום סטטוס</div><div class="svc-desc">צילומי ביקורת ותיעוד מלא של הפה</div></div>
+<div class="service-item"><div class="svc-icon">🏃</div><div class="svc-title">סד ספורט מקצועי</div><div class="svc-desc">סדי הגנה מותאמים אישית לספורטאים</div></div></div>
+  </div>
+
+  <!-- TRUST -->
+  <div class="glass section-card reveal">
+    <div class="section-title" id="sec-trust">מדוע לבחור בנו</div>
+    <div class="trust-grid" id="trust-grid"><div class="trust-block"><div class="trust-icon">🏆</div><div class="trust-num">1982</div><div class="trust-label">שנת הקמה</div><div class="trust-desc">מעל 40 שנות ניסיון</div></div>
+<div class="trust-block"><div class="trust-icon">📍</div><div class="trust-num">4</div><div class="trust-label">סניפים</div><div class="trust-desc">ברחבי השרון והמרכז</div></div>
+<div class="trust-block"><div class="trust-icon">⚡</div><div class="trust-num">עדכני</div><div class="trust-label">ציוד מתקדם</div><div class="trust-desc">מתחדש כל 3 שנים</div></div>
+<div class="trust-block"><div class="trust-icon">🛡️</div><div class="trust-num">מינימלית</div><div class="trust-label">קרינה</div><div class="trust-desc">תקנים בינלאומיים מחמירים</div></div>
+<div class="trust-block"><div class="trust-icon">⭐</div><div class="trust-num">אישי</div><div class="trust-label">שירות ייחודי</div><div class="trust-desc">ליווי אישי לכל מטופל</div></div></div>
+  </div>
+
+  <!-- BRANCHES -->
+  <div class="glass section-card reveal">
+    <div class="section-title" id="sec-branches">סניפים</div>
+    <div class="branch-list" id="branch-list"><div class="branch-item">
+  <div class="branch-hdr"><span class="branch-name">כפר סבא</span><a class="branch-phone" href="tel:0972532315716">053-2315716</a></div>
+  <div class="branch-addr">רח' ויצמן 1, כפר סבא</div>
+  <div class="branch-hours"><span class="branch-hours-lbl">שעות:</span> א-ה 08:00-18:00, ו 08:00-13:00</div>
+  <a class="branch-wa" href="https://wa.me/972532315716" target="_blank" rel="noopener">💬 WhatsApp</a>
 </div>
+<div class="branch-item">
+  <div class="branch-hdr"><span class="branch-name">רעננה</span><a class="branch-phone" href="tel:0972533203015">053-3203015</a></div>
+  <div class="branch-addr">רח' אחוזה 98, רעננה</div>
+  <div class="branch-hours"><span class="branch-hours-lbl">שעות:</span> א-ה 08:00-18:00, ו 08:00-13:00</div>
+  <a class="branch-wa" href="https://wa.me/972533203015" target="_blank" rel="noopener">💬 WhatsApp</a>
+</div>
+<div class="branch-item">
+  <div class="branch-hdr"><span class="branch-name">הוד השרון</span><a class="branch-phone" href="tel:0972533022818">053-3022818</a></div>
+  <div class="branch-addr">רח' רוטשילד 10, הוד השרון</div>
+  <div class="branch-hours"><span class="branch-hours-lbl">שעות:</span> א-ה 08:00-18:00, ו 08:00-13:00</div>
+  <a class="branch-wa" href="https://wa.me/972533022818" target="_blank" rel="noopener">💬 WhatsApp</a>
+</div>
+<div class="branch-item">
+  <div class="branch-hdr"><span class="branch-name">תל מונד</span><a class="branch-phone" href="tel:0972532315717">053-2315717</a></div>
+  <div class="branch-addr">רח' הציונות 1, תל מונד</div>
+  <div class="branch-hours"><span class="branch-hours-lbl">שעות:</span> א-ה 08:00-18:00, ו 08:00-13:00</div>
+  <a class="branch-wa" href="https://wa.me/972532315717" target="_blank" rel="noopener">💬 WhatsApp</a>
+</div></div>
+  </div>
+
+  <!-- GUIDES -->
+  <div class="glass section-card reveal">
+    <div class="section-title" id="sec-guides">מדריכים</div>
+    <div class="guides-grid">
+      <a class="guide-btn" href="ondemand3d-guide-gal-or.html" target="_blank" rel="noopener"><span class="guide-icon">🖥️</span><span class="guide-title">מדריך OnDemand3D</span><span class="guide-sub">מדריך מלא לתוכנה</span></a>
+      <a class="guide-btn" href="מדריך_גל_אור_מלא.html" target="_blank" rel="noopener"><span class="guide-icon">📥</span><span class="guide-title">התקנת Viewer</span><span class="guide-sub">מדריך התקנת OnDemand3D</span></a>
+      <a class="guide-btn" href="gal-or-doctor-guide.html" target="_blank" rel="noopener"><span class="guide-icon">🦷</span><span class="guide-title">מדריך פורטל רופאים גל אור</span><span class="guide-sub">כניסה והסבר שימוש במערכת</span></a>
+    </div>
+  </div>
+  <!-- CONTACT -->
+  <div class="glass section-card reveal">
+    <div class="section-title" id="sec-contact">צור קשר</div>
+    <div class="contact-list">
+      <div class="contact-row">
+        <div class="contact-ico">📞</div>
+        <div>
+          <div class="contact-lbl" id="lbl-phone">טלפון מרכזי</div>
+          <div class="contact-val"><a href="tel:0747840744">074-7840744</a></div>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-ico">💬</div>
+        <div>
+          <div class="contact-lbl">WhatsApp</div>
+          <div class="contact-val"><a href="https://wa.me/972527474949" target="_blank" rel="noopener">+972-52-747-4949</a></div>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-ico">🌐</div>
+        <div>
+          <div class="contact-lbl" id="lbl-web">אתר</div>
+          <div class="contact-val"><a href="https://galorx-ray.co.il" target="_blank" rel="noopener">galorx-ray.co.il</a></div>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-ico">✉️</div>
+        <div>
+          <div class="contact-lbl">אימייל</div>
+          <div class="contact-val"><a href="mailto:avigoldfarb1@gmail.com">avigoldfarb1@gmail.com</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer reveal">
+    <div class="footer-logo" id="footer-logo">גל אור מכוני רנטגן</div>
+    <div class="footer-text" id="footer-tag">גל אור מכוני רנטגן · מאז 1982</div>
+  </div>
+
+</div>
+
+<!-- STICKY CTA -->
 <div class="sticky-cta">
-  <a class="sticky-btn" href="tel:0747840744"><span class="s-ico">📞</span><span id="s-call">התקשר</span></a>
-  <a class="sticky-btn" href="https://wa.me/972527474949" target="_blank" rel="noopener"><span class="s-ico">💬</span><span>WhatsApp</span></a>
-  <button class="sticky-btn" onclick="downloadVCard()"><span class="s-ico">👤</span><span id="s-save">שמור איש קשר</span></button>
+  <a class="sticky-btn" href="tel:0747840744">
+    <span class="s-ico">📞</span><span id="s-call">התקשר</span>
+  </a>
+  <a class="sticky-btn" href="https://wa.me/972527474949" target="_blank" rel="noopener">
+    <span class="s-ico">💬</span><span>WhatsApp</span>
+  </a>
+  <button class="sticky-btn" onclick="downloadVCard()">
+    <span class="s-ico">👤</span><span id="s-save">שמור</span>
+  </button>
 </div>
+
+<!-- NAV MODAL -->
 <div class="modal-overlay" id="nav-modal" onclick="handleModalClick(event)">
-  <div class="modal-sheet"><div class="modal-title" id="nav-title">בחר סניף לניווט</div><div class="nav-list" id="nav-list"></div><button class="modal-cancel" id="nav-cancel" onclick="closeNavModal()">ביטול</button></div>
+  <div class="modal-sheet">
+    <div class="modal-title" id="nav-title">בחר סניף לניווט</div>
+    <div class="nav-list" id="nav-list"></div>
+    <button class="modal-cancel" id="nav-cancel" onclick="closeNavModal()">ביטול</button>
+  </div>
 </div>
+
 <div class="toast" id="toast"></div>
+
 <script>
-const S={he:{lang:'he',dir:'rtl',title:'אבי גולדפרב — מנכ"ל, גל אור מכוני רנטגן',desc:'כרטיס ביקור דיגיטלי של אבי גולדפרב, מנכ"ל גל אור מכוני רנטגן בע"מ — רשת מכוני רנטגן מובילה בשרון.',locale:'he_IL',badge:'גל אור · מכוני רנטגן',nameMain:'אבי גולדפרב',nameSub:'Avi Goldfarb',jobTitle:'מנכ"ל הרשת',company:'גל אור מכוני רנטגן בע"מ',tagline:'חדשנות, מקצועיות, שירות, אמינות. איכות מרבית בקרינה מינימלית.',toggle:'EN',toggleAria:'Switch to English',btnCall:'התקשר',btnWa:'WhatsApp',btnSave:'שמור איש קשר',btnWeb:'אתר האינטרנט',btnNav:'נווט לסניף',btnDoctor:'כניסת רופאים',btnShare:'שתף כרטיס',sCall:'התקשר',sSave:'שמור',secAbout:'אודות',about:'אבי גולדפרב, מנכ״ל רשת גל אור מכוני רנטגן בע״מ וטכנאי רנטגן בכיר, מוביל את פעילות הרשת מתוך ניסיון ניהולי עשיר, מחויבות למקצועיות, שירות ברמה גבוהה, חדשנות מתמשכת ובקרת איכות ללא פשרות על טיב הצילומים ואיכותם.',secServices:'שירותים',secTrust:'מדוע לבחור בנו',secBranches:'סניפים',secContact:'צור קשר',secGuides:'מדריכים',lblPhone:'טלפון מרכזי',lblWeb:'אתר',navTitle:'בחר סניף לניווט',navCancel:'ביטול',hoursLbl:'שעות:',footerLogo:'גל אור מכוני רנטגן בע"מ',footerTag:'גל אור מכוני רנטגן בע"מ · מאז 1982',toastCopied:'הקישור הועתק ✓',toastSaved:'איש הקשר נשמר ✓',imgAlt:'אבי גולדפרב',services:[      {icon:'🩻',title:'צילום רנטגן',desc:'צילום פנורמי ותיעוד פה מלא'},
+const S={he:{lang:'he',dir:'rtl',title:'אבי גולדפרב — מנכ"ל, גל אור מכוני רנטגן',desc:'כרטיס ביקור דיגיטלי של אבי גולדפרב, מנכ"ל גל אור מכוני רנטגן בע"מ — רשת מכוני רנטגן מובילה בשרון.',locale:'he_IL',badge:'גל אור · מכוני רנטגן',nameMain:'אבי גולדפרב',nameSub:'Avi Goldfarb',jobTitle:'מנכ"ל הרשת',company:'גל אור מכוני רנטגן בע"מ',tagline:'חדשנות, מקצועיות, שירות, אמינות. איכות מרבית בקרינה מינימלית.'.replace(/\\'/g,"'"),toggle:'EN',toggleAria:'Switch to English',btnCall:'התקשר',btnWa:'WhatsApp',btnSave:'שמור איש קשר',btnWeb:'אתר האינטרנט',btnNav:'נווט לסניף',btnDoctor:'כניסת רופאים',btnShare:'שתף כרטיס',sCall:'התקשר',sSave:'שמור',secAbout:'אודות',about:'אבי גולדפרב, מנכ״ל רשת גל אור מכוני רנטגן בע״מ וטכנאי רנטגן בכיר, מוביל את פעילות הרשת מתוך ניסיון ניהולי עשיר, מחויבות למקצועיות, שירות ברמה גבוהה, חדשנות מתמשכת ובקרת איכות ללא פשרות על טיב הצילומים ואיכותם.'.replace(/\\'/g,"'"),secServices:'שירותים',secTrust:'מדוע לבחור בנו',secBranches:'סניפים',secContact:'צור קשר',secGuides:'מדריכים',lblPhone:'טלפון מרכזי',lblWeb:'אתר',navTitle:'בחר סניף לניווט',navCancel:'ביטול',hoursLbl:'שעות:',footerLogo:'גל אור מכוני רנטגן בע"מ',footerTag:'גל אור מכוני רנטגן בע"מ · מאז 1982',toastCopied:'הקישור הועתק ✓',toastSaved:'איש הקשר נשמר ✓',imgAlt:'אבי גולדפרב',services:[
+      {icon:'🩻',title:'צילום רנטגן',desc:'צילום פנורמי ותיעוד פה מלא'},
       {icon:'🔬',title:'סריקת CT',desc:'הדמיה תלת-ממדית עם ניתוח מקצועי'},
       {icon:'😁',title:'צילום אורתודונטי',desc:'תכנון טיפול ומעקב התקדמות'},
       {icon:'📱',title:'סריקה אינטראורלית',desc:'תיעוד דיגיטלי ללא קרינה'},
       {icon:'🏠',title:'שירות סריקה ביתית',desc:'סריקה אורתודונטית בבית המטופל'},
       {icon:'🦷',title:'צילום סטטוס',desc:'צילומי ביקורת ותיעוד מלא של הפה'},
-      {icon:'🏃',title:'סד ספורט מקצועי',desc:'סדי הגנה מותאמים אישית לספורטאים'}],trust:[      {icon:'🏆',num:'1982',label:'שנת הקמה',desc:'מעל 40 שנות ניסיון'},
+      {icon:'🏃',title:'סד ספורט מקצועי',desc:'סדי הגנה מותאמים אישית לספורטאים'}
+    ],trust:[
+      {icon:'🏆',num:'1982',label:'שנת הקמה',desc:'מעל 40 שנות ניסיון'},
       {icon:'📍',num:'4',label:'סניפים',desc:'ברחבי השרון והמרכז'},
       {icon:'⚡',num:'עדכני',label:'ציוד מתקדם',desc:'מתחדש כל 3 שנים'},
       {icon:'🛡️',num:'מינימלית',label:'קרינה',desc:'תקנים בינלאומיים מחמירים'},
-      {icon:'⭐',num:'אישי',label:'שירות ייחודי',desc:'ליווי אישי לכל מטופל'}],branches:[      {name:'כפר סבא',addr:'רחוב ויצמן 83, מרכז אהרוני, קומה 1',phone:'09-7469547',hours:'א׳-ה׳ 9:00-19:00 | ו׳ וחגים 9:00-13:00',maps:'https://maps.google.com/?q=ויצמן+83+כפר+סבא',wa:'https://wa.me/972532315716'},
+      {icon:'⭐',num:'אישי',label:'שירות ייחודי',desc:'ליווי אישי לכל מטופל'}
+    ],branches:[
+      {name:'כפר סבא',addr:'רחוב ויצמן 83, מרכז אהרוני, קומה 1',phone:'09-7469547',hours:'א׳-ה׳ 9:00-19:00 | ו׳ וחגים 9:00-13:00',maps:'https://maps.google.com/?q=ויצמן+83+כפר+סבא',wa:'https://wa.me/972532315716'},
       {name:'רעננה',addr:'אחוזה 124, מרכז פוזין (בניין מכבי), קומה קרקע',phone:'09-7419068',hours:'א׳-ה׳ 9:00-19:00 | ו׳ וחגים 9:00-13:00',maps:'https://maps.google.com/?q=אחוזה+124+רעננה',wa:'https://wa.me/972533203015'},
       {name:'הוד השרון',addr:'סוקולוב 46, כיכר המושבה, קומה 8, חדר 812',phone:'09-7401715',hours:'א׳-ה׳ 9:00-18:00 | ו׳ וחגים 9:00-13:00',maps:'https://maps.google.com/?q=סוקולוב+46+הוד+השרון',wa:'https://wa.me/972533022818'},
-      {name:'תל מונד',addr:'רחוב הדקל 47, קומה 2, חדר 3, מרכז מונד',phone:'09-8844070',hours:'א׳-ה׳ 9:00-19:00 | ו׳ וחגים 9:00-13:00',maps:'https://maps.google.com/?q=הדקל+47+תל+מונד',wa:'https://wa.me/972532315717'}]},en:{lang:'en',dir:'ltr',title:'Avi Goldfarb — CEO, Gal Or X-Ray Centers',desc:'Digital business card of Avi Goldfarb, CEO of Gal Or X-Ray Centers Ltd. — leading dental imaging network in the Sharon region.',locale:'en_US',badge:'Gal Or · X-Ray Centers',nameMain:'Avi Goldfarb',nameSub:'אבי גולדפרב',jobTitle:'CEO, Gal Or Network',company:'Gal Or X-Ray Centers Ltd.',tagline:'Innovation, Professionalism, Service, Reliability. Maximum quality, minimum radiation.',toggle:'עב',toggleAria:'עברית',btnCall:'Call',btnWa:'WhatsApp',btnSave:'Save Contact',btnWeb:'Website',btnNav:'Navigate',btnDoctor:'Doctor Login',btnShare:'Share Card',sCall:'Call',sSave:'Save',secAbout:'About',about:'Avi Goldfarb, CEO of Gal Or X-Ray Centers Ltd. and senior radiology technician, leads the network with extensive managerial experience, a commitment to professionalism, high-level service, continuous innovation, and uncompromising quality control over imaging standards.',secServices:'Services',secTrust:'Why Choose Us',secBranches:'Branches',secContact:'Contact',secGuides:'Guides',lblPhone:'Main Phone',lblWeb:'Website',navTitle:'Select branch to navigate',navCancel:'Cancel',hoursLbl:'Hours:',footerLogo:'Gal Or X-Ray Centers Ltd.',footerTag:'Gal Or X-Ray Centers Ltd. · Since 1982',toastCopied:'Link copied ✓',toastSaved:'Contact saved ✓',imgAlt:'Avi Goldfarb',services:[      {icon:'🩻',title:'X-Ray Imaging',desc:'Panoramic X-ray and full oral documentation'},
+      {name:'תל מונד',addr:'רחוב הדקל 47, קומה 2, חדר 3, מרכז מונד',phone:'09-8844070',hours:'א׳-ה׳ 9:00-19:00 | ו׳ וחגים 9:00-13:00',maps:'https://maps.google.com/?q=הדקל+47+תל+מונד',wa:'https://wa.me/972532315717'}
+    ]},en:{lang:'en',dir:'ltr',title:'Avi Goldfarb — CEO, Gal Or X-Ray Centers',desc:'Digital business card of Avi Goldfarb, CEO of Gal Or X-Ray Centers Ltd. — leading dental imaging network in the Sharon region.',locale:'en_US',badge:'Gal Or · X-Ray Centers',nameMain:'Avi Goldfarb',nameSub:'אבי גולדפרב',jobTitle:'CEO, Gal Or Network',company:'Gal Or X-Ray Centers Ltd.',tagline:'Innovation, Professionalism, Service, Reliability. Maximum quality, minimum radiation.',toggle:'עב',toggleAria:'עברית',btnCall:'Call',btnWa:'WhatsApp',btnSave:'Save Contact',btnWeb:'Website',btnNav:'Navigate',btnDoctor:'Doctor Login',btnShare:'Share Card',sCall:'Call',sSave:'Save',secAbout:'About',about:'Avi Goldfarb, CEO of Gal Or X-Ray Centers Ltd. and senior radiology technician, leads the network with extensive managerial experience, a commitment to professionalism, high-level service, continuous innovation, and uncompromising quality control over imaging standards.',secServices:'Services',secTrust:'Why Choose Us',secBranches:'Branches',secContact:'Contact',secGuides:'Guides',lblPhone:'Main Phone',lblWeb:'Website',navTitle:'Select branch to navigate',navCancel:'Cancel',hoursLbl:'Hours:',footerLogo:'Gal Or X-Ray Centers Ltd.',footerTag:'Gal Or X-Ray Centers Ltd. · Since 1982',toastCopied:'Link copied ✓',toastSaved:'Contact saved ✓',imgAlt:'Avi Goldfarb',services:[
+      {icon:'🩻',title:'X-Ray Imaging',desc:'Panoramic X-ray and full oral documentation'},
       {icon:'🔬',title:'CT Scanning',desc:'3D imaging with professional analysis'},
       {icon:'😁',title:'Orthodontic Photography',desc:'Treatment planning and progress monitoring'},
       {icon:'📱',title:'Intraoral Scanning',desc:'Digital documentation without radiation'},
       {icon:'🏠',title:'Home Scanning',desc:'Orthodontic scanning at the patient's home'},
       {icon:'🦷',title:'Status X-Ray',desc:'Full mouth X-ray series for complete oral documentation'},
-      {icon:'🏃',title:'Sports Mouthguard',desc:'Custom-fitted protective mouthguards for athletes'}],trust:[      {icon:'🏆',num:'1982',label:'Founded',desc:'Over 40 years of experience'},
+      {icon:'🏃',title:'Sports Mouthguard',desc:'Custom-fitted protective mouthguards for athletes'}
+    ],trust:[
+      {icon:'🏆',num:'1982',label:'Founded',desc:'Over 40 years of experience'},
       {icon:'📍',num:'4',label:'Branches',desc:'Sharon & Central Israel'},
       {icon:'⚡',num:'עדכני',label:'Equipment',desc:'Updated every 3 years'},
       {icon:'🛡️',num:'מינימלית',label:'Radiation',desc:'Strict international standards'},
-      {icon:'⭐',num:'אישי',label:'Service',desc:'Personal care for every patient'}],branches:[      {name:'Kfar Saba',addr:'83 Weizmann St., Aharoni Center, Floor 1',phone:'09-7469547',hours:'Sun–Thu 9:00–19:00 | Fri & holidays 9:00–13:00',maps:'https://maps.google.com/?q=ויצמן+83+כפר+סבא',wa:'https://wa.me/972532315716'},
+      {icon:'⭐',num:'אישי',label:'Service',desc:'Personal care for every patient'}
+    ],branches:[
+      {name:'Kfar Saba',addr:'83 Weizmann St., Aharoni Center, Floor 1',phone:'09-7469547',hours:'Sun–Thu 9:00–19:00 | Fri & holidays 9:00–13:00',maps:'https://maps.google.com/?q=ויצמן+83+כפר+סבא',wa:'https://wa.me/972532315716'},
       {name:'Ra'anana',addr:'124 Ahuzah St., Pozin Center (Maccabi Bldg.), Ground Floor',phone:'09-7419068',hours:'Sun–Thu 9:00–19:00 | Fri & holidays 9:00–13:00',maps:'https://maps.google.com/?q=אחוזה+124+רעננה',wa:'https://wa.me/972533203015'},
       {name:'Hod HaSharon',addr:'46 Sokolov St., Kikar HaMoshava, Floor 8, Room 812',phone:'09-7401715',hours:'Sun–Thu 9:00–18:00 | Fri & holidays 9:00–13:00',maps:'https://maps.google.com/?q=סוקולוב+46+הוד+השרון',wa:'https://wa.me/972533022818'},
-      {name:'Tel Mond',addr:'47 Palm St., Mond Center, Floor 2, Room 3',phone:'09-8844070',hours:'Sun–Thu 9:00–19:00 | Fri & holidays 9:00–13:00',maps:'https://maps.google.com/?q=הדקל+47+תל+מונד',wa:'https://wa.me/972532315717'}]}};
-let lang='he';
-function setLang(l){lang=l;localStorage.setItem('bc-lang',l);const s=S[l];document.documentElement.lang=s.lang;document.documentElement.dir=s.dir;document.title=s.title;document.getElementById('meta-desc').content=s.desc;document.getElementById('og-title').content=s.title;document.getElementById('og-desc').content=s.desc;document.getElementById('og-locale').content=s.locale;const b=document.getElementById('lang-btn');b.textContent=s.toggle;b.setAttribute('aria-label',s.toggleAria);['brand-badge','name-main','name-sub','job-title','company-nm','about-text','sec-about','sec-services','sec-trust','sec-branches','sec-contact','sec-guides','lbl-phone','lbl-web','footer-logo','footer-tag'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=s[{['brand-badge']:'badge',['name-main']:'nameMain',['name-sub']:'nameSub',['job-title']:'jobTitle',['company-nm']:'company',['about-text']:'about',['sec-about']:'secAbout',['sec-services']:'secServices',['sec-trust']:'secTrust',['sec-branches']:'secBranches',['sec-contact']:'secContact',['sec-guides']:'secGuides',['lbl-phone']:'lblPhone',['lbl-web']:'lblWeb',['footer-logo']:'footerLogo',['footer-tag']:'footerTag'}[id]]});document.getElementById('tagline').innerHTML=s.tagline;document.getElementById('portrait-img').alt=s.imgAlt;['btn-call','btn-wa','btn-save','btn-web','btn-nav','btn-doctor','btn-share','s-call','s-save'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=s[{['btn-call']:'btnCall',['btn-wa']:'btnWa',['btn-save']:'btnSave',['btn-web']:'btnWeb',['btn-nav']:'btnNav',['btn-doctor']:'btnDoctor',['btn-share']:'btnShare',['s-call']:'sCall',['s-save']:'sSave'}[id]]});renderServices(s);renderTrust(s);renderBranches(s);renderNavList(s);}
-function toggleLang(){setLang(lang==='he'?'en':'he');}
-function detectLang(){const p=new URLSearchParams(location.search).get('lang');if(p==='he'||p==='en')return p;const ls=localStorage.getItem('bc-lang');if(ls==='he'||ls==='en')return ls;return(navigator.language||'').startsWith('en')?'en':'he';}
-function renderServices(s){document.getElementById('services-grid').innerHTML=s.services.map(v=>`<div class="service-item"><div class="svc-icon">${v.icon}</div><div class="svc-title">${v.title}</div><div class="svc-desc">${v.desc}</div></div>`).join('');}
-function renderTrust(s){document.getElementById('trust-grid').innerHTML=s.trust.map(t=>`<div class="trust-block"><div class="trust-icon">${t.icon}</div><div class="trust-num">${t.num}</div><div class="trust-label">${t.label}</div><div class="trust-desc">${t.desc}</div></div>`).join('');}
-function renderBranches(s){document.getElementById('branch-list').innerHTML=s.branches.map(b=>`<div class="branch-item"><div class="branch-hdr"><span class="branch-name">${b.name}</span><a class="branch-phone" href="tel:${b.phone.replace(/-/g,'')}">${b.phone}</a></div><div class="branch-addr">${b.addr}</div><div class="branch-hours"><span class="branch-hours-lbl">${s.hoursLbl}</span> ${b.hours}</div><a class="branch-wa" href="${b.wa}" target="_blank" rel="noopener">💬 WhatsApp</a></div>`).join('');}
-function renderNavList(s){document.getElementById('nav-list').innerHTML=s.branches.map(b=>`<a class="nav-btn" href="${b.maps}" target="_blank" rel="noopener"><div><span>${b.name}</span><span class="nav-btn-sub">${b.addr}</span></div><span class="nav-arrow">→</span></a>`).join('');}
-function downloadVCard(){const vcf=['BEGIN:VCARD','VERSION:3.0','FN;LANGUAGE=he:אבי גולדפרב','FN;LANGUAGE=en:Avi Goldfarb','TITLE;LANGUAGE=he:מנכ"ל הרשת','TITLE;LANGUAGE=en:CEO','ORG;LANGUAGE=he:גל אור מכוני רנטגן בע"מ','ORG;LANGUAGE=en:Gal Or X-Ray Centers Ltd.','TEL;TYPE=WORK,VOICE:0747840744','EMAIL;TYPE=INTERNET:avigoldfarb1@gmail.com','URL:https://galorx-ray.co.il','END:VCARD'].join('\r\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+vcf],{type:'text/vcard;charset=utf-8'}));a.download='Avi-Goldfarb-GalOr.vcf';a.click();URL.revokeObjectURL(a.href);showToast(S[lang].toastSaved);}
-async function shareCard(){if(navigator.share){try{await navigator.share({title:S[lang].title,url:location.href});return;}catch(e){}}try{await navigator.clipboard.writeText(location.href);}catch(e){}showToast(S[lang].toastCopied);}
-function openNavModal(){document.getElementById('nav-modal').classList.add('open');}
-function closeNavModal(){document.getElementById('nav-modal').classList.remove('open');}
-function handleModalClick(e){if(e.target===document.getElementById('nav-modal'))closeNavModal();}
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600);}
-if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',()=>setLang(detectLang()));}else{setLang(detectLang());}
-const ro=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.08,rootMargin:'0px 0px -20px 0px'});
-document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+      {name:'Tel Mond',addr:'47 Palm St., Mond Center, Floor 2, Room 3',phone:'09-8844070',hours:'Sun–Thu 9:00–19:00 | Fri & holidays 9:00–13:00',maps:'https://maps.google.com/?q=הדקל+47+תל+מונד',wa:'https://wa.me/972532315717'}
+    ]}}
+// Initialize
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function() { setLang(detectLang()); });
+} else {
+  setLang(detectLang());
+}
+const ro = new IntersectionObserver(entries =>
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+  { threshold: 0.08, rootMargin: '0px 0px -20px 0px' }
+);
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Force render if setLang hasn't run yet
+  setTimeout(function() {
+    if (typeof setLang === 'function' && typeof S !== 'undefined') {
+      setLang('he');
+    }
+    // Make everything visible
+    document.querySelectorAll('.reveal, .glass, .section-card').forEach(function(el) {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      el.style.visibility = 'visible';
+    });
+  }, 50);
+});
 </script>
 </body>
 </html>
