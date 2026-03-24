@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)file:///C:/Users/USER/Downloads/admin_7.html -->
+<html lang="he" dir="rtl"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>ניהול | גל אור</title>
+<link href="./ניהול _ גל אור_files/css2" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#0d1117;--surf:#161b22;--surf2:#1c2330;
+  --brd:#30363d;--acc:#F5C518;--acc2:#e6b800;
+  --txt:#e6edf3;--mut:#8b949e;
+  --grn:#3fb950;--red:#f85149;--blu:#58a6ff;
+}
+html,body{background:var(--bg);color:var(--txt);font-family:'Heebo',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+.page{display:none;min-height:100vh;padding-bottom:40px}
+.page.on{display:block}
+#pg-login{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+.login-box{width:100%;max-width:360px}
+.brand-ring{width:72px;height:72px;border-radius:50%;background:var(--acc);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 16px;box-shadow:0 0 0 8px rgba(245,197,24,0.12)}
+.brand-title{font-size:20px;font-weight:800;text-align:center;margin-bottom:4px}
+.brand-sub{font-size:12px;color:var(--mut);text-align:center;margin-bottom:28px}
+.inp{width:100%;padding:14px;background:var(--surf2);border:1.5px solid var(--brd);border-radius:12px;font-size:16px;color:var(--txt);font-family:inherit;outline:none;text-align:center;letter-spacing:4px;transition:border .2s}
+.inp:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(245,197,24,.1)}
+.inp.shake{animation:shk .3s}
+@keyframes shk{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.btn-login{width:100%;padding:15px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#000;border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;margin-top:14px;box-shadow:0 4px 16px rgba(245,197,24,.3)}
+.err-msg{font-size:12px;color:var(--red);text-align:center;margin-top:10px;min-height:18px}
+.dots{display:flex;gap:8px;justify-content:center;margin-top:12px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--brd);transition:background .2s}
+.dot.used{background:var(--red)}
+.topbar{background:var(--surf);border-bottom:1px solid var(--brd);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.topbar-title{font-size:15px;font-weight:800}
+.topbar-back{background:none;border:none;color:var(--acc);font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;padding:8px 12px;border-radius:8px;min-height:44px}
+.topbar-action{background:linear-gradient(135deg,#238636,#2ea043);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;padding:9px 16px;min-height:44px}
+.home-welcome{padding:22px 18px 8px;text-align:center}
+.hw-name{font-size:18px;font-weight:800;color:var(--acc)}
+.hw-time{font-size:12px;color:var(--mut);margin-top:3px}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px 18px}
+.menu-btn{background:var(--surf);border:1px solid var(--brd);border-radius:14px;padding:18px 14px;text-align:center;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--txt);min-height:100px;transition:border .15s}
+.menu-btn:active{background:var(--surf2);border-color:var(--acc)}
+.mb-icon{font-size:28px}
+.mb-title{font-size:13px;font-weight:800}
+.mb-sub{font-size:11px;color:var(--mut)}
+.home-footer{display:flex;justify-content:center;gap:20px;padding:16px}
+.foot-btn{background:none;border:none;font-size:13px;color:var(--mut);cursor:pointer;font-family:inherit;padding:10px 16px;border-radius:8px;min-height:44px}
+.foot-btn:active{color:var(--txt)}
+.form-body{padding:18px;display:flex;flex-direction:column;gap:14px}
+.fg{display:flex;flex-direction:column;gap:6px}
+.fg label{font-size:12px;font-weight:700;color:var(--mut)}
+.fi{width:100%;padding:13px 14px;background:var(--surf2);border:1.5px solid var(--brd);border-radius:10px;font-size:15px;color:var(--txt);font-family:inherit;outline:none;transition:border .2s}
+.fi:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(245,197,24,.1)}
+textarea.fi{resize:vertical;min-height:80px}
+.card{background:var(--surf);border:1px solid var(--brd);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.card-title{font-size:13px;font-weight:800;color:var(--acc)}
+.btn-pub{width:100%;padding:14px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#000;border:none;border-radius:10px;font-size:14px;font-weight:800;font-family:inherit;cursor:pointer;box-shadow:0 4px 14px rgba(245,197,24,.25);min-height:50px}
+.btn-pub:disabled{opacity:.5}
+.btn-sec{width:100%;padding:12px;background:transparent;border:1.5px solid var(--brd);color:var(--mut);border-radius:10px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;min-height:44px}
+.status{font-size:12px;text-align:center;min-height:18px;padding:2px 0}
+.status.ok{color:var(--grn)}.status.err{color:var(--red)}.status.load{color:var(--mut)}
+.upload-zone{border:2px dashed var(--brd);border-radius:10px;padding:22px;text-align:center;cursor:pointer;background:var(--surf2);min-height:100px}
+.upload-zone:active{border-color:var(--acc)}
+.divider-or{text-align:center;font-size:11px;color:var(--mut)}
+.branch-card{background:var(--surf);border:1px solid var(--brd);border-radius:12px;padding:16px;margin-bottom:12px}
+.branch-name{font-size:14px;font-weight:800;color:var(--acc);margin-bottom:12px}
+.btn-bsave{width:100%;padding:12px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#000;border:none;border-radius:8px;font-size:13px;font-weight:800;font-family:inherit;cursor:pointer;margin-top:8px;min-height:44px}
+.ti-ok{display:inline-block;background:rgba(63,185,80,.1);color:var(--grn);border:1px solid rgba(63,185,80,.3);padding:5px 10px;border-radius:8px;font-size:11px;margin-bottom:8px}
+.ti-miss{display:inline-block;background:rgba(248,81,73,.1);color:var(--red);border:1px solid rgba(248,81,73,.3);padding:5px 10px;border-radius:8px;font-size:11px;margin-bottom:8px}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="pg-login" class="page on">
+  <div class="login-box">
+    <div class="brand-ring">⚙️</div>
+    <div class="brand-title">ניהול כרטיס ביקור</div>
+    <div class="brand-sub">גל אור מכוני רנטגן</div>
+    <div style="position:relative">
+      <input class="inp" type="password" id="pass" placeholder="••••••" maxlength="20" style="padding-left:44px">
+      <button id="eyeBtn" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px;color:var(--mut);min-width:44px;min-height:44px">👁️</button>
+    </div>
+    <div class="dots"><div class="dot" id="d1"></div><div class="dot" id="d2"></div><div class="dot" id="d3"></div><div class="dot" id="d4"></div><div class="dot" id="d5"></div></div>
+    <div class="err-msg" id="err"></div>
+    <button class="btn-login" id="btnLogin">🚀 כניסה</button>
+  </div>
+</div>
+
+<!-- HOME -->
+<div id="pg-home" class="page">
+  <div class="topbar">
+    <div class="topbar-title">🪪 גל אור — ניהול</div>
+    <a href="https://avigoldfarb1.github.io/gal-or-card/" target="_blank" style="font-size:11px;color:var(--blu);text-decoration:none;font-weight:700;padding:10px">צפה ↗</a>
+  </div>
+  <div class="home-welcome">
+    <div class="hw-name">שלום, אבי! 👋</div>
+    <div class="hw-time" id="hw-time"></div>
+  </div>
+  <div class="menu-grid">
+    <button class="menu-btn" id="mb1"><div class="mb-icon">✏️</div><div class="mb-title">עריכת טקסט</div><div class="mb-sub">שם, תפקיד, אודות</div></button>
+    <button class="menu-btn" id="mb2"><div class="mb-icon">📍</div><div class="mb-title">סניפים</div><div class="mb-sub">שעות, טלפון</div></button>
+    <button class="menu-btn" id="mb3"><div class="mb-icon">✍️</div><div class="mb-title">מאמר חדש</div><div class="mb-sub">פרסם מאמר</div></button>
+    <button class="menu-btn" id="mb4"><div class="mb-icon">📚</div><div class="mb-title">מדריך חדש</div><div class="mb-sub">הוסף מדריך</div></button>
+    <button class="menu-btn" id="mb5"><div class="mb-icon">🤝</div><div class="mb-title">לקוח חדש</div><div class="mb-sub">הסדרים עם הרשת</div></button>
+    <button class="menu-btn" id="mb6"><div class="mb-icon">🖼️</div><div class="mb-title">העלאת תמונה</div><div class="mb-sub">קבל URL</div></button>
+  </div>
+  <div class="home-footer">
+    <button class="foot-btn" id="mb7">⚙️ הגדרות</button>
+    <button class="foot-btn" id="mb8">🚪 יציאה</button>
+  </div>
+</div>
+
+<!-- TEXT -->
+<div id="pg-text" class="page">
+  <div class="topbar">
+    <button class="topbar-back" id="back-text">← חזור</button>
+    <div class="topbar-title">✏️ עריכת טקסט</div>
+    <button class="topbar-action" id="btnTextPub">🚀 פרסם</button>
+  </div>
+  <div class="form-body">
+    <div style="font-size:12px;color:var(--mut);text-align:center" id="textLoadMsg">⏳ טוען נתונים...</div>
+    <div class="fg"><label>שם מלא</label><input class="fi" id="t-name" type="text" placeholder="אבי גולדפרב"></div>
+    <div class="fg"><label>תפקיד</label><input class="fi" id="t-title" type="text"></div>
+    <div class="fg"><label>שם החברה</label><input class="fi" id="t-company" type="text"></div>
+    <div class="fg"><label>סלוגן</label><input class="fi" id="t-tagline" type="text"></div>
+    <div class="fg"><label>אודות</label><textarea class="fi" id="t-about" rows="4"></textarea></div>
+    <div class="fg"><label>טלפון ראשי</label><input class="fi" id="t-phone" type="tel" dir="ltr"></div>
+    <div class="fg"><label>WhatsApp (ספרות בלבד)</label><input class="fi" id="t-wa" type="text" dir="ltr"></div>
+    <div class="fg"><label>אתר</label><input class="fi" id="t-web" type="url" dir="ltr"></div>
+    <div class="status" id="textSt"></div>
+  </div>
+</div>
+
+<!-- BRANCHES -->
+<div id="pg-branches" class="page">
+  <div class="topbar">
+    <button class="topbar-back" id="back-branches">← חזור</button>
+    <div class="topbar-title">📍 עדכון סניפים</div>
+    <div></div>
+  </div>
+  <div class="form-body" id="branchesBody"><div style="text-align:center;color:var(--mut);padding:20px">⏳ טוען...</div></div>
+</div>
+
+<!-- ARTICLE -->
+<div id="pg-article" class="page">
+  <div class="topbar">
+    <button class="topbar-back" id="back-article">← חזור</button>
+    <div class="topbar-title">✍️ מאמר חדש</div>
+    <div></div>
+  </div>
+  <div class="form-body">
+    <div class="fg"><label>כותרת *</label><input class="fi" id="artTitle" type="text" placeholder="כותרת המאמר..."></div>
+    <div class="fg"><label>תיאור קצר</label><textarea class="fi" id="artDesc" rows="3" placeholder="תיאור..."></textarea></div>
+    <div class="fg"><label>קישור (URL)</label><input class="fi" id="artUrl" type="url" placeholder="https://..." dir="ltr"></div>
+    <div class="fg"><label>אייקון</label><input class="fi" id="artIcon" type="text" value="📰" style="width:80px;text-align:center;font-size:20px"></div>
+    <button class="btn-pub" id="btnArt">🚀 פרסם מאמר</button>
+    <div class="status" id="artSt"></div>
+  </div>
+</div>
+
+<!-- GUIDE -->
+<div id="pg-guide" class="page">
+  <div class="topbar">
+    <button class="topbar-back" id="back-guide">← חזור</button>
+    <div class="topbar-title">📚 מדריך חדש</div>
+    <div></div>
+  </div>
+  <div class="form-body">
+    <div class="fg"><label>כותרת *</label><input class="fi" id="guideTitle" type="text" placeholder="שם המדריך..."></div>
+    <div class="fg"><label>תת-כותרת</label><input class="fi" id="guideSub" type="text" placeholder="תיאור קצר..."></div>
+    <div class="fg"><label>קישור (URL)</label><input class="fi" id="guideUrl" type="url" placeholder="https://..." dir="ltr"></div>
+    <div class="fg"><label>אייקון</label><input class="fi" id="guideIcon" type="text" value="📋" style="width:80px;text-align:center;font-size:20px"></div>
+    <button class="btn-pub" id="btnGuide">🚀 פרסם מדריך</button>
+    <div class="status" id="guideSt"></div>
+  </div>
+</div>
+
+<!-- PARTNER -->
+<div id="pg-partner" class="page">
+  <div class="topbar">
+    <button class="topbar-back" id="back-partner">← חזור</button>
+    <div class="topbar-title">🤝 לקוח חדש</div>
+    <div></div>
+  </div>
+  <div class="form-body">
+    <div class="fg"><label>שם הלקוח/חברה *</label><input class="fi" id="pName" type="text" placeholder="מכבי, כללית..."></div>
+    <div class="fg"><label>URL לוגו (אופציונלי)</label><input class="fi" id="pUrl" type="url" placeholder="https://...logo.png" dir="ltr"></div>
+    <div class="divider-or">— או העלה קובץ מהגלריה —</div>
+    <div class="upload-zone" id="pZone">
+      <div id="pPlaceholder" style="font-size:28px;margin-bottom:6px">📸</div>
+      <div style="font-size:13px;font-weight:600" id="pLabel">לחץ לבחירת לוגו</div>
+      <div style="font-size:11px;color:var(--mut);margin-top:3px">JPG, PNG, SVG</div>
+      <img id="pPreview" style="display:none;max-height:60px;margin-top:10px;object-fit:contain">
+    </div>
+    <input type="file" id="pFile" accept="image/*" style="display:none">
+    <button class="btn-pub" id="btnPartner">🚀 העלה ופרסם</button>
+    <div class="status" id="partnerSt"></div>
+  </div>
+</div>
+
+<!-- IMAGE -->
+<div id="pg-image" class="page">
+  <div class="topbar">
+    <button class="topbar-back" id="back-image">← חזור</button>
+    <div class="topbar-title">🖼️ העלאת תמונה</div>
+    <div></div>
+  </div>
+  <div class="form-body">
+    <div class="upload-zone" id="imgZone">
+      <div id="imgPlaceholder">
+        <div style="font-size:36px;margin-bottom:8px">🖼️</div>
+        <div style="font-size:13px;font-weight:700">לחץ לבחירת תמונה</div>
+        <div style="font-size:11px;color:var(--mut);margin-top:4px">JPG, PNG, GIF</div>
+      </div>
+      <img id="imgPreview" style="display:none;max-height:120px;border-radius:8px;object-fit:cover">
+    </div>
+    <input type="file" id="imgFile" accept="image/*" style="display:none">
+    <button class="btn-pub" id="btnImg" disabled="">⬆️ העלה תמונה</button>
+    <div class="status" id="imgSt"></div>
+    <div id="imgResult" style="display:none">
+      <div style="font-size:12px;color:var(--mut);margin-bottom:6px;font-weight:700">קישור:</div>
+      <div id="imgUrlBox" style="background:var(--bg);border:1px solid var(--brd);border-radius:8px;padding:10px;font-size:11px;color:var(--blu);word-break:break-all;direction:ltr;margin-bottom:8px"></div>
+      <button class="btn-sec" id="btnCopy">📋 העתק קישור</button>
+    </div>
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div id="pg-settings" class="page">
+  <div class="topbar">
+    <button class="topbar-back" id="back-settings">← חזור</button>
+    <div class="topbar-title">⚙️ הגדרות</div>
+    <div></div>
+  </div>
+  <div class="form-body">
+    <div class="card">
+      <div class="card-title">🔑 GitHub Token</div>
+      <div id="tokenInd"></div>
+      <div class="fg">
+        <label>הדבק כאן את ה-Token</label>
+        <div style="position:relative">
+          <input class="fi" type="password" id="sToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" dir="ltr" style="padding-left:44px">
+          <button id="tokEye" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:var(--mut);min-width:44px;min-height:44px">👁️</button>
+        </div>
+      </div>
+      <button class="btn-pub" id="btnSaveToken">💾 שמור Token</button>
+      <div class="status" id="sSt"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">ℹ️ איך מקבלים Token?</div>
+      <ol style="font-size:12px;color:var(--mut);line-height:2.4;padding-right:16px">
+        <li>היכנס ל-github.com במחשב</li>
+        <li>פרופיל ← Settings ← Developer settings</li>
+        <li>Personal access tokens ← Tokens (classic)</li>
+        <li>Generate new token (classic)</li>
+        <li>סמן ✅ repo ← לחץ Generate token</li>
+        <li>העתק ← הדבק כאן למעלה ← שמור</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<script>
+var CODE='1234', OWNER='avigoldfarb1', REPO='gal-or-card', BRANCH='main';
+var attempts=0, navHistory=[], _pB64=null, _pFile=null, _iB64=null, _iFile=null, _lastUrl='';
+
+/* ── HELPERS ── */
+function id(x){return document.getElementById(x)}
+function st(elId,msg,cls){var e=id(elId);if(e){e.textContent=msg;e.className='status '+(cls||'');}}
+function b64d(s){return decodeURIComponent(escape(atob(s)));}
+function b64e(s){return btoa(unescape(encodeURIComponent(s)));}
+function tok(){var s=localStorage.getItem('gh_settings');if(s){try{return JSON.parse(s).token||'';}catch(e){}}return '';}
+
+/* ── NAV ── */
+function show(pgId){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on');});
+  id(pgId).classList.add('on');
+  window.scrollTo(0,0);
+}
+function goTo(pgId){
+  navHistory.push(pgId);
+  show(pgId);
+  if(pgId==='pg-text') loadText();
+  if(pgId==='pg-branches') loadBranches();
+  if(pgId==='pg-settings') loadSettings();
+}
+function back(){
+  navHistory.pop();
+  var prev=navHistory.length?navHistory[navHistory.length-1]:'pg-home';
+  show(prev);
+}
+
+/* ── GITHUB ── */
+async function ghGet(file){
+  var t=tok(); if(!t) throw new Error('חסר Token — לחץ הגדרות ⚙️');
+  var r=await fetch('https://api.github.com/repos/'+OWNER+'/'+REPO+'/contents/'+file+'?ref='+BRANCH,
+    {headers:{'Authorization':'token '+t,'Accept':'application/vnd.github.v3+json'}});
+  if(!r.ok){var e=await r.json();throw new Error(e.message||r.status);}
+  var d=await r.json();
+  return {sha:d.sha,html:b64d(d.content.replace(/\n/g,''))};
+}
+async function ghPut(file,html,sha,msg){
+  var t=tok(); if(!t) throw new Error('חסר Token');
+  var body={message:msg,content:b64e(html),branch:BRANCH};
+  if(sha) body.sha=sha;
+  var r=await fetch('https://api.github.com/repos/'+OWNER+'/'+REPO+'/contents/'+file,
+    {method:'PUT',headers:{'Authorization':'token '+t,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!r.ok){var e=await r.json();throw new Error(e.message||r.status);}
+}
+async function ghUpload(filename,b64c,msg){
+  var t=tok(); if(!t) throw new Error('חסר Token');
+  var r=await fetch('https://api.github.com/repos/'+OWNER+'/'+REPO+'/contents/'+filename,
+    {method:'PUT',headers:{'Authorization':'token '+t,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},
+     body:JSON.stringify({message:msg,content:b64c,branch:BRANCH})});
+  if(!r.ok){var e=await r.json();throw new Error(e.message||r.status);}
+  return 'https://'+OWNER+'.github.io/'+REPO+'/'+filename;
+}
+
+/* ── LOGIN ── */
+id('eyeBtn').addEventListener('click',function(){
+  var i=id('pass'),e=id('eyeBtn');
+  i.type=i.type==='password'?'text':'password';
+  i.style.letterSpacing=i.type==='password'?'4px':'normal';
+  e.textContent=i.type==='password'?'👁️':'🙈';
+});
+id('pass').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin();});
+id('btnLogin').addEventListener('click',doLogin);
+function doLogin(){
+  var v=id('pass').value;
+  if(v===CODE){
+    sessionStorage.setItem('a',Date.now());
+    id('pass').value='';
+    navHistory=['pg-home'];
+    show('pg-home');
+    id('hw-time').textContent=new Date().toLocaleString('he-IL',{weekday:'long',hour:'2-digit',minute:'2-digit'});
+  } else {
+    attempts++;
+    var inp=id('pass');
+    inp.classList.add('shake');
+    setTimeout(function(){inp.classList.remove('shake');},400);
+    inp.value='';
+    for(var x=1;x<=5;x++) id('d'+x).classList.toggle('used',x<=attempts);
+    id('err').textContent=attempts>=5?'🔒 נסה שוב מאוחר יותר':'קוד שגוי — נותרו '+(5-attempts)+' ניסיונות';
+    if(attempts>=5) id('btnLogin').disabled=true;
+  }
+}
+
+/* ── HOME BUTTONS ── */
+id('mb1').addEventListener('click',function(){goTo('pg-text');});
+id('mb2').addEventListener('click',function(){goTo('pg-branches');});
+id('mb3').addEventListener('click',function(){goTo('pg-article');});
+id('mb4').addEventListener('click',function(){goTo('pg-guide');});
+id('mb5').addEventListener('click',function(){goTo('pg-partner');});
+id('mb6').addEventListener('click',function(){goTo('pg-image');});
+id('mb7').addEventListener('click',function(){goTo('pg-settings');});
+id('mb8').addEventListener('click',function(){sessionStorage.removeItem('a');navHistory=[];show('pg-login');});
+
+/* ── BACK BUTTONS ── */
+['text','branches','article','guide','partner','image','settings'].forEach(function(pg){
+  id('back-'+pg).addEventListener('click',back);
+});
+
+/* ── TEXT ── */
+async function loadText(){
+  st('textLoadMsg','⏳ טוען...','load');
+  try{
+    var d=await ghGet('index.html'),h=d.html,m;
+    m=h.match(/nameMain:'([^']+)'/);if(m)id('t-name').value=m[1];
+    m=h.match(/jobTitle:'([^']+)'/);if(m)id('t-title').value=m[1];
+    m=h.match(/company:'([^']+)'/);if(m)id('t-company').value=m[1];
+    m=h.match(/tagline:'([^'<]+)'/);if(m)id('t-tagline').value=m[1].replace(/<br>/g,' ');
+    m=h.match(/about:'([\s\S]*?)',\s*sec/);if(m)id('t-about').value=m[1];
+    m=h.match(/href="tel:([^"]+)"[^>]*>([0-9\-]+)/);if(m)id('t-phone').value=m[2]||m[1];
+    m=h.match(/wa\.me\/(\d+)/);if(m)id('t-wa').value=m[1];
+    st('textLoadMsg','✅ נטען','ok');
+    setTimeout(function(){st('textLoadMsg','','');},2000);
+  }catch(e){st('textLoadMsg','⚠️ '+e.message,'err');}
+}
+id('btnTextPub').addEventListener('click',async function(){
+  var btn=this; btn.disabled=true; btn.textContent='⏳';
+  st('textSt','⏳ מעדכן...','load');
+  try{
+    var d=await ghGet('index.html'),h=d.html;
+    var name=id('t-name').value.trim(),title=id('t-title').value.trim(),
+        company=id('t-company').value.trim(),tagline=id('t-tagline').value.trim(),
+        about=id('t-about').value.trim(),phone=id('t-phone').value.trim(),
+        wa=id('t-wa').value.trim();
+    if(name){h=h.replace(/nameMain:'[^']*'/g,"nameMain:'"+name+"'");h=h.replace(/(id="name-main">)[^<]*/,"$1"+name);}
+    if(title){h=h.replace(/jobTitle:'[^']*'/g,"jobTitle:'"+title+"'");h=h.replace(/(id="job-title">)[^<]*/,"$1"+title);}
+    if(company){h=h.replace(/company:'[^']*'/g,"company:'"+company+"'");h=h.replace(/(id="company-nm">)[^<]*/,"$1"+company);}
+    if(tagline) h=h.replace(/tagline:'[^']*'/g,"tagline:'"+tagline+"'");
+    if(about){h=h.replace(/about:'[\s\S]*?',\s*sec/,"about:'"+about.replace(/'/g,"\\'")+"',sec");h=h.replace(/(id="about-text">)[^<]*/,"$1"+about);}
+    if(phone) h=h.replace(/href="tel:[^"]+"/g,'href="tel:'+phone.replace(/-/g,'')+'"');
+    if(wa) h=h.replace(/wa\.me\/\d+/g,'wa.me/'+wa);
+    await ghPut('index.html',h,d.sha,'✏️ עדכון טקסט מהאדמין');
+    st('textSt','✅ עודכן! יופיע תוך 60 שניות','ok');
+  }catch(e){st('textSt','❌ '+e.message,'err');}
+  btn.disabled=false; btn.textContent='🚀 פרסם';
+});
+
+/* ── BRANCHES ── */
+async function loadBranches(){
+  var body=id('branchesBody');
+  body.innerHTML='<div style="text-align:center;color:var(--mut);padding:20px">⏳ טוען...</div>';
+  try{
+    var d=await ghGet('index.html'),h=d.html;
+    var brMatch=h.match(/branches:\[([\s\S]*?)\]\s*[,}]/);
+    if(!brMatch){body.innerHTML='<div style="color:var(--red);padding:16px">לא נמצאו סניפים</div>';return;}
+    var items=brMatch[1].match(/\{[^{}]+\}/g)||[];
+    var out='';
+    items.forEach(function(item,i){
+      var nm=item.match(/name:'([^']+)'/),ph=item.match(/phone:'([^']+)'/),
+          hr=item.match(/hours:'([^']+)'/),ad=item.match(/addr:'([^']+)'/);
+      var name=nm?nm[1]:'סניף '+(i+1);
+      out+='<div class="branch-card"><div class="branch-name">📍 '+name+'</div>';
+      out+='<div class="fg" style="margin-bottom:10px"><label>טלפון</label><input class="fi" id="bph'+i+'" type="tel" value="'+(ph?ph[1]:'')+'" dir="ltr"></div>';
+      out+='<div class="fg" style="margin-bottom:10px"><label>שעות</label><input class="fi" id="bhr'+i+'" value="'+(hr?hr[1]:'')+'"></div>';
+      out+='<div class="fg" style="margin-bottom:10px"><label>כתובת</label><input class="fi" id="bad'+i+'" value="'+(ad?ad[1]:'')+'"></div>';
+      out+='<button class="btn-bsave" data-i="'+i+'" data-name="'+name+'">💾 שמור סניף זה</button>';
+      out+='<div class="status" id="bst'+i+'"></div></div>';
+    });
+    body.innerHTML=out;
+    window._brItems=items;
+    // Attach save events
+    body.querySelectorAll('.btn-bsave').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        saveBranch(parseInt(this.dataset.i),this.dataset.name);
+      });
+    });
+  }catch(e){body.innerHTML='<div style="color:var(--red);padding:16px">❌ '+e.message+'</div>';}
+}
+async function saveBranch(i,name){
+  st('bst'+i,'⏳ שומר...','load');
+  try{
+    var d=await ghGet('index.html'),h=d.html;
+    var item=window._brItems[i],newItem=item;
+    var ph=id('bph'+i).value.trim(),hr=id('bhr'+i).value.trim(),ad=id('bad'+i).value.trim();
+    if(ph) newItem=newItem.replace(/phone:'[^']*'/,"phone:'"+ph+"'");
+    if(hr) newItem=newItem.replace(/hours:'[^']*'/,"hours:'"+hr+"'");
+    if(ad) newItem=newItem.replace(/addr:'[^']*'/,"addr:'"+ad+"'");
+    h=h.replace(item,newItem);
+    await ghPut('index.html',h,d.sha,'📍 עדכון סניף: '+name);
+    st('bst'+i,'✅ נשמר!','ok');
+  }catch(e){st('bst'+i,'❌ '+e.message,'err');}
+}
+
+/* ── ARTICLE ── */
+id('btnArt').addEventListener('click',async function(){
+  var btn=this,title=id('artTitle').value.trim();
+  if(!title){st('artSt','❌ הזן כותרת','err');return;}
+  btn.disabled=true; st('artSt','⏳ מפרסם...','load');
+  try{
+    var d=await ghGet('index.html'),h=d.html;
+    var desc=id('artDesc').value.trim(),url=id('artUrl').value.trim(),icon=id('artIcon').value.trim()||'📰';
+    var block='\n  <div class="glass section-card reveal">\n    <a href="'+(url||'#')+'" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;padding:4px 0">\n      <div style="font-size:26px;flex-shrink:0">'+icon+'</div>\n      <div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--text)">'+title+'</div>'+(desc?'<div style="font-size:11px;color:var(--text-muted);margin-top:3px">'+desc+'</div>':'')+'\n      </div><span style="color:var(--accent);font-size:16px">←</span>\n    </a>\n  </div>';
+    h=h.replace('<!-- GUIDES -->',block+'\n  <!-- GUIDES -->');
+    await ghPut('index.html',h,d.sha,'✍️ מאמר: '+title);
+    st('artSt','✅ פורסם! יופיע תוך 60 שניות','ok');
+    id('artTitle').value=''; id('artDesc').value=''; id('artUrl').value='';
+  }catch(e){st('artSt','❌ '+e.message,'err');}
+  btn.disabled=false;
+});
+
+/* ── GUIDE ── */
+id('btnGuide').addEventListener('click',async function(){
+  var btn=this,title=id('guideTitle').value.trim();
+  if(!title){st('guideSt','❌ הזן כותרת','err');return;}
+  btn.disabled=true; st('guideSt','⏳ מפרסם...','load');
+  try{
+    var d=await ghGet('index.html'),h=d.html;
+    var sub=id('guideSub').value.trim(),url=id('guideUrl').value.trim(),icon=id('guideIcon').value.trim()||'📋';
+    var btnHtml='\n      <a class="guide-btn" href="'+(url||'#')+'" target="_blank" rel="noopener"><span class="guide-icon">'+icon+'</span><span class="guide-title">'+title+'</span><span class="guide-sub">'+sub+'</span></a>';
+    h=h.replace(/(<div class="guides-grid"[^>]*>)([\s\S]*?)(<\/div>\s*<\/div>\s*<!--)/,function(m,o,c,cl){return o+c+btnHtml+'\n    </div>\n  </div>\n  <!--';});
+    await ghPut('index.html',h,d.sha,'📚 מדריך: '+title);
+    st('guideSt','✅ פורסם!','ok');
+    id('guideTitle').value=''; id('guideSub').value=''; id('guideUrl').value='';
+  }catch(e){st('guideSt','❌ '+e.message,'err');}
+  btn.disabled=false;
+});
+
+/* ── PARTNER ── */
+id('pZone').addEventListener('click',function(){id('pFile').click();});
+id('pFile').addEventListener('change',function(){
+  var file=this.files[0]; if(!file) return;
+  var r=new FileReader();
+  r.onload=function(e){
+    _pB64=e.target.result.split(',')[1];
+    _pFile='partner_'+Date.now()+'_'+file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+    id('pPreview').src=e.target.result; id('pPreview').style.display='block';
+    id('pPlaceholder').style.display='none'; id('pLabel').textContent=file.name;
+  };
+  r.readAsDataURL(file);
+});
+id('btnPartner').addEventListener('click',async function(){
+  var btn=this,name=id('pName').value.trim(),urlInput=id('pUrl').value.trim();
+  if(!name){st('partnerSt','❌ הזן שם לקוח','err');return;}
+  btn.disabled=true; st('partnerSt','⏳ מעלה...','load');
+  try{
+    var logoUrl=urlInput;
+    if(_pB64&&!urlInput) logoUrl=await ghUpload(_pFile,_pB64,'🖼️ לוגו '+name);
+    if(!logoUrl){st('partnerSt','❌ הזן URL או העלה קובץ','err');btn.disabled=false;return;}
+    var d=await ghGet('index.html'),h=d.html;
+    var logo='\n      <div style="background:white;border-radius:12px;border:1.5px solid #E5E7EB;display:flex;align-items:center;justify-content:center;padding:10px;aspect-ratio:3/2;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06)"><img src="'+logoUrl+'" alt="'+name+'" style="max-width:100%;max-height:100%;object-fit:contain" title="'+name+'"/></div>';
+    if(h.includes('<!-- PARTNERS -->')){
+      h=h.replace(/(<div style="display:grid[^"]*repeat\(3[^>]*>)([\s\S]*?)(<\/div>\s*<\/div>\s*<!--)/,function(m,o,c,cl){return o+c+logo+'\n    </div>\n  </div>\n  <!--';});
+    } else {
+      var sec='\n  <!-- PARTNERS -->\n  <div class="glass section-card reveal">\n    <div class="section-title">בהסדרים עם הרשת</div>\n    <p style="font-size:12px;color:var(--text-muted);margin-bottom:14px">ארגונים וקופות חולים בהסדר עם גל אור</p>\n    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">'+logo+'\n    </div>\n  </div>';
+      h=h.replace('<!-- CONTACT -->',sec+'\n  <!-- CONTACT -->');
+    }
+    await ghPut('index.html',h,d.sha,'🤝 לקוח: '+name);
+    st('partnerSt','✅ "'+name+'" נוסף! יופיע תוך 60 שניות','ok');
+    id('pName').value=''; id('pUrl').value=''; _pB64=null;
+    id('pPreview').style.display='none'; id('pPlaceholder').style.display='block'; id('pLabel').textContent='לחץ לבחירת לוגו';
+  }catch(e){st('partnerSt','❌ '+e.message,'err');}
+  btn.disabled=false;
+});
+
+/* ── IMAGE ── */
+id('imgZone').addEventListener('click',function(){id('imgFile').click();});
+id('imgFile').addEventListener('change',function(){
+  var file=this.files[0]; if(!file) return;
+  var r=new FileReader();
+  r.onload=function(e){
+    _iB64=e.target.result.split(',')[1];
+    _iFile='img_'+Date.now()+'_'+file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+    id('imgPreview').src=e.target.result; id('imgPreview').style.display='block';
+    id('imgPlaceholder').style.display='none'; id('btnImg').disabled=false;
+  };
+  r.readAsDataURL(file);
+});
+id('btnImg').addEventListener('click',async function(){
+  var btn=this; if(!_iB64){st('imgSt','❌ בחר תמונה','err');return;}
+  btn.disabled=true; st('imgSt','⏳ מעלה...','load');
+  try{
+    var url=await ghUpload(_iFile,_iB64,'🖼️ תמונה מהאדמין');
+    _lastUrl=url; id('imgUrlBox').textContent=url; id('imgResult').style.display='block';
+    st('imgSt','✅ הועלה!','ok');
+  }catch(e){st('imgSt','❌ '+e.message,'err');}
+  btn.disabled=false;
+});
+id('btnCopy').addEventListener('click',function(){
+  navigator.clipboard.writeText(_lastUrl).then(function(){
+    id('btnCopy').textContent='✅ הועתק!';
+    setTimeout(function(){id('btnCopy').textContent='📋 העתק קישור';},2000);
+  });
+});
+
+/* ── SETTINGS ── */
+function loadSettings(){
+  var t=tok();
+  id('tokenInd').innerHTML=t?'<span class="ti-ok">✅ Token מוגדר</span>':'<span class="ti-miss">❌ Token חסר</span>';
+  if(t) id('sToken').value=t;
+}
+id('tokEye').addEventListener('click',function(){
+  var i=id('sToken'),e=id('tokEye');
+  i.type=i.type==='password'?'text':'password';
+  e.textContent=i.type==='password'?'👁️':'🙈';
+});
+id('btnSaveToken').addEventListener('click',function(){
+  var t=id('sToken').value.trim();
+  if(!t){st('sSt','❌ הזן Token','err');return;}
+  localStorage.setItem('gh_settings',JSON.stringify({owner:OWNER,repo:REPO,branch:BRANCH,token:t}));
+  st('sSt','✅ נשמר!','ok');
+  loadSettings();
+});
+
+/* ── INIT ── */
+if(sessionStorage.getItem('a')&&(Date.now()-parseInt(sessionStorage.getItem('a')))<28800000){
+  navHistory=['pg-home']; show('pg-home');
+  id('hw-time').textContent=new Date().toLocaleString('he-IL',{weekday:'long',hour:'2-digit',minute:'2-digit'});
+}
+</script>
+
+
+</body></html>
