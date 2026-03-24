@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)file:///C:/Users/USER/Downloads/admin_2.html -->
+<html lang="he" dir="rtl"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="robots" content="noindex, nofollow">
+<title>ניהול כרטיס ביקור | גל אור</title>
+<link href="./ניהול כרטיס ביקור _ גל אור_files/css2" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d1117;
+  --surface:#161b22;
+  --surface2:#1c2330;
+  --border:#30363d;
+  --accent:#F5C518;
+  --accent2:#e6b800;
+  --text:#e6edf3;
+  --muted:#8b949e;
+  --green:#3fb950;
+  --red:#f85149;
+}
+html,body{
+  min-height:100vh;min-height:100dvh;
+  font-family:'Heebo',system-ui,sans-serif;
+  background:var(--bg);color:var(--text);
+  display:flex;align-items:center;justify-content:center;
+  -webkit-font-smoothing:antialiased;
+  overflow:hidden;
+}
+
+/* BG animation */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 600px 400px at 20% 20%, rgba(245,197,24,0.04) 0%, transparent 70%),
+    radial-gradient(ellipse 400px 300px at 80% 80%, rgba(27,59,111,0.12) 0%, transparent 70%);
+}
+
+.container{
+  width:100%;max-width:400px;
+  padding:24px 20px;
+  position:relative;z-index:1;
+}
+
+/* LOGO / BRAND */
+.brand{
+  text-align:center;margin-bottom:36px;
+}
+.brand-ring{
+  width:80px;height:80px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),#e6b800);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 16px;
+  box-shadow:0 0 0 6px rgba(245,197,24,0.1), 0 8px 32px rgba(245,197,24,0.25);
+  font-size:36px;
+}
+.brand-title{
+  font-size:22px;font-weight:800;color:var(--text);
+  letter-spacing:-0.5px;
+}
+.brand-sub{
+  font-size:12px;color:var(--muted);margin-top:4px;
+}
+
+/* CARD */
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:28px 24px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.3);
+}
+.card-title{
+  font-size:15px;font-weight:700;
+  margin-bottom:6px;
+  display:flex;align-items:center;gap:8px;
+}
+.card-sub{
+  font-size:12px;color:var(--muted);
+  margin-bottom:22px;line-height:1.6;
+}
+
+/* INPUT */
+.input-wrap{
+  position:relative;margin-bottom:16px;
+}
+.input-wrap input{
+  width:100%;padding:13px 44px 13px 14px;
+  background:var(--surface2);
+  border:1.5px solid var(--border);
+  border-radius:10px;
+  font-size:16px; /* prevent zoom on iOS */
+  color:var(--text);
+  font-family:'Heebo',system-ui,sans-serif;
+  outline:none;
+  transition:border-color 0.2s,box-shadow 0.2s;
+  text-align:center;
+  letter-spacing:4px;
+}
+.input-wrap input:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(245,197,24,0.12);
+}
+.input-wrap input.error{
+  border-color:var(--red);
+  box-shadow:0 0 0 3px rgba(248,81,73,0.12);
+  animation:shake 0.3s ease;
+}
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-8px)}
+  75%{transform:translateX(8px)}
+}
+.eye-btn{
+  position:absolute;left:12px;top:50%;
+  transform:translateY(-50%);
+  background:none;border:none;cursor:pointer;
+  font-size:18px;color:var(--muted);
+  padding:4px;
+  transition:color 0.2s;
+}
+.eye-btn:hover{color:var(--text)}
+
+/* BUTTON */
+.btn-enter{
+  width:100%;padding:14px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#000;border:none;border-radius:10px;
+  font-size:15px;font-weight:800;
+  font-family:'Heebo',system-ui,sans-serif;
+  cursor:pointer;
+  transition:all 0.2s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 4px 16px rgba(245,197,24,0.3);
+}
+.btn-enter:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(245,197,24,0.4)}
+.btn-enter:active{transform:translateY(0)}
+.btn-enter:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+
+/* ERROR MSG */
+.error-msg{
+  text-align:center;font-size:12px;
+  color:var(--red);margin-top:10px;
+  min-height:18px;
+  transition:opacity 0.2s;
+}
+
+/* DIVIDER */
+.divider{
+  display:flex;align-items:center;gap:12px;
+  margin:20px 0;
+  color:var(--muted);font-size:11px;
+}
+.divider::before,.divider::after{
+  content:'';flex:1;height:1px;background:var(--border);
+}
+
+/* QUICK ACTIONS (shown after login) */
+.actions{display:none;flex-direction:column;gap:10px}
+.action-btn{
+  display:flex;align-items:center;gap:14px;
+  padding:16px 18px;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:12px;
+  text-decoration:none;color:var(--text);
+  font-family:'Heebo',system-ui,sans-serif;
+  cursor:pointer;
+  transition:all 0.2s;
+  font-size:14px;font-weight:600;
+}
+.action-btn:hover{
+  border-color:var(--accent);
+  background:rgba(245,197,24,0.05);
+  transform:translateY(-1px);
+}
+.action-btn .ab-icon{
+  width:42px;height:42px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;
+}
+.action-btn .ab-body{flex:1}
+.action-btn .ab-title{font-size:14px;font-weight:700}
+.action-btn .ab-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.action-btn .ab-arrow{color:var(--muted);font-size:16px}
+
+.ab-admin .ab-icon{background:rgba(245,197,24,0.12);color:var(--accent)}
+.ab-card .ab-icon{background:rgba(63,185,80,0.12);color:var(--green)}
+.ab-article .ab-icon{background:rgba(88,166,255,0.12);color:#58a6ff}
+
+/* WELCOME */
+.welcome{
+  display:none;
+  text-align:center;
+  margin-bottom:20px;
+}
+.welcome-name{
+  font-size:18px;font-weight:800;color:var(--accent);
+}
+.welcome-sub{font-size:12px;color:var(--muted);margin-top:3px}
+
+/* LOGOUT */
+.logout-row{
+  display:none;
+  justify-content:center;margin-top:16px;
+}
+.logout-btn{
+  background:none;border:none;cursor:pointer;
+  font-size:12px;color:var(--muted);
+  font-family:'Heebo',system-ui,sans-serif;
+  padding:6px 12px;border-radius:8px;
+  transition:color 0.2s;
+}
+.logout-btn:hover{color:var(--red)}
+
+/* FOOTER */
+.footer{
+  text-align:center;margin-top:24px;
+  font-size:11px;color:var(--muted);
+}
+
+/* ATTEMPTS */
+.attempts-bar{
+  display:flex;gap:6px;justify-content:center;
+  margin-top:12px;
+}
+.attempt-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--border);
+  transition:background 0.2s;
+}
+.attempt-dot.used{background:var(--red)}
+
+/* LOCKOUT */
+.lockout{
+  display:none;
+  text-align:center;padding:20px 0;
+}
+.lockout-icon{font-size:48px;margin-bottom:12px}
+.lockout-title{font-size:16px;font-weight:800;color:var(--red);margin-bottom:6px}
+.lockout-sub{font-size:13px;color:var(--muted)}
+.lockout-timer{
+  font-size:28px;font-weight:900;color:var(--accent);
+  margin:12px 0;letter-spacing:2px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="brand">
+    <div class="brand-ring">⚙️</div>
+    <div class="brand-title">ניהול כרטיס ביקור</div>
+    <div class="brand-sub">גל אור מכוני רנטגן · כניסה מאובטחת</div>
+  </div>
+
+  <!-- LOGIN CARD -->
+  <div class="card" id="login-card">
+    <div class="card-title">🔑 כניסה</div>
+    <div class="card-sub">הזן את קוד הגישה שלך להמשך</div>
+
+    <div class="input-wrap">
+      <input type="password" id="pass-input" placeholder="••••••" maxlength="20" autocomplete="current-password" onkeydown="if(event.key===&#39;Enter&#39;)tryLogin()">
+      <button class="eye-btn" id="eye-btn" onclick="toggleEye()" type="button">👁️</button>
+    </div>
+
+    <div class="attempts-bar" id="attempts-bar">
+      <div class="attempt-dot" id="d1"></div>
+      <div class="attempt-dot" id="d2"></div>
+      <div class="attempt-dot" id="d3"></div>
+      <div class="attempt-dot" id="d4"></div>
+      <div class="attempt-dot" id="d5"></div>
+    </div>
+
+    <div class="error-msg" id="error-msg"></div>
+
+    <button class="btn-enter" id="enter-btn" onclick="tryLogin()" style="margin-top:16px">
+      <span>🚀</span> כניסה לניהול
+    </button>
+
+    <!-- LOCKOUT screen -->
+    <div class="lockout" id="lockout">
+      <div class="lockout-icon">🔒</div>
+      <div class="lockout-title">חסום זמנית</div>
+      <div class="lockout-sub">יותר מדי ניסיונות כושלים</div>
+      <div class="lockout-timer" id="lockout-timer">05:00</div>
+      <div class="lockout-sub">נסה שוב בעוד מספר דקות</div>
+    </div>
+  </div>
+
+  <!-- WELCOME + ACTIONS (shown after login) -->
+  <div class="welcome" id="welcome">
+    <div class="welcome-name">שלום, אבי! 👋</div>
+    <div class="welcome-sub">מה תרצה לעשות היום?</div>
+  </div>
+
+  <div class="actions" id="actions">
+
+    <a class="action-btn ab-admin" href="file:///C:/Users/USER/Downloads/backoffice.html" target="_blank">
+      <div class="ab-icon">⚙️</div>
+      <div class="ab-body">
+        <div class="ab-title">בק-אופיס מלא</div>
+        <div class="ab-sub">ניהול מלא של הכרטיס</div>
+      </div>
+      <span class="ab-arrow">←</span>
+    </a>
+
+    <a class="action-btn ab-card" href="https://avigoldfarb1.github.io/gal-or-card/" target="_blank">
+      <div class="ab-icon">🪪</div>
+      <div class="ab-body">
+        <div class="ab-title">צפה בכרטיס החי</div>
+        <div class="ab-sub">פתח את הכרטיס הפומבי</div>
+      </div>
+      <span class="ab-arrow">←</span>
+    </a>
+
+    <button class="action-btn ab-article" onclick="openQuickEdit()">
+      <div class="ab-icon">✍️</div>
+      <div class="ab-body">
+        <div class="ab-title">עדכון מהיר</div>
+        <div class="ab-sub">שנה טקסט / הוסף מאמר מהיר</div>
+      </div>
+      <span class="ab-arrow">←</span>
+    </button>
+
+  </div>
+
+  <div class="logout-row" id="logout-row">
+    <button class="logout-btn" onclick="doLogout()">🚪 יציאה</button>
+  </div>
+
+  <div class="footer">גל אור מכוני רנטגן · מערכת ניהול פנימית</div>
+
+</div>
+
+<!-- QUICK EDIT MODAL -->
+<div id="qe-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;display:none;align-items:flex-end;justify-content:center">
+  <div style="background:#161b22;border:1px solid #30363d;border-radius:20px 20px 0 0;width:100%;max-width:500px;padding:24px 20px 36px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+      <div style="font-size:15px;font-weight:800">✍️ עדכון מהיר</div>
+      <button onclick="closeQuickEdit()" style="background:none;border:none;color:#8b949e;font-size:20px;cursor:pointer">✕</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <a href="file:///C:/Users/USER/Downloads/backoffice.html#articles" target="_blank" style="display:flex;align-items:center;gap:12px;padding:14px;background:#1c2330;border:1px solid #30363d;border-radius:10px;text-decoration:none;color:#e6edf3">
+        <span style="font-size:22px">📰</span>
+        <div>
+          <div style="font-size:13px;font-weight:700">הוסף מאמר חדש</div>
+          <div style="font-size:11px;color:#8b949e">פתח את עורך המאמרים</div>
+        </div>
+      </a>
+      <a href="file:///C:/Users/USER/Downloads/backoffice.html#guides" target="_blank" style="display:flex;align-items:center;gap:12px;padding:14px;background:#1c2330;border:1px solid #30363d;border-radius:10px;text-decoration:none;color:#e6edf3">
+        <span style="font-size:22px">📚</span>
+        <div>
+          <div style="font-size:13px;font-weight:700">הוסף מדריך</div>
+          <div style="font-size:11px;color:#8b949e">הוסף קישור למדריך חדש</div>
+        </div>
+      </a>
+      <a href="file:///C:/Users/USER/Downloads/backoffice.html#hero" target="_blank" style="display:flex;align-items:center;gap:12px;padding:14px;background:#1c2330;border:1px solid #30363d;border-radius:10px;text-decoration:none;color:#e6edf3">
+        <span style="font-size:22px">👤</span>
+        <div>
+          <div style="font-size:13px;font-weight:700">עדכן פרופיל</div>
+          <div style="font-size:11px;color:#8b949e">שם, תפקיד, אודות</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════
+//  הגדר כאן את קוד הגישה שלך
+// ══════════════════════════════════════
+const ACCESS_CODE = '1234';  // ← שנה לקוד שתרצה!
+
+const MAX_ATTEMPTS = 5;
+const LOCKOUT_SECONDS = 300; // 5 דקות
+
+let attempts = 0;
+let lockoutTimer = null;
+
+// ── CHECK SESSION ──
+function checkSession(){
+  const ts = sessionStorage.getItem('admin_auth');
+  if(ts && (Date.now() - parseInt(ts)) < 8*60*60*1000){
+    showDashboard();
+  }
+  checkLockout();
+}
+
+function checkLockout(){
+  const lockUntil = localStorage.getItem('admin_lock_until');
+  if(lockUntil && Date.now() < parseInt(lockUntil)){
+    startLockoutUI(parseInt(lockUntil) - Date.now());
+  }
+}
+
+// ── LOGIN ──
+function tryLogin(){
+  const lockUntil = localStorage.getItem('admin_lock_until');
+  if(lockUntil && Date.now() < parseInt(lockUntil)) return;
+
+  const val = document.getElementById('pass-input').value;
+  const inp = document.getElementById('pass-input');
+
+  if(val === ACCESS_CODE){
+    // SUCCESS
+    sessionStorage.setItem('admin_auth', Date.now().toString());
+    localStorage.removeItem('admin_lock_until');
+    attempts = 0;
+    inp.classList.remove('error');
+    showDashboard();
+  } else {
+    // FAIL
+    attempts++;
+    inp.classList.add('error');
+    setTimeout(()=>inp.classList.remove('error'), 400);
+    inp.value = '';
+
+    // Update dots
+    for(let i=1;i<=5;i++){
+      const dot = document.getElementById('d'+i);
+      if(dot) dot.classList.toggle('used', i <= attempts);
+    }
+
+    if(attempts >= MAX_ATTEMPTS){
+      const lockUntil = Date.now() + LOCKOUT_SECONDS * 1000;
+      localStorage.setItem('admin_lock_until', lockUntil.toString());
+      startLockoutUI(LOCKOUT_SECONDS * 1000);
+    } else {
+      const left = MAX_ATTEMPTS - attempts;
+      document.getElementById('error-msg').textContent =
+        `קוד שגוי — נותרו ${left} ניסיון${left===1?'':'ות'}`;
+    }
+  }
+}
+
+function startLockoutUI(ms){
+  const loginArea = document.getElementById('pass-input').parentElement;
+  const enterBtn = document.getElementById('enter-btn');
+  const lockout = document.getElementById('lockout');
+  const errMsg = document.getElementById('error-msg');
+
+  loginArea.style.display = 'none';
+  document.getElementById('attempts-bar').style.display = 'none';
+  enterBtn.style.display = 'none';
+  errMsg.style.display = 'none';
+  lockout.style.display = 'block';
+
+  let remaining = Math.ceil(ms / 1000);
+  function tick(){
+    const m = String(Math.floor(remaining/60)).padStart(2,'0');
+    const s = String(remaining%60).padStart(2,'0');
+    document.getElementById('lockout-timer').textContent = m+':'+s;
+    if(remaining <= 0){
+      clearInterval(lockoutTimer);
+      localStorage.removeItem('admin_lock_until');
+      attempts = 0;
+      location.reload();
+    }
+    remaining--;
+  }
+  tick();
+  lockoutTimer = setInterval(tick, 1000);
+}
+
+// ── SHOW DASHBOARD ──
+function showDashboard(){
+  document.getElementById('login-card').style.display = 'none';
+  document.getElementById('welcome').style.display = 'block';
+  document.getElementById('actions').style.display = 'flex';
+  document.getElementById('logout-row').style.display = 'flex';
+}
+
+// ── LOGOUT ──
+function doLogout(){
+  sessionStorage.removeItem('admin_auth');
+  location.reload();
+}
+
+// ── TOGGLE EYE ──
+function toggleEye(){
+  const inp = document.getElementById('pass-input');
+  const eye = document.getElementById('eye-btn');
+  if(inp.type==='password'){
+    inp.type='text';inp.style.letterSpacing='normal';eye.textContent='🙈';
+  } else {
+    inp.type='password';inp.style.letterSpacing='4px';eye.textContent='👁️';
+  }
+}
+
+// ── QUICK EDIT ──
+function openQuickEdit(){
+  const ov = document.getElementById('qe-overlay');
+  ov.style.display='flex';
+}
+function closeQuickEdit(){
+  document.getElementById('qe-overlay').style.display='none';
+}
+
+// ── INIT ──
+checkSession();
+document.getElementById('pass-input').focus();
+</script>
+
+
+</body></html>
