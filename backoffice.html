@@ -3,1918 +3,1540 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BackOffice – גל אור מכוני רנטגן</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<title>גל אור · בק-אופיס</title>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #0d1117;
-  --surface: #161b22;
-  --surface2: #1c2330;
-  --border: #30363d;
-  --accent: #F5C518;
-  --accent-dim: #c9a015;
-  --text: #e6edf3;
-  --text-dim: #8b949e;
-  --danger: #f85149;
-  --success: #3fb950;
-  --info: #58a6ff;
-  --radius: 10px;
-  --sidebar-w: 220px;
-  --topbar-h: 58px;
-  --bottomnav-h: 60px;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 15px; }
-body {
-  font-family: 'Heebo', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-}
+  :root {
+    --bg: #0d1117;
+    --sur: #161b22;
+    --sur2: #1c2330;
+    --brd: #30363d;
+    --acc: #F5C518;
+    --tx: #e6edf3;
+    --txm: #8b949e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Heebo', sans-serif;
+    background: var(--bg);
+    color: var(--tx);
+    min-height: 100vh;
+    direction: rtl;
+  }
 
-/* SCROLLBAR */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  /* ===== SIDEBAR ===== */
+  #sidebar {
+    position: fixed;
+    top: 0; right: 0;
+    width: 260px;
+    height: 100vh;
+    background: var(--sur);
+    border-left: 1px solid var(--brd);
+    flex-direction: column;
+    z-index: 100;
+    overflow-y: auto;
+  }
+  .sb-brand {
+    padding: 20px 18px 16px;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--acc);
+    border-bottom: 1px solid var(--brd);
+    letter-spacing: 0.5px;
+  }
+  #sidebar nav {
+    flex: 1;
+    padding: 10px 0;
+  }
+  #sidebar nav a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 18px;
+    color: var(--txm);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 8px;
+    margin: 2px 8px;
+    transition: all 0.15s;
+    border: none;
+    background: none;
+  }
+  #sidebar nav a:hover {
+    background: var(--sur2);
+    color: var(--tx);
+  }
+  #sidebar nav a.active {
+    background: rgba(245,197,24,0.12);
+    color: var(--acc);
+    font-weight: 700;
+  }
+  .sb-footer {
+    padding: 14px 18px;
+    border-top: 1px solid var(--brd);
+  }
+  .sb-footer a {
+    display: block;
+    text-align: center;
+    padding: 9px;
+    background: var(--sur2);
+    border: 1px solid var(--brd);
+    border-radius: 8px;
+    color: var(--txm);
+    text-decoration: none;
+    font-size: 13px;
+    transition: all 0.15s;
+  }
+  .sb-footer a:hover { color: var(--tx); border-color: var(--acc); }
 
-/* TOPBAR */
-#topbar {
-  position: fixed; top: 0; right: 0; left: 0;
-  height: var(--topbar-h);
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 16px;
-  z-index: 200;
-  gap: 12px;
-}
-#topbar .tb-title { font-size: 1.05rem; font-weight: 700; color: var(--text); flex: 1; }
-#topbar .tb-brand { font-size: 0.8rem; color: var(--accent); font-weight: 700; display: none; }
-#topbar .tb-actions { display: flex; gap: 8px; align-items: center; }
+  /* ===== MAIN ===== */
+  #main {
+    min-height: 100vh;
+  }
 
-/* BUTTONS */
-.btn {
-  display: inline-flex; align-items: center; gap: 5px;
-  padding: 7px 14px; border-radius: 7px; border: none; cursor: pointer;
-  font-family: 'Heebo', sans-serif; font-size: 0.85rem; font-weight: 600;
-  transition: opacity 0.15s, transform 0.1s;
-  text-decoration: none;
-}
-.btn:active { transform: scale(0.96); }
-.btn-ghost { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
-.btn-ghost:hover { background: var(--border); }
-.btn-primary { background: var(--accent); color: #000; }
-.btn-primary:hover { background: var(--accent-dim); }
-.btn-danger { background: var(--danger); color: #fff; }
-.btn-danger:hover { opacity: 0.85; }
-.btn-sm { padding: 5px 10px; font-size: 0.78rem; }
-.btn-xs { padding: 3px 8px; font-size: 0.75rem; border-radius: 5px; }
-.btn[disabled] { opacity: 0.5; cursor: not-allowed; }
+  /* ===== TOPBAR ===== */
+  #topbar {
+    position: sticky;
+    top: 0;
+    background: rgba(13,17,23,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--brd);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 50;
+  }
+  #page-title {
+    flex: 1;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--tx);
+  }
+  #topbar button {
+    padding: 8px 14px;
+    border-radius: 7px;
+    border: 1px solid var(--brd);
+    background: var(--sur);
+    color: var(--tx);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  #topbar button:hover { border-color: var(--acc); color: var(--acc); }
+  #topbar .btn-save {
+    background: var(--acc);
+    color: #000;
+    border-color: var(--acc);
+  }
+  #topbar .btn-save:hover { opacity: 0.85; color: #000; }
 
-/* SIDEBAR */
-#sidebar {
-  position: fixed; top: var(--topbar-h); right: 0; bottom: 0;
-  width: var(--sidebar-w);
-  background: var(--surface);
-  border-left: 1px solid var(--border);
-  display: flex; flex-direction: column;
-  z-index: 100;
-  overflow-y: auto;
-}
-#sidebar .sb-logo { padding: 18px 16px 14px; border-bottom: 1px solid var(--border); }
-#sidebar .sb-logo span { font-size: 0.78rem; color: var(--text-dim); display: block; }
-#sidebar .sb-logo strong { font-size: 0.95rem; color: var(--accent); }
-#sidebar nav { flex: 1; padding: 8px 0; }
-#sidebar nav a {
-  display: flex; align-items: center; gap: 10px;
-  padding: 10px 18px;
-  color: var(--text-dim); text-decoration: none;
-  font-size: 0.88rem; font-weight: 500;
-  border-right: 3px solid transparent;
-  transition: all 0.15s;
-}
-#sidebar nav a:hover { color: var(--text); background: var(--surface2); }
-#sidebar nav a.active { color: var(--accent); background: rgba(245,197,24,0.08); border-right-color: var(--accent); }
-#sidebar nav a .nav-icon { font-size: 1.1rem; width: 22px; text-align: center; }
-#sidebar .sb-footer { padding: 14px 16px; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--text-dim); }
-#sidebar .sb-footer a { color: var(--info); text-decoration: none; }
-#sidebar .sb-footer a:hover { text-decoration: underline; }
+  /* ===== PAGES ===== */
+  .page { display: none; padding: 20px; }
 
-/* MAIN */
-#main {
-  margin-top: var(--topbar-h);
-  margin-right: var(--sidebar-w);
-  min-height: calc(100vh - var(--topbar-h));
-  padding: 24px;
-}
+  /* ===== PAGE HEADER ===== */
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--brd);
+  }
+  .page-header h2 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--tx);
+  }
+  .btn-add {
+    background: var(--acc);
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: opacity 0.15s;
+  }
+  .btn-add:hover { opacity: 0.85; }
 
-/* SECTIONS */
-.section { display: none; }
-.section.active { display: block; }
+  /* ===== CARD ===== */
+  .card {
+    background: var(--sur);
+    border: 1px solid var(--brd);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 14px;
+  }
+  .card h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: var(--tx);
+  }
+  .field-label {
+    font-size: 12px;
+    color: var(--txm);
+    display: block;
+    margin-bottom: 5px;
+    margin-top: 12px;
+    font-weight: 500;
+  }
+  .field-label:first-child { margin-top: 0; }
 
-/* CARDS */
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px;
-  margin-bottom: 20px;
-}
-.card-title {
-  font-size: 0.95rem; font-weight: 700;
-  color: var(--accent); margin-bottom: 16px;
-  padding-bottom: 10px; border-bottom: 1px solid var(--border);
-}
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  /* ===== BOTTOM NAV ===== */
+  #bottom-nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--sur);
+    border-top: 1px solid var(--brd);
+    display: none;
+    justify-content: space-around;
+    align-items: center;
+    padding: 6px 0 8px;
+    z-index: 100;
+  }
+  #bottom-nav button {
+    background: none;
+    border: none;
+    color: var(--txm);
+    font-size: 11px;
+    font-family: inherit;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 8px;
+    text-align: center;
+    line-height: 1.4;
+    transition: color 0.15s;
+    min-width: 50px;
+  }
+  #bottom-nav button.active { color: var(--acc); font-weight: 700; }
+  #bottom-nav button:hover { color: var(--tx); }
 
-/* FORM */
-.form-group { margin-bottom: 14px; }
-.form-group label { display: block; font-size: 0.78rem; color: var(--text-dim); margin-bottom: 5px; font-weight: 500; }
-.form-group input,
-.form-group textarea,
-.form-group select {
-  width: 100%; background: var(--bg); border: 1px solid var(--border);
-  color: var(--text); border-radius: 7px;
-  padding: 9px 11px; font-family: 'Heebo', sans-serif; font-size: 0.88rem;
-  transition: border-color 0.15s;
-  direction: inherit;
-}
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus { outline: none; border-color: var(--accent); }
-.form-group textarea { min-height: 80px; resize: vertical; }
-.input-row { display: flex; gap: 8px; align-items: center; }
-.input-row input { flex: 1; }
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    #sidebar { display: none !important; }
+    #bottom-nav { display: flex !important; }
+    #main { margin-right: 0 !important; padding-bottom: 75px; }
+  }
+  @media (min-width: 769px) {
+    #sidebar { display: flex !important; }
+    #bottom-nav { display: none !important; }
+    #main { margin-right: 260px; }
+  }
 
-/* STATS */
-.stats-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 14px;
-  margin-bottom: 24px;
-}
-.stat-card {
-  background: var(--surface2);
-  border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 16px 14px; text-align: center;
-}
-.stat-card .stat-icon { font-size: 1.8rem; margin-bottom: 6px; }
-.stat-card .stat-num { font-size: 1.6rem; font-weight: 800; color: var(--accent); }
-.stat-card .stat-label { font-size: 0.75rem; color: var(--text-dim); margin-top: 2px; }
+  /* ===== TOAST ===== */
+  #toast {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--sur2);
+    border: 1px solid var(--brd);
+    color: var(--tx);
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 9999;
+    opacity: 0;
+    transition: all 0.25s;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  #toast.success { border-color: #3fb950; color: #3fb950; }
+  #toast.error { border-color: #f85149; color: #f85149; }
+  #toast.info { border-color: var(--acc); color: var(--acc); }
 
-/* ITEM CARDS */
-.item-card {
-  background: var(--surface2); border: 1px solid var(--border);
-  border-radius: var(--radius); margin-bottom: 12px; overflow: hidden;
-}
-.item-card-header {
-  display: flex; align-items: center; gap: 10px; padding: 12px 14px;
-}
-.item-card-header:hover { background: rgba(255,255,255,0.02); }
-.icon-btn {
-  background: var(--bg); border: 1px solid var(--border);
-  border-radius: 7px; width: 38px; height: 38px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.3rem; cursor: pointer; flex-shrink: 0;
-  transition: background 0.15s;
-}
-.icon-btn:hover { background: var(--border); }
-.item-card-header input.item-title {
-  flex: 1; background: transparent; border: none; border-bottom: 1px solid transparent;
-  color: var(--text); font-family: 'Heebo', sans-serif; font-size: 0.95rem; font-weight: 600;
-  padding: 4px 0; transition: border-color 0.15s;
-}
-.item-card-header input.item-title:focus { outline: none; border-bottom-color: var(--accent); }
-.expand-btn {
-  background: none; border: none; color: var(--text-dim); cursor: pointer;
-  font-size: 0.8rem; padding: 4px 8px; border-radius: 5px; flex-shrink: 0;
-  transition: background 0.15s; font-family: 'Heebo', sans-serif;
-}
-.expand-btn:hover { background: var(--border); color: var(--text); }
-.del-btn {
-  background: none; border: none; color: var(--text-dim); cursor: pointer;
-  font-size: 1.1rem; padding: 4px 6px; border-radius: 5px; flex-shrink: 0;
-  transition: all 0.15s;
-}
-.del-btn:hover { color: var(--danger); background: rgba(248,81,73,0.1); }
-.item-card-body { padding: 0 14px 14px; border-top: 1px solid var(--border); display: none; }
-.item-card-body.open { display: block; }
+  /* ===== EMOJI PICKER ===== */
+  #emoji-picker {
+    position: fixed;
+    background: var(--sur);
+    border: 1px solid var(--brd);
+    border-radius: 12px;
+    padding: 12px;
+    z-index: 9998;
+    display: none;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    max-width: 280px;
+  }
+  #emoji-picker .ep-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 4px;
+  }
+  #emoji-picker .ep-grid button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    transition: background 0.1s;
+  }
+  #emoji-picker .ep-grid button:hover { background: var(--sur2); }
 
-/* TAGS */
-.tags-wrap {
-  display: flex; flex-wrap: wrap; gap: 5px;
-  background: var(--bg); border: 1px solid var(--border);
-  border-radius: 7px; padding: 6px 9px; min-height: 40px; align-items: center;
-}
-.tags-wrap:focus-within { border-color: var(--accent); }
-.tag-chip {
-  background: rgba(245,197,24,0.15); color: var(--accent);
-  border-radius: 4px; padding: 2px 7px; font-size: 0.75rem; font-weight: 600;
-  display: flex; align-items: center; gap: 4px;
-}
-.tag-chip button { background: none; border: none; color: var(--accent-dim); cursor: pointer; font-size: 0.85rem; line-height: 1; padding: 0 1px; }
-.tags-input {
-  background: none; border: none; color: var(--text); font-family: 'Heebo', sans-serif;
-  font-size: 0.83rem; outline: none; min-width: 80px; flex: 1;
-}
+  /* ===== MODAL ===== */
+  #modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 9000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  #modal-box {
+    background: var(--sur);
+    border: 1px solid var(--brd);
+    border-radius: 14px;
+    padding: 24px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+  #modal-box h3 { font-size: 17px; margin-bottom: 10px; }
+  #modal-box p { color: var(--txm); font-size: 14px; margin-bottom: 20px; }
+  .modal-btns { display: flex; gap: 10px; justify-content: center; }
+  .modal-btns button {
+    padding: 9px 24px;
+    border-radius: 8px;
+    border: 1px solid var(--brd);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    background: var(--sur2);
+    color: var(--tx);
+    transition: all 0.15s;
+  }
+  .modal-btns .btn-danger {
+    background: rgba(248,81,73,0.1);
+    color: #f85149;
+    border-color: rgba(248,81,73,0.3);
+  }
+  .modal-btns .btn-danger:hover { background: rgba(248,81,73,0.2); }
 
-/* BRANCH CARD */
-.branch-card { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 14px; }
-.branch-card .branch-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-.branch-card .branch-title { font-weight: 700; color: var(--accent); font-size: 0.95rem; }
+  /* ===== HOME STATS ===== */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .stat-card {
+    background: var(--sur);
+    border: 1px solid var(--brd);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+  .stat-card .stat-num {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--acc);
+    line-height: 1.2;
+  }
+  .stat-card .stat-label {
+    font-size: 12px;
+    color: var(--txm);
+    margin-top: 4px;
+  }
 
-/* TOAST */
-#toast-container {
-  position: fixed; bottom: calc(var(--bottomnav-h) + 12px); left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999; display: flex; flex-direction: column; gap: 8px; align-items: center;
-  pointer-events: none;
-}
-.toast {
-  background: var(--surface2); border: 1px solid var(--border);
-  color: var(--text); padding: 10px 20px; border-radius: 8px;
-  font-size: 0.88rem; font-weight: 500; pointer-events: all;
-  animation: slideUp 0.25s ease; max-width: 340px; text-align: center;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-}
-.toast.success { border-color: var(--success); color: var(--success); }
-.toast.error { border-color: var(--danger); color: var(--danger); }
-.toast.info { border-color: var(--info); color: var(--info); }
-@keyframes slideUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+  /* ===== SETTINGS INPUTS ===== */
+  .settings-input {
+    width: 100%;
+    background: var(--sur2);
+    border: 1px solid var(--brd);
+    border-radius: 8px;
+    color: var(--tx);
+    padding: 10px 12px;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    box-sizing: border-box;
+  }
+  .settings-input:focus { border-color: var(--acc); }
+  .settings-label {
+    font-size: 12px;
+    color: var(--txm);
+    display: block;
+    margin-bottom: 5px;
+    margin-top: 14px;
+    font-weight: 500;
+  }
+  .settings-label:first-child { margin-top: 0; }
+  .btn-settings {
+    margin-top: 14px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: 1px solid var(--brd);
+    background: var(--sur2);
+    color: var(--tx);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 8px;
+    transition: all 0.15s;
+  }
+  .btn-settings:hover { border-color: var(--acc); color: var(--acc); }
+  .btn-big-save {
+    width: 100%;
+    margin-top: 14px;
+    padding: 13px;
+    border-radius: 10px;
+    border: none;
+    background: var(--acc);
+    color: #000;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .btn-big-save:hover { opacity: 0.85; }
 
-/* EMOJI PICKER */
-#emoji-picker {
-  display: none; position: fixed; top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius); z-index: 10001;
-  width: 320px; padding: 14px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-}
-#emoji-picker.open { display: block; }
-#emoji-picker .ep-title { font-size: 0.85rem; font-weight: 700; color: var(--text-dim); margin-bottom: 10px; }
-#emoji-picker .ep-grid { display: flex; flex-wrap: wrap; gap: 6px; max-height: 260px; overflow-y: auto; }
-#emoji-picker .ep-grid button {
-  background: var(--surface2); border: 1px solid var(--border);
-  border-radius: 7px; width: 38px; height: 38px; font-size: 1.25rem;
-  cursor: pointer; transition: background 0.12s;
-}
-#emoji-picker .ep-grid button:hover { background: var(--border); }
-#emoji-overlay { display: none; position: fixed; inset: 0; z-index: 10000; background: rgba(0,0,0,0.3); }
-#emoji-overlay.open { display: block; }
+  /* ===== SPINNER ===== */
+  .spinner {
+    display: inline-block;
+    width: 14px; height: 14px;
+    border: 2px solid var(--brd);
+    border-top-color: var(--acc);
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    vertical-align: middle;
+    margin-right: 4px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
 
-/* PROGRESS BAR */
-#progress-bar-wrap {
-  height: 3px; background: transparent; position: fixed;
-  top: var(--topbar-h); left: 0; right: 0; z-index: 300;
-}
-#progress-bar { height: 100%; background: var(--accent); width: 0%; transition: width 0.3s; }
-
-/* LOG */
-#pub-log {
-  background: var(--bg); border: 1px solid var(--border);
-  border-radius: 7px; padding: 12px 14px; min-height: 120px; max-height: 260px;
-  overflow-y: auto; font-family: monospace; font-size: 0.78rem;
-  color: var(--text-dim); margin-top: 14px;
-}
-#pub-log .log-line { padding: 2px 0; }
-#pub-log .log-line.err { color: var(--danger); }
-#pub-log .log-line.ok { color: var(--success); }
-#pub-log .log-line.info { color: var(--info); }
-
-/* IMAGE PREVIEW */
-.img-preview {
-  margin-top: 8px; max-width: 120px; max-height: 120px;
-  border-radius: 8px; border: 1px solid var(--border); display: none;
-}
-.img-preview.visible { display: block; }
-
-/* PORTRAIT */
-.portrait-wrap { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 16px; }
-.portrait-img {
-  width: 80px; height: 80px; border-radius: 50%;
-  border: 2px solid var(--border); object-fit: cover;
-  background: var(--surface2); flex-shrink: 0;
-}
-
-/* SETTINGS */
-.token-wrap { display: flex; gap: 8px; }
-.token-wrap input { flex: 1; }
-.instructions { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
-.instructions h4 { color: var(--accent); margin-bottom: 10px; font-size: 0.9rem; }
-.instructions ol { padding-right: 20px; }
-.instructions li { font-size: 0.83rem; color: var(--text-dim); margin-bottom: 6px; line-height: 1.5; }
-.instructions li a { color: var(--info); text-decoration: none; }
-.instructions li a:hover { text-decoration: underline; }
-.instructions code { background: var(--bg); padding: 1px 5px; border-radius: 4px; font-size: 0.8rem; color: var(--accent); }
-
-/* BOTTOM NAV */
-#bottom-nav {
-  display: none; position: fixed; bottom: 0; left: 0; right: 0;
-  height: var(--bottomnav-h); background: var(--surface);
-  border-top: 1px solid var(--border); z-index: 200;
-}
-#bottom-nav .bn-items { display: flex; height: 100%; align-items: stretch; }
-#bottom-nav .bn-item {
-  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 2px; text-decoration: none; color: var(--text-dim); font-size: 0.62rem; font-weight: 600;
-  padding: 6px 4px; transition: color 0.15s;
-  background: none; border: none; cursor: pointer; font-family: 'Heebo', sans-serif;
-}
-#bottom-nav .bn-item .bn-icon { font-size: 1.3rem; }
-#bottom-nav .bn-item.active { color: var(--accent); }
-
-/* SECTION HEADER */
-.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.section-header h2 { font-size: 1.1rem; font-weight: 800; color: var(--text); }
-.section-header .actions { display: flex; gap: 8px; }
-
-/* LANG TABS */
-.lang-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
-.lang-tab {
-  padding: 8px 18px; font-family: 'Heebo', sans-serif; font-size: 0.85rem; font-weight: 600;
-  background: none; border: none; border-bottom: 2px solid transparent;
-  color: var(--text-dim); cursor: pointer; transition: all 0.15s; margin-bottom: -1px;
-}
-.lang-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-
-/* UPLOAD AREA */
-.upload-area {
-  border: 2px dashed var(--border); border-radius: 8px; padding: 20px;
-  text-align: center; color: var(--text-dim); font-size: 0.83rem;
-  cursor: pointer; transition: border-color 0.15s;
-}
-.upload-area:hover { border-color: var(--accent); color: var(--text); }
-
-/* GALLERY GRID */
-.gallery-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px;
-}
-.gallery-item {
-  background: var(--surface2); border: 1px solid var(--border);
-  border-radius: 8px; overflow: hidden;
-}
-.gallery-item .gi-img {
-  position: relative; aspect-ratio: 1; background: var(--bg); overflow: hidden;
-}
-.gallery-item .gi-img img { width: 100%; height: 100%; object-fit: cover; }
-.gallery-item .gi-del {
-  position: absolute; top: 6px; left: 6px;
-  background: rgba(248,81,73,0.85); border: none; border-radius: 5px;
-  padding: 3px 7px; color: #fff; cursor: pointer; font-size: 0.8rem;
-}
-.gallery-item .gi-body { padding: 8px; }
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  #sidebar { display: none; }
-  #topbar .tb-brand { display: block; }
-  #main { margin-right: 0; padding: 16px 14px calc(var(--bottomnav-h) + 16px); }
-  #bottom-nav { display: block; }
-  #toast-container { bottom: calc(var(--bottomnav-h) + 14px); }
-  .grid-2 { grid-template-columns: 1fr; }
-  .grid-3 { grid-template-columns: 1fr; }
-  .stats-grid { grid-template-columns: repeat(3, 1fr); }
-}
-@media (min-width: 769px) {
-  #bottom-nav { display: none; }
-  #toast-container { bottom: 20px; }
-}
-@media (max-width: 480px) {
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-}
+  /* ===== SCROLLBAR ===== */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--brd); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--txm); }
 </style>
 </head>
 <body>
 
-<!-- Progress Bar -->
-<div id="progress-bar-wrap"><div id="progress-bar"></div></div>
-
-<!-- Top Bar -->
-<header id="topbar">
-  <span class="tb-brand">גל אור BO</span>
-  <span class="tb-title" id="top-title">בית</span>
-  <div class="tb-actions">
-    <button class="btn btn-ghost btn-sm" onclick="loadFromGitHub()">☁️ טען</button>
-    <button class="btn btn-primary btn-sm" onclick="saveToGitHub()">🚀 שמור</button>
-  </div>
-</header>
-
-<!-- Sidebar -->
+<!-- SIDEBAR -->
 <aside id="sidebar">
-  <div class="sb-logo">
-    <span>BackOffice</span>
-    <strong>גל אור מכוני רנטגן</strong>
-  </div>
-  <nav id="sidebar-nav">
-    <a href="#" class="active" data-sec="home"><span class="nav-icon">🏠</span> בית</a>
-    <a href="#" data-sec="profile"><span class="nav-icon">👤</span> פרופיל</a>
-    <a href="#" data-sec="articles"><span class="nav-icon">✍️</span> מאמרים</a>
-    <a href="#" data-sec="services"><span class="nav-icon">🩻</span> שירותים</a>
-    <a href="#" data-sec="guides"><span class="nav-icon">📚</span> מדריכים</a>
-    <a href="#" data-sec="branches"><span class="nav-icon">📍</span> סניפים</a>
-    <a href="#" data-sec="gallery"><span class="nav-icon">🖼️</span> גלריה</a>
-    <a href="#" data-sec="agreements"><span class="nav-icon">🤝</span> הסכמים</a>
-    <a href="#" data-sec="settings"><span class="nav-icon">⚙️</span> הגדרות</a>
+  <div class="sb-brand">גל אור · בק-אופיס</div>
+  <nav>
+    <a onclick="go('home')" class="active">🏠 בית</a>
+    <a onclick="go('profile')">👤 פרופיל</a>
+    <a onclick="go('articles')">✍️ מאמרים</a>
+    <a onclick="go('services')">🩻 שירותים</a>
+    <a onclick="go('guides')">📚 מדריכים</a>
+    <a onclick="go('branches')">📍 סניפים</a>
+    <a onclick="go('gallery')">🖼️ גלריה</a>
+    <a onclick="go('agreements')">🤝 הסכמים</a>
+    <a onclick="go('settings')">⚙️ הגדרות</a>
   </nav>
   <div class="sb-footer">
-    <a href="#" id="sb-preview-link" target="_blank">👁 תצוגה מקדימה</a><br>
-    <span style="margin-top:4px;display:block;">גרסה 1.0.0</span>
+    <a href="index.html" target="_blank">👁️ תצוגה מקדימה</a>
   </div>
 </aside>
 
-<!-- Main Content -->
+<!-- MAIN -->
 <main id="main">
 
-  <!-- HOME -->
-  <section id="sec-home" class="section active">
-    <div class="section-header"><h2>🏠 לוח בקרה</h2></div>
-    <div class="stats-grid">
-      <div class="stat-card"><div class="stat-icon">✍️</div><div class="stat-num" id="st-articles">–</div><div class="stat-label">מאמרים</div></div>
-      <div class="stat-card"><div class="stat-icon">🩻</div><div class="stat-num" id="st-services">–</div><div class="stat-label">שירותים</div></div>
-      <div class="stat-card"><div class="stat-icon">📚</div><div class="stat-num" id="st-guides">–</div><div class="stat-label">מדריכים</div></div>
-      <div class="stat-card"><div class="stat-icon">📍</div><div class="stat-num" id="st-branches">–</div><div class="stat-label">סניפים</div></div>
-      <div class="stat-card"><div class="stat-icon">🖼️</div><div class="stat-num" id="st-gallery">–</div><div class="stat-label">גלריה</div></div>
-      <div class="stat-card"><div class="stat-icon">🤝</div><div class="stat-num" id="st-agreements">–</div><div class="stat-label">הסכמים</div></div>
-    </div>
-    <div class="card">
-      <div class="card-title">📋 הוראות שימוש</div>
-      <div class="instructions">
-        <h4>שלבים לעריכה ופרסום:</h4>
-        <ol>
-          <li>הגדר את <strong>טוקן GitHub</strong> בדף ⚙️ הגדרות</li>
-          <li>לחץ <strong>☁️ טען</strong> בסרגל העליון לטעינת הנתונים מ-GitHub</li>
-          <li>ערוך את הנתונים בכל אחד מהדפים</li>
-          <li>לחץ <strong>🚀 שמור</strong> לשמירה ופרסום אוטומטי ב-GitHub Pages</li>
-        </ol>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title">🔗 קישורים מהירים</div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        <a id="ql-site" href="#" target="_blank" class="btn btn-ghost btn-sm">🌐 האתר החי</a>
-        <a id="ql-repo" href="#" target="_blank" class="btn btn-ghost btn-sm">🐙 GitHub Repo</a>
-        <button class="btn btn-ghost btn-sm" onclick="navigate('settings')">⚙️ הגדרות GitHub</button>
-      </div>
-    </div>
-    <div id="home-status" class="card" style="display:none;">
-      <div class="card-title">📡 סטטוס אחרון</div>
-      <div id="home-status-content" style="font-size:0.85rem;color:var(--text-dim);"></div>
-    </div>
-  </section>
+  <!-- TOPBAR -->
+  <div id="topbar">
+    <div id="page-title">בית</div>
+    <button onclick="loadGH()" id="btn-load">☁️ טען</button>
+    <button onclick="saveGH()" class="btn-save">🚀 שמור</button>
+  </div>
 
-  <!-- PROFILE -->
-  <section id="sec-profile" class="section">
-    <div class="section-header"><h2>👤 פרופיל</h2></div>
-    <div class="card">
-      <div class="card-title">תמונת פרופיל</div>
-      <div class="portrait-wrap">
-        <img id="portrait-preview" class="portrait-img" src="" alt="portrait"
-          onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 80 80%22%3E%3Crect fill=%22%23161b22%22 width=%2280%22 height=%2280%22/%3E%3Ctext y=%2250%22 x=%2240%22 text-anchor=%22middle%22 font-size=%2236%22%3E%F0%9F%91%A4%3C/text%3E%3C/svg%3E'">
-        <div style="flex:1;">
-          <div class="form-group">
-            <label>העלה תמונה חדשה (תוחלף כ: images/avi.jpg)</label>
-            <input type="file" accept="image/*" onchange="uploadPortrait(this)" style="color:var(--text-dim);font-size:0.82rem;background:transparent;border:none;padding:0;">
-          </div>
-          <div id="portrait-upload-status" style="font-size:0.78rem;color:var(--text-dim);margin-top:4px;"></div>
-        </div>
-      </div>
+  <!-- PAGE: HOME -->
+  <div id="page-home" class="page">
+    <div class="page-header">
+      <h2>🏠 לוח בקרה</h2>
     </div>
-    <div class="card">
-      <div class="card-title">פרטים אישיים</div>
-      <div class="grid-2">
-        <div class="form-group"><label>שם (עברית)</label><input id="p-nameHe" oninput="if(S.data)S.data.person.nameHe=this.value" placeholder="אבי גולדפרב"></div>
-        <div class="form-group"><label>שם (אנגלית)</label><input id="p-nameEn" oninput="if(S.data)S.data.person.nameEn=this.value" placeholder="Avi Goldfarb" dir="ltr"></div>
-        <div class="form-group"><label>תפקיד (עברית)</label><input id="p-jobHe" oninput="if(S.data)S.data.person.jobHe=this.value" placeholder='מנכ"ל הרשת'></div>
-        <div class="form-group"><label>תפקיד (אנגלית)</label><input id="p-jobEn" oninput="if(S.data)S.data.person.jobEn=this.value" placeholder="CEO, Gal Or Network" dir="ltr"></div>
-        <div class="form-group"><label>חברה (עברית)</label><input id="p-companyHe" oninput="if(S.data)S.data.person.companyHe=this.value" placeholder="גל אור מכוני רנטגן בע״מ"></div>
-        <div class="form-group"><label>חברה (אנגלית)</label><input id="p-companyEn" oninput="if(S.data)S.data.person.companyEn=this.value" placeholder="Gal Or X-Ray Centers Ltd." dir="ltr"></div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title">פרטי קשר</div>
-      <div class="grid-2">
-        <div class="form-group"><label>טלפון נייד</label><input id="p-mobile" oninput="if(S.data)S.data.person.mobilePhone=this.value" placeholder="0527474949" dir="ltr"></div>
-        <div class="form-group"><label>טלפון רשת</label><input id="p-network" oninput="if(S.data)S.data.person.networkPhone=this.value" placeholder="0747840744" dir="ltr"></div>
-        <div class="form-group"><label>WhatsApp (עם קידומת בינלאומית)</label><input id="p-wa" oninput="if(S.data)S.data.person.waPhone=this.value" placeholder="972527474949" dir="ltr"></div>
-        <div class="form-group"><label>אימייל</label><input id="p-email" type="email" oninput="if(S.data)S.data.person.email=this.value" placeholder="avigoldfarb1@gmail.com" dir="ltr"></div>
-        <div class="form-group" style="grid-column:1/-1;"><label>אתר אינטרנט</label><input id="p-website" oninput="if(S.data)S.data.person.website=this.value" placeholder="https://galorx-ray.co.il" dir="ltr"></div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title">AnyDesk</div>
-      <div class="form-group"><label>מזהה AnyDesk</label><input id="p-anydesk" oninput="if(S.data&&S.data.anydesk)S.data.anydesk.id=this.value" placeholder="123 456 789" dir="ltr"></div>
-    </div>
-    <div class="card">
-      <div class="card-title">תוכן טקסטואלי — עברית</div>
-      <div class="form-group"><label>Tagline</label><input id="t-tagline-he" oninput="if(S.tHe)S.tHe.tagline=this.value" placeholder="טקסט קצר..."></div>
-      <div class="form-group"><label>אודות</label><textarea id="t-about-he" oninput="if(S.tHe)S.tHe.about=this.value" placeholder="תיאור קצר..."></textarea></div>
-    </div>
-    <div class="card">
-      <div class="card-title">תוכן טקסטואלי — English</div>
-      <div class="form-group"><label>Tagline</label><input id="t-tagline-en" oninput="if(S.tEn)S.tEn.tagline=this.value" placeholder="Short text..." dir="ltr"></div>
-      <div class="form-group"><label>About</label><textarea id="t-about-en" oninput="if(S.tEn)S.tEn.about=this.value" placeholder="Short description..." dir="ltr"></textarea></div>
-    </div>
-  </section>
+    <div id="home-stats" class="stats-grid"></div>
+    <div id="home-info"></div>
+  </div>
 
-  <!-- ARTICLES -->
-  <section id="sec-articles" class="section">
-    <div class="section-header">
+  <!-- PAGE: PROFILE -->
+  <div id="page-profile" class="page">
+    <div class="page-header">
+      <h2>👤 פרופיל</h2>
+    </div>
+    <div id="list-profile"></div>
+  </div>
+
+  <!-- PAGE: ARTICLES -->
+  <div id="page-articles" class="page">
+    <div class="page-header">
       <h2>✍️ מאמרים</h2>
-      <div class="actions">
-        <button class="btn btn-ghost btn-sm" onclick="addArticle()">+ הוסף מאמר</button>
-      </div>
+      <button class="btn-add" onclick="addArticle()">+ הוסף מאמר</button>
     </div>
-    <div id="articles-list"></div>
-  </section>
+    <div id="list-articles"></div>
+  </div>
 
-  <!-- SERVICES -->
-  <section id="sec-services" class="section">
-    <div class="section-header">
+  <!-- PAGE: SERVICES -->
+  <div id="page-services" class="page">
+    <div class="page-header">
       <h2>🩻 שירותים</h2>
-      <div class="actions">
-        <button class="btn btn-ghost btn-sm" id="btn-add-service" onclick="addCurrentService()">+ הוסף שירות</button>
+    </div>
+    <div class="card">
+      <h3>שירותים בעברית</h3>
+      <div style="margin-bottom:12px">
+        <button class="btn-add" onclick="addService('he')">+ הוסף שירות</button>
       </div>
+      <div id="list-services-he"></div>
     </div>
-    <div class="lang-tabs">
-      <button class="lang-tab active" onclick="switchServLang('he',this)">עברית</button>
-      <button class="lang-tab" onclick="switchServLang('en',this)">English</button>
+    <div class="card">
+      <h3>Services in English</h3>
+      <div style="margin-bottom:12px">
+        <button class="btn-add" onclick="addService('en')">+ Add Service</button>
+      </div>
+      <div id="list-services-en"></div>
     </div>
-    <div id="services-he"></div>
-    <div id="services-en" style="display:none;"></div>
-  </section>
+  </div>
 
-  <!-- GUIDES -->
-  <section id="sec-guides" class="section">
-    <div class="section-header">
+  <!-- PAGE: GUIDES -->
+  <div id="page-guides" class="page">
+    <div class="page-header">
       <h2>📚 מדריכים</h2>
-      <div class="actions">
-        <button class="btn btn-ghost btn-sm" onclick="addGuide()">+ הוסף מדריך</button>
-      </div>
+      <button class="btn-add" onclick="addGuide()">+ הוסף מדריך</button>
     </div>
-    <div id="guides-list"></div>
-  </section>
+    <div id="list-guides"></div>
+  </div>
 
-  <!-- BRANCHES -->
-  <section id="sec-branches" class="section">
-    <div class="section-header">
+  <!-- PAGE: BRANCHES -->
+  <div id="page-branches" class="page">
+    <div class="page-header">
       <h2>📍 סניפים</h2>
-      <div class="actions">
-        <button class="btn btn-ghost btn-sm" onclick="addBranch()">+ הוסף סניף</button>
-      </div>
+      <button class="btn-add" onclick="addBranch()">+ הוסף סניף</button>
     </div>
-    <div id="branches-list"></div>
-  </section>
+    <div id="list-branches"></div>
+  </div>
 
-  <!-- GALLERY -->
-  <section id="sec-gallery" class="section">
-    <div class="section-header">
+  <!-- PAGE: GALLERY -->
+  <div id="page-gallery" class="page">
+    <div class="page-header">
       <h2>🖼️ גלריה</h2>
-      <div class="actions">
-        <button class="btn btn-ghost btn-sm" onclick="addGalleryItem()">+ הוסף ידנית</button>
-      </div>
+      <button class="btn-add" onclick="addPhoto()">+ הוסף תמונה</button>
     </div>
-    <div class="card">
-      <div class="card-title">העלאת תמונה חדשה</div>
-      <input type="file" accept="image/*" id="gallery-file-input" style="display:none;" onchange="handleGalleryUpload(this)">
-      <div class="upload-area" onclick="document.getElementById('gallery-file-input').click()">
-        📷 לחץ להעלאת תמונה לגלריה
-      </div>
-    </div>
-    <div id="gallery-list" class="gallery-grid"></div>
-  </section>
+    <div id="list-gallery"></div>
+  </div>
 
-  <!-- AGREEMENTS -->
-  <section id="sec-agreements" class="section">
-    <div class="section-header">
+  <!-- PAGE: AGREEMENTS -->
+  <div id="page-agreements" class="page">
+    <div class="page-header">
       <h2>🤝 הסכמים</h2>
-      <div class="actions">
-        <button class="btn btn-ghost btn-sm" onclick="addAgreement()">+ הוסף הסכם</button>
-      </div>
+      <button class="btn-add" onclick="addAgreement()">+ הוסף הסכם</button>
     </div>
-    <div id="agreements-list"></div>
-  </section>
+    <div id="list-agreements"></div>
+  </div>
 
-  <!-- SETTINGS -->
-  <section id="sec-settings" class="section">
-    <div class="section-header"><h2>⚙️ הגדרות</h2></div>
-    <div class="card">
-      <div class="card-title">🔑 GitHub Token</div>
-      <div class="form-group">
-        <label>Personal Access Token (repo scope)</label>
-        <div class="token-wrap">
-          <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" dir="ltr">
-          <button class="btn btn-ghost btn-sm" onclick="toggleToken()" title="הצג/הסתר">👁</button>
-        </div>
-      </div>
-      <div class="grid-3">
-        <div class="form-group"><label>Owner (שם משתמש)</label><input id="gh-owner" value="avigoldfarb1" dir="ltr"></div>
-        <div class="form-group"><label>Repo (שם ריפו)</label><input id="gh-repo" value="gal-or-card" dir="ltr"></div>
-        <div class="form-group"><label>File (נתיב קובץ)</label><input id="gh-file" value="index.html" dir="ltr"></div>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <button class="btn btn-ghost btn-sm" onclick="saveGhSettings()">💾 שמור הגדרות</button>
-        <button class="btn btn-ghost btn-sm" onclick="testConnection()">🔌 בדוק חיבור</button>
-      </div>
-      <div id="conn-status" style="margin-top:10px;font-size:0.82rem;"></div>
+  <!-- PAGE: SETTINGS -->
+  <div id="page-settings" class="page">
+    <div class="page-header">
+      <h2>⚙️ הגדרות</h2>
     </div>
+
     <div class="card">
-      <div class="card-title">📖 הוראות יצירת Token</div>
-      <div class="instructions">
-        <ol>
-          <li>היכנס ל-<a href="https://github.com" target="_blank">github.com</a> עם חשבונך</li>
-          <li>לחץ על תמונת הפרופיל (פינה ימנית עליונה) ← <strong>Settings</strong></li>
-          <li>גלול למטה עד <strong>Developer settings</strong> (בתפריט הצד)</li>
-          <li>בחר <strong>Personal access tokens</strong> ← <strong>Tokens (classic)</strong></li>
-          <li>לחץ <strong>Generate new token (classic)</strong></li>
-          <li>תן שם לטוקן: <code>gal-or-backoffice</code></li>
-          <li>סמן את <code>repo</code> (כולל כל תתי-הרשאות)</li>
-          <li>הגדר תפוגה (Expiration) לפי רצונך</li>
-          <li>לחץ <strong>Generate token</strong> — העתק מיד (לא יוצג שוב!)</li>
-          <li>הדבק בשדה Token למעלה ולחץ <strong>שמור הגדרות</strong></li>
-        </ol>
+      <h3>🔑 חיבור GitHub</h3>
+      <label class="settings-label">Personal Access Token</label>
+      <input type="password" id="gh-token" class="settings-input" placeholder="ghp_..." dir="ltr">
+      <label class="settings-label">Owner (שם משתמש)</label>
+      <input id="gh-owner" class="settings-input" value="avigoldfarb1" dir="ltr">
+      <label class="settings-label">Repository</label>
+      <input id="gh-repo" class="settings-input" value="gal-or-card" dir="ltr">
+      <label class="settings-label">קובץ להעלאה</label>
+      <input id="gh-file" class="settings-input" value="index.html" dir="ltr">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+        <button class="btn-settings" onclick="saveGHSettings()">💾 שמור הגדרות</button>
+        <button class="btn-settings" onclick="testGH()">🔌 בדוק חיבור</button>
+        <button class="btn-settings" onclick="loadGH()">☁️ טען מ-GitHub</button>
       </div>
+      <div id="gh-status" style="margin-top:12px;font-size:13px;min-height:20px;"></div>
     </div>
+
     <div class="card">
-      <div class="card-title">🚀 פרסום</div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
-        <button class="btn btn-ghost btn-sm" onclick="loadFromGitHub()">☁️ טען מ-GitHub</button>
-        <button class="btn btn-primary" onclick="saveToGitHub()">🚀 שמור ופרסם</button>
-      </div>
-      <div id="pub-log"></div>
+      <h3>🚀 פרסום לאוויר</h3>
+      <p style="font-size:13px;color:var(--txm);margin-bottom:4px">שמירת הנתונים ב-index.html ופרסום ל-GitHub Pages</p>
+      <button class="btn-big-save" onclick="saveGH()">🚀 שמור ופרסם לאוויר</button>
+      <div id="pub-log" style="font-family:monospace;font-size:12px;color:var(--txm);margin-top:12px;max-height:160px;overflow-y:auto;background:var(--sur2);border-radius:8px;padding:12px;display:none;line-height:1.7;white-space:pre-wrap;"></div>
     </div>
-  </section>
+
+    <div class="card">
+      <h3>🖥️ AnyDesk</h3>
+      <label class="settings-label">מזהה AnyDesk</label>
+      <input id="anydesk-id" class="settings-input" dir="ltr" placeholder="123 456 789"
+        oninput="DATA.anydesk.id=this.value">
+    </div>
+
+    <div class="card">
+      <h3>🔐 הוראות יצירת Token</h3>
+      <ol style="padding-right:18px;color:var(--txm);font-size:13px;line-height:2.2">
+        <li>היכנס ל-<a href="https://github.com/settings/tokens" target="_blank" style="color:var(--acc)">github.com/settings/tokens</a></li>
+        <li>לחץ <strong style="color:var(--tx)">"Generate new token (classic)"</strong></li>
+        <li>בחר פג תוקף (Expiration) לפי הצורך</li>
+        <li>סמן את: <strong style="color:var(--tx)">repo</strong> (כל הרשאות ה-repo)</li>
+        <li>לחץ <strong style="color:var(--tx)">"Generate token"</strong></li>
+        <li>העתק את ה-token והדבק למעלה</li>
+      </ol>
+    </div>
+  </div>
 
 </main>
 
-<!-- Bottom Nav (Mobile) -->
+<!-- BOTTOM NAV -->
 <nav id="bottom-nav">
-  <div class="bn-items">
-    <button class="bn-item active" data-sec="home" onclick="navigate('home')">
-      <span class="bn-icon">🏠</span>בית
-    </button>
-    <button class="bn-item" data-sec="articles" onclick="navigate('articles')">
-      <span class="bn-icon">✍️</span>מאמרים
-    </button>
-    <button class="bn-item" data-sec="services" onclick="navigate('services')">
-      <span class="bn-icon">🩻</span>שירותים
-    </button>
-    <button class="bn-item" data-sec="branches" onclick="navigate('branches')">
-      <span class="bn-icon">📍</span>סניפים
-    </button>
-    <button class="bn-item" data-sec="settings" onclick="navigate('settings')">
-      <span class="bn-icon">⚙️</span>הגדרות
-    </button>
-  </div>
+  <button onclick="go('home')" class="active">🏠<br><span style="font-size:10px">בית</span></button>
+  <button onclick="go('articles')">✍️<br><span style="font-size:10px">מאמרים</span></button>
+  <button onclick="go('services')">🩻<br><span style="font-size:10px">שירותים</span></button>
+  <button onclick="go('branches')">📍<br><span style="font-size:10px">סניפים</span></button>
+  <button onclick="go('settings')">⚙️<br><span style="font-size:10px">הגדרות</span></button>
 </nav>
 
-<!-- Toast Container -->
-<div id="toast-container"></div>
+<!-- TOAST -->
+<div id="toast"></div>
 
-<!-- Emoji Picker -->
-<div id="emoji-overlay" onclick="closeEmojiPicker()"></div>
+<!-- EMOJI PICKER -->
 <div id="emoji-picker">
-  <div class="ep-title">בחר אמוג'י</div>
-  <div class="ep-grid" id="emoji-grid"></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+    <span style="font-size:12px;color:var(--txm);font-weight:600">בחר אמוג'י</span>
+    <button onclick="closeEmoji()" style="background:none;border:none;color:var(--txm);cursor:pointer;font-size:18px;padding:0;line-height:1">✕</button>
+  </div>
+  <div class="ep-grid" id="ep-grid"></div>
+</div>
+
+<!-- MODAL CONFIRM -->
+<div id="modal-overlay" onclick="closeModal()">
+  <div id="modal-box" onclick="event.stopPropagation()">
+    <h3 id="modal-title">אישור מחיקה</h3>
+    <p id="modal-msg">האם למחוק את הפריט?</p>
+    <div class="modal-btns">
+      <button onclick="closeModal()">ביטול</button>
+      <button class="btn-danger" id="modal-confirm">מחק</button>
+    </div>
+  </div>
 </div>
 
 <script>
-'use strict';
-
-// ═══ STATE ═══════════════════════════════════════════════════════
-const S = {
-  data: null,
-  tHe: null,
-  tEn: null,
-  rawHtml: null,
-  sha: null,
-  gh: null,
-  currentEmojiFn: null,
-  servLang: 'he'
+/* ============================================================
+   DATA
+   ============================================================ */
+var DATA = {
+  person: {
+    nameHe: 'אבי גולדפרב',
+    nameEn: 'Avi Goldfarb',
+    jobHe: 'מנכ"ל הרשת',
+    jobEn: 'CEO, Gal Or Network',
+    companyHe: 'גל אור מכוני רנטגן בע"מ',
+    companyEn: 'Gal Or X-Ray Centers Ltd.',
+    mobilePhone: '0527474949',
+    networkPhone: '0747840744',
+    waPhone: '972527474949',
+    email: 'avigoldfarb1@gmail.com',
+    website: 'https://galorx-ray.co.il'
+  },
+  anydesk: { id: '123 456 789' },
+  branches: [
+    {
+      nameHe: 'כפר סבא', nameEn: 'Kfar Saba',
+      addrHe: 'רחוב ויצמן 83, מרכז אהרוני, קומה 1',
+      addrEn: '83 Weizmann St., Aharoni Center, Floor 1',
+      phone: '09-7469547',
+      hoursHe: "א'-ה' 9:00-19:00 | ו' 9:00-13:00",
+      hoursEn: 'Sun-Thu 9:00-19:00 | Fri 9:00-13:00',
+      maps: 'https://maps.google.com/?q=ויצמן+83+כפר+סבא',
+      wa: 'https://wa.me/972532315716'
+    },
+    {
+      nameHe: 'רעננה', nameEn: "Ra'anana",
+      addrHe: 'אחוזה 124, מרכז פוזין, קומה קרקע',
+      addrEn: '124 Ahuzah St., Pozin Center, Ground Floor',
+      phone: '09-7419068',
+      hoursHe: "א'-ה' 9:00-19:00 | ו' 9:00-13:00",
+      hoursEn: 'Sun-Thu 9:00-19:00 | Fri 9:00-13:00',
+      maps: 'https://maps.google.com/?q=אחוזה+124+רעננה',
+      wa: 'https://wa.me/972533203015'
+    },
+    {
+      nameHe: 'הוד השרון', nameEn: 'Hod HaSharon',
+      addrHe: 'סוקולוב 46, כיכר המושבה, קומה 8',
+      addrEn: '46 Sokolov St., Floor 8',
+      phone: '09-7401715',
+      hoursHe: "א'-ה' 9:00-18:00 | ו' 9:00-13:00",
+      hoursEn: 'Sun-Thu 9:00-18:00 | Fri 9:00-13:00',
+      maps: 'https://maps.google.com/?q=סוקולוב+46+הוד+השרון',
+      wa: 'https://wa.me/972533022818'
+    },
+    {
+      nameHe: 'תל מונד', nameEn: 'Tel Mond',
+      addrHe: 'רחוב הדקל 47, קומה 2, חדר 3',
+      addrEn: '47 Palm St., Floor 2, Room 3',
+      phone: '09-8844070',
+      hoursHe: "א'-ה' 9:00-19:00 | ו' 9:00-13:00",
+      hoursEn: 'Sun-Thu 9:00-19:00 | Fri 9:00-13:00',
+      maps: 'https://maps.google.com/?q=הדקל+47+תל+מונד',
+      wa: 'https://wa.me/972532315717'
+    }
+  ],
+  services: {
+    he: [
+      { icon: '🩻', title: 'צילום פנורמי', desc: 'צילום פנורמי ותיעוד פה מלא' },
+      { icon: '🔬', title: 'CT / CBCT דנטלי', desc: 'הדמיה תלת-ממדית עם ניתוח מקצועי' },
+      { icon: '😁', title: 'סט אורתודונטיה', desc: 'תכנון טיפול ומעקב התקדמות' },
+      { icon: '📱', title: 'סריקה אינטראורלית', desc: 'תיעוד דיגיטלי ללא קרינה' },
+      { icon: '🦷', title: 'צילום סטטוס', desc: 'צילומי ביקורת ותיעוד מלא' },
+      { icon: '🏃', title: 'סד ספורט מקצועי', desc: 'סדי הגנה מותאמים אישית' }
+    ],
+    en: [
+      { icon: '🩻', title: 'Panoramic X-Ray', desc: 'Panoramic X-ray and full oral documentation' },
+      { icon: '🔬', title: 'CT / CBCT Dental', desc: '3D imaging with professional analysis' },
+      { icon: '😁', title: 'Orthodontic Set', desc: 'Treatment planning and progress monitoring' },
+      { icon: '📱', title: 'Intraoral Scan', desc: 'Digital documentation without radiation' },
+      { icon: '🦷', title: 'Status X-Ray', desc: 'Full mouth X-ray series' },
+      { icon: '🏃', title: 'Sports Mouthguard', desc: 'Custom-fitted protective mouthguards' }
+    ]
+  },
+  guides: [
+    { icon: '🖥️', titleHe: 'מדריך OnDemand3D', titleEn: 'OnDemand3D Guide', subHe: 'מדריך מלא לתוכנה', subEn: 'Full software guide', href: 'ondemand3d-guide-gal-or.html' },
+    { icon: '📥', titleHe: 'התקנת Viewer', titleEn: 'Install Viewer', subHe: 'מדריך התקנת OnDemand3D', subEn: 'OnDemand3D installation guide', href: 'מדריך_גל_אור_מלא.html' },
+    { icon: '🦷', titleHe: 'מדריך פורטל רופאים', titleEn: 'Doctor Portal Guide', subHe: 'כניסה והסבר שימוש במערכת', subEn: 'Login and system usage', href: 'gal-or-doctor-guide.html' }
+  ],
+  articles: [
+    { icon: '🔬', titleHe: 'CT דנטלי (CBCT)', titleEn: 'Dental CT (CBCT)', descHe: 'כל מה שרופאי שיניים צריכים לדעת על הדמיית CBCT', descEn: 'Everything dental professionals need to know about CBCT', date: 'מרץ 2025', href: 'https://avigoldfarb1.github.io/gal-or-card/gal_or_cbct_v3.html', tags: ['CBCT', 'CT דנטלי'] },
+    { icon: '🦷', titleHe: 'צילומי שיניים ו-CBCT דנטלי', titleEn: 'Dental X-Rays and CBCT', descHe: 'מדריך מקיף על סוגי צילומי השיניים', descEn: 'A comprehensive guide to dental X-ray types', date: 'מרץ 2025', href: './צילומי שיניים ו-CBCT דנטלי _ גל אור מכוני רנטגן.html', tags: ['צילומי שיניים', 'רנטגן'] },
+    { icon: '🤰', titleHe: 'צילומי רנטגן בנשים בהריון', titleEn: 'X-Rays in Pregnant Women', descHe: 'בטיחות צילומי שיניים ו-CBCT במהלך הריון', descEn: 'Safety of dental X-rays during pregnancy', date: 'מרץ 2025', href: './צילומי רנטגן ו-CBCT דנטלי בנשים בהריון _ גל אור מכוני רנטגן.html', tags: ['הריון', 'בטיחות'] }
+  ],
+  photoSamples: [],
+  agreements: []
 };
 
-const SECTION_NAMES = {
+var GH = { token: '', owner: 'avigoldfarb1', repo: 'gal-or-card', file: 'index.html' };
+var RAW_HTML = '';
+var SHA = '';
+
+/* ============================================================
+   STYLE CONSTANTS
+   ============================================================ */
+var inp = 'width:100%;background:var(--sur);border:1px solid var(--brd);border-radius:6px;color:var(--tx);padding:8px 10px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;';
+var ta  = 'width:100%;background:var(--sur);border:1px solid var(--brd);border-radius:6px;color:var(--tx);padding:8px 10px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;resize:vertical;min-height:70px;';
+
+function h(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+var TITLES = {
   home: 'בית', profile: 'פרופיל', articles: 'מאמרים',
   services: 'שירותים', guides: 'מדריכים', branches: 'סניפים',
   gallery: 'גלריה', agreements: 'הסכמים', settings: 'הגדרות'
 };
 
-const EMOJIS = [
-  '🩻','🏥','💊','🩺','🔬','🧬','🩹','❤️‍🩹','🫀','🫁','🧠','🦷','🦴',
-  '💉','🩸','🩼','♿','🧪','🔭','📋','📊','📈','🏆','⭐','✨','🌟',
-  '💡','🎯','🎓','📚','📖','📝','✍️','🖊️','📌','📍','📅','⏰','🕐',
-  '📞','📱','💻','🖥️','🖨️','📡','🔐','🔑','🏠','🏢','🏗️','🌐',
-  '✅','❌','⚠️','ℹ️','🔔','💬','📣','🎉','🎊','👍','🤝','👋',
-  '💪','🧘','🏃','🚶','👨‍⚕️','👩‍⚕️','🧑‍⚕️','👶','🧒','👦','👧','🧑',
-  '🌿','🍃','🌱','🔵','🟡','🟢','🔴','⚕️','🩻','🏅','🎖️','🥇'
-];
-
-// ═══ INIT ════════════════════════════════════════════════════════
-function initDefaultData() {
-  S.data = {
-    person: {
-      nameHe:'אבי גולדפרב', nameEn:'Avi Goldfarb',
-      jobHe:'מנכ"ל הרשת', jobEn:'CEO, Gal Or Network',
-      companyHe:'גל אור מכוני רנטגן בע"מ', companyEn:'Gal Or X-Ray Centers Ltd.',
-      mobilePhone:'0527474949', networkPhone:'0747840744',
-      waPhone:'972527474949', email:'avigoldfarb1@gmail.com',
-      website:'https://galorx-ray.co.il'
-    },
-    anydesk: { id: '123 456 789' },
-    branches: [
-      { nameHe:'כפר סבא', nameEn:'Kfar Saba', addrHe:'רחוב ויצמן 83, מרכז אהרוני, קומה 1', addrEn:'83 Weizmann St., Aharoni Center, Floor 1', phone:'0974469547', phoneDisplay:'09-7469547', hoursHe:"א'-ה' 9:00-19:00 | ו' וחגים 9:00-13:00", hoursEn:'Sun–Thu 9:00–19:00 | Fri & holidays 9:00–13:00', waze:'', maps:'https://maps.google.com/?q=ויצמן+83+כפר+סבא', wa:'https://wa.me/972532315716' },
-      { nameHe:'רעננה', nameEn:"Ra'anana", addrHe:"אחוזה 124, מרכז פוזין, קומה קרקע", addrEn:'124 Ahuzah St., Pozin Center, Ground Floor', phone:'0974190068', phoneDisplay:'09-7419068', hoursHe:"א'-ה' 9:00-19:00 | ו' וחגים 9:00-13:00", hoursEn:'Sun–Thu 9:00–19:00 | Fri & holidays 9:00–13:00', waze:'', maps:'https://maps.google.com/?q=אחוזה+124+רעננה', wa:'https://wa.me/972533203015' },
-      { nameHe:'הוד השרון', nameEn:'Hod HaSharon', addrHe:'סוקולוב 46, כיכר המושבה, קומה 8, חדר 812', addrEn:'46 Sokolov St., Kikar HaMoshava, Floor 8, Room 812', phone:'0974017015', phoneDisplay:'09-7401715', hoursHe:"א'-ה' 9:00-18:00 | ו' וחגים 9:00-13:00", hoursEn:'Sun–Thu 9:00–18:00 | Fri & holidays 9:00–13:00', waze:'', maps:'https://maps.google.com/?q=סוקולוב+46+הוד+השרון', wa:'https://wa.me/972533022818' },
-      { nameHe:'תל מונד', nameEn:'Tel Mond', addrHe:'רחוב הדקל 47, קומה 2, חדר 3, מרכז מונד', addrEn:'47 Palm St., Mond Center, Floor 2, Room 3', phone:'0988440070', phoneDisplay:'09-8844070', hoursHe:"א'-ה' 9:00-19:00 | ו' וחגים 9:00-13:00", hoursEn:'Sun–Thu 9:00–19:00 | Fri & holidays 9:00–13:00', waze:'', maps:'https://maps.google.com/?q=הדקל+47+תל+מונד', wa:'https://wa.me/972532315717' }
-    ],
-    services: {
-      he: [
-        {icon:'🩻',title:'צילום פנורמי',desc:'צילום פנורמי ותיעוד פה מלא'},
-        {icon:'🔬',title:'CT / CBCT דנטלי',desc:'הדמיה תלת-ממדית עם ניתוח מקצועי'},
-        {icon:'😁',title:'סט אורתודונטיה',desc:'תכנון טיפול ומעקב התקדמות'},
-        {icon:'📱',title:'סריקה אינטראורלית',desc:'תיעוד דיגיטלי ללא קרינה'},
-        {icon:'🦷',title:'צילום סטטוס',desc:'צילומי ביקורת ותיעוד מלא של הפה'},
-        {icon:'🏃',title:'סד ספורט מקצועי',desc:'סדי הגנה מותאמים אישית לספורטאים'}
-      ],
-      en: [
-        {icon:'🩻',title:'Panoramic X-Ray',desc:'Panoramic X-ray and full oral documentation'},
-        {icon:'🔬',title:'CT / CBCT Dental',desc:'3D imaging with professional analysis'},
-        {icon:'😁',title:'Orthodontic Set',desc:'Treatment planning and progress monitoring'},
-        {icon:'📱',title:'Intraoral Scan',desc:'Digital documentation without radiation'},
-        {icon:'🦷',title:'Status X-Ray',desc:'Full mouth X-ray series for complete documentation'},
-        {icon:'🏃',title:'Sports Mouthguard',desc:'Custom-fitted protective mouthguards for athletes'}
-      ]
-    },
-    trust: {
-      he: [
-        {icon:'🏆',num:'1982',label:'שנת הקמה',desc:'מעל 40 שנות ניסיון'},
-        {icon:'📍',num:'4',label:'סניפים',desc:'ברחבי השרון והמרכז'},
-        {icon:'⚡',num:'עדכני',label:'ציוד מתקדם',desc:'מתחדש כל 3 שנים'},
-        {icon:'🛡️',num:'מינימלית',label:'קרינה',desc:'תקנים בינלאומיים מחמירים'},
-        {icon:'⭐',num:'אישי',label:'שירות ייחודי',desc:'ליווי אישי לכל מטופל'}
-      ],
-      en: [
-        {icon:'🏆',num:'1982',label:'Founded',desc:'Over 40 years of experience'},
-        {icon:'📍',num:'4',label:'Branches',desc:'Sharon & Central Israel'},
-        {icon:'⚡',num:'Modern',label:'Equipment',desc:'Updated every 3 years'},
-        {icon:'🛡️',num:'Minimal',label:'Radiation',desc:'Strict international standards'},
-        {icon:'⭐',num:'Personal',label:'Service',desc:'Personal care for every patient'}
-      ]
-    },
-    guides: [
-      {icon:'🖥️',titleHe:'מדריך OnDemand3D',titleEn:'OnDemand3D Guide',subHe:'מדריך מלא לתוכנה',subEn:'Full software guide',href:'ondemand3d-guide-gal-or.html'},
-      {icon:'📥',titleHe:'התקנת Viewer',titleEn:'Install Viewer',subHe:'מדריך התקנת OnDemand3D',subEn:'OnDemand3D installation guide',href:'מדריך_גל_אור_מלא.html'},
-      {icon:'🦷',titleHe:'מדריך פורטל רופאים',titleEn:'Doctor Portal Guide',subHe:'כניסה והסבר שימוש במערכת',subEn:'Login and system usage',href:'gal-or-doctor-guide.html'}
-    ],
-    articles: [
-      {icon:'🔬',titleHe:'CT דנטלי (CBCT) — המדריך המקצועי השלם',titleEn:'Dental CT (CBCT) — The Complete Professional Guide',descHe:'כל מה שרופאי שיניים צריכים לדעת על הדמיית CBCT',descEn:'Everything dental professionals need to know about CBCT imaging',date:'מרץ 2025',href:'https://avigoldfarb1.github.io/gal-or-card/gal_or_cbct_v3.html',tags:['CBCT','CT דנטלי','הדמיה']},
-      {icon:'🦷',titleHe:'צילומי שיניים ו-CBCT דנטלי',titleEn:'Dental X-Rays and CBCT',descHe:'מדריך מקיף על סוגי צילומי השיניים והדמיית CBCT דנטלי',descEn:'A comprehensive guide to dental X-ray types and CBCT imaging',date:'מרץ 2025',href:'./צילומי שיניים ו-CBCT דנטלי _ גל אור מכוני רנטגן.html',tags:['צילומי שיניים','CBCT','רנטגן']},
-      {icon:'🤰',titleHe:'צילומי רנטגן ו-CBCT דנטלי בנשים בהריון',titleEn:'Dental X-Rays & CBCT in Pregnant Women',descHe:'כל מה שחשוב לדעת על בטיחות צילומי שיניים ו-CBCT במהלך הריון',descEn:'Everything important to know about dental X-ray safety during pregnancy',date:'מרץ 2025',href:'./צילומי רנטגן ו-CBCT דנטלי בנשים בהריון _ גל אור מכוני רנטגן.html',tags:['הריון','בטיחות','רנטגן']}
-    ],
-    photoSamples: [],
-    agreements: []
-  };
-}
-
-window.addEventListener('DOMContentLoaded', () => {
-  loadGhSettings();
-  initDefaultData();
-  buildEmojiGrid();
-  setupSidebarNav();
-  updateStats();
-  updateQuickLinks();
-  populateForms();
-  renderArticles();
-  renderServices();
-  renderGuides();
-  renderBranches();
-  renderGallery();
-  renderAgreements();
-
-  if (S.gh && S.gh.token) {
-    loadFromGitHub();
-  } else {
-    showToast('טיפ: טען נתונים מ-GitHub לסנכרון מלא', 'info');
-  }
-});
-
-// ═══ SETTINGS ════════════════════════════════════════════════════
-function loadGhSettings() {
-  try {
-    const raw = localStorage.getItem('gal_or_gh');
-    S.gh = raw ? JSON.parse(raw) : { token: '', owner: 'avigoldfarb1', repo: 'gal-or-card', file: 'index.html' };
-  } catch(e) {
-    S.gh = { token: '', owner: 'avigoldfarb1', repo: 'gal-or-card', file: 'index.html' };
-  }
-  const set = (id, val) => { const el = document.getElementById(id); if(el) el.value = val || ''; };
-  set('gh-token', S.gh.token);
-  set('gh-owner', S.gh.owner || 'avigoldfarb1');
-  set('gh-repo',  S.gh.repo  || 'gal-or-card');
-  set('gh-file',  S.gh.file  || 'index.html');
-}
-
-function saveGhSettings() {
-  S.gh = {
-    token: document.getElementById('gh-token').value.trim(),
-    owner: document.getElementById('gh-owner').value.trim(),
-    repo:  document.getElementById('gh-repo').value.trim(),
-    file:  document.getElementById('gh-file').value.trim()
-  };
-  localStorage.setItem('gal_or_gh', JSON.stringify(S.gh));
-  updateQuickLinks();
-  showToast('הגדרות נשמרו', 'success');
-}
-
-function updateQuickLinks() {
-  const gh = S.gh || {};
-  const owner = gh.owner || 'avigoldfarb1';
-  const repo  = gh.repo  || 'gal-or-card';
-  const siteUrl    = `https://${owner}.github.io/${repo}/`;
-  const repoUrl    = `https://github.com/${owner}/${repo}`;
-  const previewUrl = `https://${owner}.github.io/${repo}/index.html`;
-  const el = id => document.getElementById(id);
-  if(el('ql-site'))        el('ql-site').href = siteUrl;
-  if(el('ql-repo'))        el('ql-repo').href = repoUrl;
-  if(el('sb-preview-link')) el('sb-preview-link').href = previewUrl;
-}
-
-function toggleToken() {
-  const inp = document.getElementById('gh-token');
-  inp.type = inp.type === 'password' ? 'text' : 'password';
-}
-
-// ═══ NAVIGATION ══════════════════════════════════════════════════
-function setupSidebarNav() {
-  document.querySelectorAll('#sidebar-nav a').forEach(a => {
-    a.addEventListener('click', e => { e.preventDefault(); navigate(a.dataset.sec); });
+function go(sec) {
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(function(p) { p.style.display = 'none'; });
+  // Show target
+  var pg = document.getElementById('page-' + sec);
+  if (pg) pg.style.display = 'block';
+  // Title
+  document.getElementById('page-title').textContent = TITLES[sec] || sec;
+  // Active states
+  document.querySelectorAll('#sidebar nav a').forEach(function(el) {
+    el.classList.toggle('active', el.getAttribute('onclick') === "go('" + sec + "')");
   });
+  document.querySelectorAll('#bottom-nav button').forEach(function(el) {
+    el.classList.toggle('active', el.getAttribute('onclick') === "go('" + sec + "')");
+  });
+  // Render
+  render(sec);
+  closeEmoji();
 }
 
-function navigate(sec) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  const target = document.getElementById('sec-' + sec);
-  if (target) target.classList.add('active');
-  document.querySelectorAll('#sidebar-nav a').forEach(a => a.classList.toggle('active', a.dataset.sec === sec));
-  document.querySelectorAll('#bottom-nav .bn-item').forEach(b => b.classList.toggle('active', b.dataset.sec === sec));
-  const titleEl = document.getElementById('top-title');
-  if (titleEl) titleEl.textContent = SECTION_NAMES[sec] || sec;
-
-  // Render section content
+function render(sec) {
+  if (sec === 'home')       renderHome();
+  if (sec === 'profile')    renderProfile();
   if (sec === 'articles')   renderArticles();
   if (sec === 'services')   renderServices();
   if (sec === 'guides')     renderGuides();
   if (sec === 'branches')   renderBranches();
   if (sec === 'gallery')    renderGallery();
   if (sec === 'agreements') renderAgreements();
-  if (sec === 'profile')    populateForms();
-  if (sec === 'home')       updateStats();
+  if (sec === 'settings')   renderSettings();
 }
 
-// ═══ GITHUB API ══════════════════════════════════════════════════
-function ghHeaders() {
-  const gh = S.gh || {};
-  if (!gh.token) throw new Error('אין טוקן GitHub. עבור להגדרות.');
-  return {
-    'Authorization': 'token ' + gh.token,
-    'Accept': 'application/vnd.github.v3+json',
-    'Content-Type': 'application/json'
-  };
+/* ============================================================
+   TOAST
+   ============================================================ */
+var _toastTimer = null;
+function toast(msg, type) {
+  type = type || 'info';
+  var el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'show ' + type;
+  if (_toastTimer) clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(function() { el.className = ''; }, 2800);
 }
 
-function ghBase() {
-  const gh = S.gh || {};
-  return `https://api.github.com/repos/${gh.owner||'avigoldfarb1'}/${gh.repo||'gal-or-card'}/contents/`;
+/* ============================================================
+   CONFIRM MODAL
+   ============================================================ */
+function confirm2(title, msg, cb) {
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-msg').textContent = msg;
+  document.getElementById('modal-confirm').onclick = function() { closeModal(); cb(); };
+  document.getElementById('modal-overlay').style.display = 'flex';
+}
+function closeModal() {
+  document.getElementById('modal-overlay').style.display = 'none';
 }
 
-async function ghGet(path) {
-  const resp = await fetch(ghBase() + path, { headers: ghHeaders() });
-  if (!resp.ok) {
-    const err = await resp.json().catch(() => ({}));
-    throw new Error(`GitHub GET /${path}: ${resp.status} ${err.message || ''}`);
-  }
-  return resp.json();
-}
+/* ============================================================
+   EMOJI PICKER
+   ============================================================ */
+var EMOJIS = [
+  '🩻','🔬','😁','📱','🦷','🏃','🏥','💊','🧬','🫀','🫁','🧠','👁️','🦴','💉','🩹','🩺',
+  '🖥️','📥','📚','📖','📋','📄','📝','✍️','🔭','🏆','⭐','✅','❤️','💛','💙','🌟','🔥',
+  '💎','🎯','🤝','📍','🏠','👤','🖼️','⚙️','🌐','📧','📞','💬','🎨','🔑','🔒','🔐','🚀',
+  '☁️','🌍','🏢','🧑‍⚕️','👨‍⚕️','👩‍⚕️','🌸','🌺','🌻','🍀','🌈','❄️','☀️','🌙','🤰','🏋️'
+];
+var _emojiIdx = null;
+var _emojiCtx = null;
 
-async function ghPut(path, content, sha, message) {
-  // UTF-8 safe base64 encoding
-  const bytes = new TextEncoder().encode(content);
-  let binary = '';
-  bytes.forEach(b => binary += String.fromCharCode(b));
-  const b64 = btoa(binary);
-  const body = { message: message || 'update via backoffice', content: b64 };
-  if (sha) body.sha = sha;
-  const resp = await fetch(ghBase() + path, {
-    method: 'PUT', headers: ghHeaders(), body: JSON.stringify(body)
-  });
-  if (!resp.ok) {
-    const err = await resp.json().catch(() => ({}));
-    throw new Error(`GitHub PUT /${path}: ${resp.status} ${err.message || ''}`);
-  }
-  return resp.json();
-}
-
-async function ghPutBinary(path, base64Content, sha, message) {
-  const body = { message: message || 'upload via backoffice', content: base64Content };
-  if (sha) body.sha = sha;
-  const resp = await fetch(ghBase() + path, {
-    method: 'PUT', headers: ghHeaders(), body: JSON.stringify(body)
-  });
-  if (!resp.ok) {
-    const err = await resp.json().catch(() => ({}));
-    throw new Error(`GitHub PUT binary /${path}: ${resp.status} ${err.message || ''}`);
-  }
-  return resp.json();
-}
-
-function fileToBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = e => {
-      const b64 = e.target.result.split(',')[1];
-      resolve(b64);
-    };
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
-
-async function uploadFile(file, repoPath) {
-  const b64 = await fileToBase64(file);
-  let existingSha = null;
-  try {
-    const existing = await ghGet(repoPath);
-    existingSha = existing.sha;
-  } catch(e) { /* new file */ }
-  await ghPutBinary(repoPath, b64, existingSha, `upload ${file.name}`);
-  const gh = S.gh || {};
-  return `https://${gh.owner||'avigoldfarb1'}.github.io/${gh.repo||'gal-or-card'}/${repoPath}`;
-}
-
-// ═══ EXTRACT / REPLACE VAR ═══════════════════════════════════════
-function extractVar(html, varName) {
-  const marker = 'var ' + varName;
-  let idx = html.indexOf(marker);
-  if (idx === -1) throw new Error('לא נמצא ' + varName + ' ב-HTML');
-
-  // Find opening brace
-  let i = idx + marker.length;
-  while (i < html.length && html[i] !== '{') i++;
-  if (i >= html.length) throw new Error('לא נמצאה { עבור ' + varName);
-
-  const start = i;
-  let depth = 0;
-  let inStr = false;
-  let strChar = '';
-  let inTemplate = 0;
-  let escaped = false;
-  let inLineComment = false;
-  let inBlockComment = false;
-
-  for (let j = start; j < html.length; j++) {
-    const c = html[j];
-    const prev = j > 0 ? html[j-1] : '';
-
-    if (escaped) { escaped = false; continue; }
-    if (inLineComment) { if (c === '\n') inLineComment = false; continue; }
-    if (inBlockComment) { if (c === '/' && prev === '*') inBlockComment = false; continue; }
-    if (inStr) {
-      if (c === '\\') { escaped = true; continue; }
-      if (c === strChar) { inStr = false; strChar = ''; }
-      continue;
-    }
-    if (inTemplate > 0) {
-      if (c === '\\') { escaped = true; continue; }
-      if (c === '`') { inTemplate--; continue; }
-      if (c === '{' && prev === '$') { depth++; continue; }
-      continue;
-    }
-    if (c === '/' && html[j+1] === '/') { inLineComment = true; j++; continue; }
-    if (c === '/' && html[j+1] === '*') { inBlockComment = true; j++; continue; }
-    if (c === '"' || c === "'") { inStr = true; strChar = c; continue; }
-    if (c === '`') { inTemplate++; continue; }
-    if (c === '{') { depth++; }
-    else if (c === '}') {
-      depth--;
-      if (depth === 0) {
-        const objStr = html.slice(start, j + 1);
-        try {
-          const val = (new Function('return ' + objStr))();
-          return { value: val, start: idx, end: j + 1 };
-        } catch(e) {
-          throw new Error('שגיאת eval עבור ' + varName + ': ' + e.message);
-        }
-      }
-    }
-  }
-  throw new Error('לא נסגרה } עבור ' + varName);
-}
-
-function replaceVar(html, varName, newValue) {
-  const info = extractVar(html, varName);
-  const jsonStr = JSON.stringify(newValue, null, 2);
-  const marker = 'var ' + varName;
-  // Find the '=' sign after the marker
-  let eqIdx = info.start + marker.length;
-  while (eqIdx < html.length && html[eqIdx] !== '=') eqIdx++;
-  return html.slice(0, info.start) + marker + ' = ' + jsonStr + html.slice(info.end);
-}
-
-// ═══ LOAD FROM GITHUB ════════════════════════════════════════════
-async function loadFromGitHub() {
-  if (!S.gh || !S.gh.token) {
-    showToast('הגדר טוקן GitHub תחילה', 'error');
-    navigate('settings');
-    return;
-  }
-  setProgress(10);
-  pubLog('טוען מ-GitHub...', 'info');
-  showToast('טוען נתונים...', 'info');
-  try {
-    const resp = await ghGet(S.gh.file || 'index.html');
-    setProgress(40);
-
-    S.sha = resp.sha;
-
-    // UTF-8 decode
-    const binaryStr = atob(resp.content.replace(/\n/g, ''));
-    const bytes = new Uint8Array(binaryStr.length);
-    for (let i = 0; i < binaryStr.length; i++) bytes[i] = binaryStr.charCodeAt(i);
-    S.rawHtml = new TextDecoder('utf-8').decode(bytes);
-    setProgress(60);
-
-    // Extract DATA
-    const dataInfo = extractVar(S.rawHtml, 'DATA');
-    S.data = dataInfo.value;
-    pubLog('DATA נטען (' + JSON.stringify(S.data).length + ' chars)', 'ok');
-
-    // Extract T
-    try {
-      const tInfo = extractVar(S.rawHtml, 'T');
-      S.tHe = (tInfo.value.he) || {};
-      S.tEn = (tInfo.value.en) || {};
-      pubLog('T נטען בהצלחה', 'ok');
-    } catch(e) {
-      S.tHe = {};
-      S.tEn = {};
-      pubLog('אזהרה: לא נמצא T — ' + e.message, 'info');
-    }
-
-    setProgress(80);
-    ensureDefaults();
-    populateForms();
-    renderArticles();
-    renderServices();
-    renderGuides();
-    renderBranches();
-    renderGallery();
-    renderAgreements();
-    updateStats();
-    setProgress(100);
-
-    showHomeStatus('נטען בהצלחה | SHA: ' + S.sha.substring(0, 8) + '...');
-    showToast('נטען בהצלחה מ-GitHub ✓', 'success');
-    pubLog('טעינה הושלמה בהצלחה', 'ok');
-  } catch(e) {
-    setProgress(0);
-    showToast('שגיאת טעינה: ' + e.message, 'error');
-    pubLog('שגיאה: ' + e.message, 'err');
-  }
-  setTimeout(() => setProgress(0), 900);
-}
-
-function ensureDefaults() {
-  if (!S.data) S.data = {};
-  if (!S.data.person) S.data.person = {};
-  if (!S.data.anydesk) S.data.anydesk = { id: '' };
-  if (!S.data.branches) S.data.branches = [];
-  if (!S.data.services) S.data.services = { he: [], en: [] };
-  if (!S.data.services.he) S.data.services.he = [];
-  if (!S.data.services.en) S.data.services.en = [];
-  if (!S.data.trust) S.data.trust = { he: [], en: [] };
-  if (!S.data.guides) S.data.guides = [];
-  if (!S.data.articles) S.data.articles = [];
-  if (!S.data.photoSamples) S.data.photoSamples = [];
-  if (!S.data.agreements) S.data.agreements = [];
-  if (!S.tHe) S.tHe = {};
-  if (!S.tEn) S.tEn = {};
-}
-
-// ═══ SAVE TO GITHUB ══════════════════════════════════════════════
-async function saveToGitHub() {
-  if (!S.data || !S.rawHtml) {
-    showToast('טען נתונים תחילה (☁️ טען)', 'error');
-    return;
-  }
-  if (!S.gh || !S.gh.token) {
-    showToast('הגדר טוקן GitHub תחילה', 'error');
-    navigate('settings');
-    return;
-  }
-  setProgress(10);
-  pubLog('מתחיל שמירה...', 'info');
-  showToast('שומר...', 'info');
-  try {
-    collectAll();
-    syncT();
-
-    let html = S.rawHtml;
-
-    html = replaceVar(html, 'DATA', S.data);
-    pubLog('DATA הוחלף בהצלחה', 'ok');
-
-    if (S.tHe && S.tEn) {
-      try {
-        html = replaceVar(html, 'T', { he: S.tHe, en: S.tEn });
-        pubLog('T הוחלף בהצלחה', 'ok');
-      } catch(e) {
-        pubLog('אזהרה: לא הוחלף T — ' + e.message, 'info');
-      }
-    }
-
-    html = updateHeroHTML(html);
-    setProgress(50);
-
-    const now = new Date();
-    const msg = 'update via backoffice ' + now.toISOString().slice(0, 16).replace('T', ' ');
-    const result = await ghPut(S.gh.file || 'index.html', html, S.sha, msg);
-    S.sha = result.content.sha;
-    S.rawHtml = html;
-    setProgress(100);
-
-    showToast('נשמר בהצלחה ל-GitHub! 🎉', 'success');
-    pubLog('שמירה הושלמה | SHA חדש: ' + S.sha.substring(0, 8), 'ok');
-    showHomeStatus('נשמר בהצלחה | SHA: ' + S.sha.substring(0, 8) + '...');
-  } catch(e) {
-    setProgress(0);
-    showToast('שגיאת שמירה: ' + e.message, 'error');
-    pubLog('שגיאה: ' + e.message, 'err');
-  }
-  setTimeout(() => setProgress(0), 900);
-}
-
-function syncT() {
-  if (!S.tHe) S.tHe = {};
-  if (!S.tEn) S.tEn = {};
-  const p = S.data.person || {};
-  if (p.nameHe)    { S.tHe.nameMain = p.nameHe; }
-  if (p.nameEn)    { S.tEn.nameMain = p.nameEn; }
-  if (p.jobHe)     { S.tHe.jobTitle = p.jobHe; }
-  if (p.jobEn)     { S.tEn.jobTitle = p.jobEn; }
-  if (p.companyHe) { S.tHe.company  = p.companyHe; }
-  if (p.companyEn) { S.tEn.company  = p.companyEn; }
-}
-
-function updateHeroHTML(html) {
-  const p = S.data.person || {};
-  if (p.nameHe) {
-    html = html.replace(/(<[^>]+class="[^"]*name-main[^"]*"[^>]*>)[^<]*/g, '$1' + esc(p.nameHe));
-  }
-  if (p.jobHe) {
-    html = html.replace(/(<[^>]+class="[^"]*job-title[^"]*"[^>]*>)[^<]*/g, '$1' + esc(p.jobHe));
-  }
-  if (p.companyHe) {
-    html = html.replace(/(<[^>]+class="[^"]*company-nm[^"]*"[^>]*>)[^<]*/g, '$1' + esc(p.companyHe));
-  }
-  return html;
-}
-
-// ═══ COLLECT ALL ═════════════════════════════════════════════════
-function collectAll() {
-  const get = id => { const el = document.getElementById(id); return el ? el.value : ''; };
-
-  if (S.data.person) {
-    const p = S.data.person;
-    p.nameHe      = get('p-nameHe')    || p.nameHe    || '';
-    p.nameEn      = get('p-nameEn')    || p.nameEn    || '';
-    p.jobHe       = get('p-jobHe')     || p.jobHe     || '';
-    p.jobEn       = get('p-jobEn')     || p.jobEn     || '';
-    p.companyHe   = get('p-companyHe') || p.companyHe || '';
-    p.companyEn   = get('p-companyEn') || p.companyEn || '';
-    p.mobilePhone = get('p-mobile')    || p.mobilePhone || '';
-    p.networkPhone= get('p-network')   || p.networkPhone || '';
-    p.waPhone     = get('p-wa')        || p.waPhone   || '';
-    p.email       = get('p-email')     || p.email     || '';
-    p.website     = get('p-website')   || p.website   || '';
-  }
-  if (S.data.anydesk) {
-    S.data.anydesk.id = get('p-anydesk') || S.data.anydesk.id || '';
-  }
-  if (S.tHe) {
-    S.tHe.tagline = get('t-tagline-he');
-    S.tHe.about   = get('t-about-he');
-  }
-  if (S.tEn) {
-    S.tEn.tagline = get('t-tagline-en');
-    S.tEn.about   = get('t-about-en');
+function pickEmoji(idx, ctx, evt) {
+  _emojiIdx = idx;
+  _emojiCtx = ctx;
+  var grid = document.getElementById('ep-grid');
+  grid.innerHTML = EMOJIS.map(function(e) {
+    return '<button onclick="setEmoji(\'' + e + '\')">' + e + '</button>';
+  }).join('');
+  var picker = document.getElementById('emoji-picker');
+  picker.style.display = 'block';
+  picker.style.transform = '';
+  if (evt) {
+    var x = Math.min(evt.clientX, window.innerWidth - 290);
+    var y = Math.min(evt.clientY + 10, window.innerHeight - 330);
+    if (x < 10) x = 10;
+    if (y < 10) y = 10;
+    picker.style.left = x + 'px';
+    picker.style.top  = y + 'px';
+    picker.style.right = 'auto';
+    picker.style.bottom = 'auto';
+  } else {
+    picker.style.top = '50%';
+    picker.style.left = '50%';
+    picker.style.transform = 'translate(-50%,-50%)';
+    picker.style.right = 'auto';
+    picker.style.bottom = 'auto';
   }
 }
 
-// ═══ POPULATE FORMS ══════════════════════════════════════════════
-function populateForms() {
-  const p   = S.data.person || {};
-  const set = (id, val) => { const el = document.getElementById(id); if(el) el.value = val || ''; };
-
-  set('p-nameHe',    p.nameHe);
-  set('p-nameEn',    p.nameEn);
-  set('p-jobHe',     p.jobHe);
-  set('p-jobEn',     p.jobEn);
-  set('p-companyHe', p.companyHe);
-  set('p-companyEn', p.companyEn);
-  set('p-mobile',    p.mobilePhone);
-  set('p-network',   p.networkPhone);
-  set('p-wa',        p.waPhone);
-  set('p-email',     p.email);
-  set('p-website',   p.website);
-  set('p-anydesk',   (S.data.anydesk || {}).id);
-  set('t-tagline-he', (S.tHe || {}).tagline);
-  set('t-about-he',   (S.tHe || {}).about);
-  set('t-tagline-en', (S.tEn || {}).tagline);
-  set('t-about-en',   (S.tEn || {}).about);
-
-  updatePortraitPreview();
-  renderArticles();
-  renderServices();
-  renderGuides();
-  renderBranches();
-  renderGallery();
-  renderAgreements();
+function setEmoji(e) {
+  if (_emojiCtx === 'article')      { DATA.articles[_emojiIdx].icon = e; renderArticles(); }
+  else if (_emojiCtx === 'guide')   { DATA.guides[_emojiIdx].icon = e; renderGuides(); }
+  else if (_emojiCtx === 'svc-he')  { DATA.services.he[_emojiIdx].icon = e; renderServices(); }
+  else if (_emojiCtx === 'svc-en')  { DATA.services.en[_emojiIdx].icon = e; renderServices(); }
+  else if (_emojiCtx === 'agr')     { DATA.agreements[_emojiIdx].icon = e; renderAgreements(); }
+  closeEmoji();
 }
 
-function updatePortraitPreview() {
-  const gh  = S.gh || {};
-  const url = `https://${gh.owner||'avigoldfarb1'}.github.io/${gh.repo||'gal-or-card'}/images/avi.jpg?t=${Date.now()}`;
-  const img = document.getElementById('portrait-preview');
-  if (img) img.src = url;
+function closeEmoji() {
+  var p = document.getElementById('emoji-picker');
+  if (p) p.style.display = 'none';
+  _emojiIdx = null;
+  _emojiCtx = null;
 }
 
-function updateStats() {
-  const d   = S.data || {};
-  const set = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
-  set('st-articles',   (d.articles    || []).length);
-  set('st-services',   ((d.services || {}).he || []).length);
-  set('st-guides',     (d.guides      || []).length);
-  set('st-branches',   (d.branches    || []).length);
-  set('st-gallery',    (d.photoSamples|| []).length);
-  set('st-agreements', (d.agreements  || []).length);
+/* ============================================================
+   HOME
+   ============================================================ */
+function renderHome() {
+  var stats = document.getElementById('home-stats');
+  var info  = document.getElementById('home-info');
+  if (!stats || !info) return;
+
+  stats.innerHTML =
+    '<div class="stat-card"><div class="stat-num">' + DATA.branches.length     + '</div><div class="stat-label">📍 סניפים</div></div>' +
+    '<div class="stat-card"><div class="stat-num">' + DATA.articles.length     + '</div><div class="stat-label">✍️ מאמרים</div></div>' +
+    '<div class="stat-card"><div class="stat-num">' + DATA.services.he.length  + '</div><div class="stat-label">🩻 שירותים</div></div>' +
+    '<div class="stat-card"><div class="stat-num">' + DATA.guides.length       + '</div><div class="stat-label">📚 מדריכים</div></div>' +
+    '<div class="stat-card"><div class="stat-num">' + DATA.photoSamples.length + '</div><div class="stat-label">🖼️ תמונות</div></div>' +
+    '<div class="stat-card"><div class="stat-num">' + DATA.agreements.length   + '</div><div class="stat-label">🤝 הסכמים</div></div>';
+
+  var ghStatus = GH.token
+    ? '<span style="color:#3fb950">✅ Token מוגדר</span> · ' + h(GH.owner) + '/' + h(GH.repo)
+    : '<span style="color:#f85149">❌ Token לא מוגדר</span> · <a href="#" onclick="go(\'settings\');return false" style="color:var(--acc)">הגדר ב-הגדרות</a>';
+
+  info.innerHTML =
+    '<div class="card">' +
+      '<h3>👤 פרטי בעל הכרטיס</h3>' +
+      '<div style="display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:13px;align-items:center">' +
+        '<span style="color:var(--txm)">שם:</span><span style="font-weight:600">' + h(DATA.person.nameHe) + '</span>' +
+        '<span style="color:var(--txm)">תפקיד:</span><span>' + h(DATA.person.jobHe) + '</span>' +
+        '<span style="color:var(--txm)">חברה:</span><span>' + h(DATA.person.companyHe) + '</span>' +
+        '<span style="color:var(--txm)">נייד:</span><span dir="ltr">' + h(DATA.person.mobilePhone) + '</span>' +
+        '<span style="color:var(--txm)">אימייל:</span><span dir="ltr" style="font-size:12px">' + h(DATA.person.email) + '</span>' +
+      '</div>' +
+    '</div>' +
+    '<div class="card">' +
+      '<h3>🔌 סטטוס GitHub</h3>' +
+      '<div style="font-size:13px">' + ghStatus + '</div>' +
+    '</div>' +
+    '<div class="card" style="background:rgba(245,197,24,0.04);border-color:rgba(245,197,24,0.2)">' +
+      '<h3 style="color:var(--acc)">💡 קיצורי דרך</h3>' +
+      '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">' +
+        '<button onclick="go(\'profile\')" style="background:var(--sur2);border:1px solid var(--brd);border-radius:8px;color:var(--tx);padding:8px 14px;font-family:inherit;font-size:13px;cursor:pointer">👤 עריכת פרופיל</button>' +
+        '<button onclick="go(\'articles\')" style="background:var(--sur2);border:1px solid var(--brd);border-radius:8px;color:var(--tx);padding:8px 14px;font-family:inherit;font-size:13px;cursor:pointer">✍️ מאמרים</button>' +
+        '<button onclick="go(\'branches\')" style="background:var(--sur2);border:1px solid var(--brd);border-radius:8px;color:var(--tx);padding:8px 14px;font-family:inherit;font-size:13px;cursor:pointer">📍 סניפים</button>' +
+        '<button onclick="saveGH()" style="background:rgba(245,197,24,0.12);border:1px solid rgba(245,197,24,0.3);border-radius:8px;color:var(--acc);padding:8px 14px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer">🚀 פרסם לאוויר</button>' +
+      '</div>' +
+    '</div>';
 }
 
-// ═══ ARTICLES ════════════════════════════════════════════════════
+/* ============================================================
+   PROFILE
+   ============================================================ */
+function renderProfile() {
+  var el = document.getElementById('list-profile');
+  if (!el) return;
+  var p = DATA.person;
+  el.innerHTML =
+    '<div class="card">' +
+      '<h3>👤 פרטים בעברית</h3>' +
+      '<label class="field-label">שם מלא (עברית)</label>' +
+      '<input style="' + inp + '" value="' + h(p.nameHe) + '" oninput="DATA.person.nameHe=this.value">' +
+      '<label class="field-label">תפקיד (עברית)</label>' +
+      '<input style="' + inp + '" value="' + h(p.jobHe) + '" oninput="DATA.person.jobHe=this.value">' +
+      '<label class="field-label">חברה (עברית)</label>' +
+      '<input style="' + inp + '" value="' + h(p.companyHe) + '" oninput="DATA.person.companyHe=this.value">' +
+    '</div>' +
+    '<div class="card">' +
+      '<h3>Details in English</h3>' +
+      '<label class="field-label">Full Name</label>' +
+      '<input style="' + inp + '" value="' + h(p.nameEn) + '" dir="ltr" oninput="DATA.person.nameEn=this.value">' +
+      '<label class="field-label">Job Title</label>' +
+      '<input style="' + inp + '" value="' + h(p.jobEn) + '" dir="ltr" oninput="DATA.person.jobEn=this.value">' +
+      '<label class="field-label">Company</label>' +
+      '<input style="' + inp + '" value="' + h(p.companyEn) + '" dir="ltr" oninput="DATA.person.companyEn=this.value">' +
+    '</div>' +
+    '<div class="card">' +
+      '<h3>📞 פרטי יצירת קשר</h3>' +
+      '<label class="field-label">נייד</label>' +
+      '<input style="' + inp + '" value="' + h(p.mobilePhone) + '" dir="ltr" type="tel" oninput="DATA.person.mobilePhone=this.value">' +
+      '<label class="field-label">טלפון רשת</label>' +
+      '<input style="' + inp + '" value="' + h(p.networkPhone) + '" dir="ltr" type="tel" oninput="DATA.person.networkPhone=this.value">' +
+      '<label class="field-label">WhatsApp (ללא +, עם קידומת מדינה)</label>' +
+      '<input style="' + inp + '" value="' + h(p.waPhone) + '" dir="ltr" oninput="DATA.person.waPhone=this.value">' +
+      '<label class="field-label">אימייל</label>' +
+      '<input style="' + inp + '" value="' + h(p.email) + '" dir="ltr" type="email" oninput="DATA.person.email=this.value">' +
+      '<label class="field-label">אתר אינטרנט</label>' +
+      '<input style="' + inp + '" value="' + h(p.website) + '" dir="ltr" type="url" oninput="DATA.person.website=this.value">' +
+    '</div>' +
+    '<div style="padding-bottom:6px">' +
+      '<button onclick="toast(\'הפרופיל עודכן. לחץ שמור לפרסום.\',\'success\')" style="background:var(--acc);color:#000;border:none;border-radius:8px;padding:11px 22px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer">✅ אשר שינויים</button>' +
+    '</div>';
+}
+
+/* ============================================================
+   ARTICLES
+   ============================================================ */
 function renderArticles() {
-  const list = document.getElementById('articles-list');
-  if (!list || !S.data) return;
-  list.innerHTML = '';
-  (S.data.articles || []).forEach((art, i) => list.appendChild(buildArticleCard(art, i)));
-}
-
-function buildArticleCard(art, i) {
-  const div = document.createElement('div');
-  div.className = 'item-card';
-  div.id = 'art-card-' + i;
-
-  const tagsHtml = buildTagsHtml(art.tags || [], i);
-
-  div.innerHTML = `
-    <div class="item-card-header">
-      <div class="icon-btn" onclick="openEmojiPicker(function(e){S.data.articles[${i}].icon=e;this.textContent=e;}.bind(this))" title="שנה אמוג'י">${esc(art.icon || '✍️')}</div>
-      <input class="item-title" value="${esc(art.titleHe || '')}" placeholder="כותרת בעברית"
-        oninput="S.data.articles[${i}].titleHe=this.value">
-      <button class="expand-btn" onclick="toggleExpand('art-body-${i}',this)">⚙️ פרטים ▾</button>
-      <button class="del-btn" onclick="delArticle(${i})" title="מחק מאמר">🗑</button>
-    </div>
-    <div class="item-card-body" id="art-body-${i}">
-      <div class="grid-2" style="margin-top:14px;">
-        <div class="form-group">
-          <label>כותרת (עברית)</label>
-          <input value="${esc(art.titleHe || '')}"
-            oninput="S.data.articles[${i}].titleHe=this.value; var h=document.querySelector('#art-card-${i} .item-title'); if(h)h.value=this.value;">
-        </div>
-        <div class="form-group">
-          <label>Title (English)</label>
-          <input value="${esc(art.titleEn || '')}" dir="ltr"
-            oninput="S.data.articles[${i}].titleEn=this.value">
-        </div>
-        <div class="form-group">
-          <label>תיאור (עברית)</label>
-          <textarea oninput="S.data.articles[${i}].descHe=this.value">${esc(art.descHe || '')}</textarea>
-        </div>
-        <div class="form-group">
-          <label>Description (English)</label>
-          <textarea dir="ltr" oninput="S.data.articles[${i}].descEn=this.value">${esc(art.descEn || '')}</textarea>
-        </div>
-      </div>
-      <div class="grid-2">
-        <div class="form-group">
-          <label>תאריך</label>
-          <input value="${esc(art.date || '')}" dir="ltr"
-            oninput="S.data.articles[${i}].date=this.value">
-        </div>
-        <div class="form-group">
-          <label>קישור / URL</label>
-          <div class="input-row">
-            <input id="art-href-${i}" value="${esc(art.href || '')}" dir="ltr"
-              oninput="S.data.articles[${i}].href=this.value">
-            <label class="btn btn-ghost btn-xs" style="cursor:pointer;white-space:nowrap;flex-shrink:0;" title="העלה קובץ PDF/HTML">
-              📎
-              <input type="file" accept=".pdf,.html" style="display:none;"
-                onchange="uploadArticleFile(${i},this)">
-            </label>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>תגיות (הוסף עם Enter)</label>
-        <div class="tags-wrap" id="tags-wrap-${i}">
-          ${tagsHtml}
-          <input class="tags-input" placeholder="הוסף תגית..."
-            onkeydown="addTag(event,${i})">
-        </div>
-      </div>
-    </div>`;
-  return div;
-}
-
-function buildTagsHtml(tags, i) {
-  return (tags || []).map((t, ti) =>
-    `<span class="tag-chip">${esc(t)}<button type="button" onclick="removeTag(${i},${ti})">×</button></span>`
-  ).join('');
-}
-
-function addTag(e, i) {
-  if (e.key !== 'Enter' && e.key !== ',') return;
-  e.preventDefault();
-  const val = e.target.value.trim().replace(/,$/,'');
-  if (!val) return;
-  if (!S.data.articles[i].tags) S.data.articles[i].tags = [];
-  S.data.articles[i].tags.push(val);
-  e.target.value = '';
-  refreshTags(i);
-}
-
-function removeTag(i, ti) {
-  S.data.articles[i].tags.splice(ti, 1);
-  refreshTags(i);
-}
-
-function refreshTags(i) {
-  const wrap = document.getElementById('tags-wrap-' + i);
-  if (!wrap) return;
-  const inputEl = wrap.querySelector('.tags-input');
-  const saved = inputEl ? inputEl.value : '';
-  wrap.innerHTML = buildTagsHtml(S.data.articles[i].tags || [], i) +
-    `<input class="tags-input" placeholder="הוסף תגית..." onkeydown="addTag(event,${i})">`;
-  const newInput = wrap.querySelector('.tags-input');
-  if (newInput) { newInput.value = saved; newInput.focus(); }
+  var el = document.getElementById('list-articles');
+  if (!el) return;
+  if (!DATA.articles.length) {
+    el.innerHTML = '<div class="card" style="text-align:center;color:var(--txm);padding:30px 20px">אין מאמרים. לחץ &quot;הוסף מאמר&quot; כדי להתחיל.</div>';
+    return;
+  }
+  var html = '';
+  for (var i = 0; i < DATA.articles.length; i++) {
+    var a = DATA.articles[i];
+    html +=
+      '<div style="background:var(--sur2);border:1px solid var(--brd);border-radius:12px;padding:16px;margin-bottom:12px;border-right:3px solid var(--acc)">' +
+        '<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:12px">' +
+          '<button onclick="pickEmoji(' + i + ',\'article\',event)" title="בחר אמוג\'י" style="font-size:24px;background:var(--sur);border:1px solid var(--brd);border-radius:8px;width:42px;height:42px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:0">' + h(a.icon || '📄') + '</button>' +
+          '<input style="' + inp + 'font-weight:700;font-size:14px;flex:1;" value="' + h(a.titleHe || '') + '" placeholder="כותרת בעברית" oninput="DATA.articles[' + i + '].titleHe=this.value">' +
+          '<button onclick="delArticle(' + i + ')" style="flex-shrink:0;background:rgba(248,81,73,0.08);color:#f85149;border:1px solid rgba(248,81,73,0.25);border-radius:7px;padding:7px 10px;cursor:pointer;font-size:13px;height:38px">🗑</button>' +
+        '</div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">' +
+          '<div>' +
+            '<label style="font-size:11px;color:var(--txm);display:block;margin-bottom:4px;font-weight:500">Title (English)</label>' +
+            '<input style="' + inp + '" value="' + h(a.titleEn || '') + '" dir="ltr" placeholder="Article title" oninput="DATA.articles[' + i + '].titleEn=this.value">' +
+          '</div>' +
+          '<div>' +
+            '<label style="font-size:11px;color:var(--txm);display:block;margin-bottom:4px;font-weight:500">תאריך</label>' +
+            '<input style="' + inp + '" value="' + h(a.date || '') + '" placeholder="מרץ 2025" oninput="DATA.articles[' + i + '].date=this.value">' +
+          '</div>' +
+          '<div style="grid-column:1/-1">' +
+            '<label style="font-size:11px;color:var(--txm);display:block;margin-bottom:4px;font-weight:500">תיאור (עברית)</label>' +
+            '<textarea style="' + ta + '" placeholder="תיאור קצר של המאמר..." oninput="DATA.articles[' + i + '].descHe=this.value">' + h(a.descHe || '') + '</textarea>' +
+          '</div>' +
+          '<div style="grid-column:1/-1">' +
+            '<label style="font-size:11px;color:var(--txm);display:block;margin-bottom:4px;font-weight:500">Description (English)</label>' +
+            '<textarea style="' + ta + '" dir="ltr" placeholder="Short description..." oninput="DATA.articles[' + i + '].descEn=this.value">' + h(a.descEn || '') + '</textarea>' +
+          '</div>' +
+          '<div style="grid-column:1/-1">' +
+            '<label style="font-size:11px;color:var(--txm);display:block;margin-bottom:4px;font-weight:500">קישור URL</label>' +
+            '<input style="' + inp + '" value="' + h(a.href || '') + '" dir="ltr" placeholder="https://..." oninput="DATA.articles[' + i + '].href=this.value">' +
+          '</div>' +
+          '<div style="grid-column:1/-1">' +
+            '<label style="font-size:11px;color:var(--txm);display:block;margin-bottom:4px;font-weight:500">תגיות (מופרדות בפסיק)</label>' +
+            '<input style="' + inp + '" value="' + h((a.tags || []).join(', ')) + '" placeholder="CBCT, CT דנטלי" oninput="DATA.articles[' + i + '].tags=this.value.split(\',\').map(function(t){return t.trim();}).filter(Boolean)">' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+  }
+  el.innerHTML = html;
 }
 
 function addArticle() {
-  if (!S.data) { showToast('טען נתונים תחילה', 'error'); return; }
-  const today = new Date().toISOString().slice(0, 10);
-  S.data.articles.unshift({
-    icon: '✍️', titleHe: 'מאמר חדש', titleEn: 'New Article',
-    descHe: '', descEn: '', date: today, href: '', tags: []
-  });
+  DATA.articles.push({ icon: '📄', titleHe: '', titleEn: '', descHe: '', descEn: '', date: '', href: '', tags: [] });
   renderArticles();
-  updateStats();
-  showToast('מאמר חדש נוסף', 'success');
-  // Auto-expand first card
-  setTimeout(() => {
-    const body = document.getElementById('art-body-0');
-    const btn  = document.querySelector('#art-card-0 .expand-btn');
-    if (body && btn) { body.classList.add('open'); btn.textContent = '⚙️ פרטים ▴'; }
-  }, 50);
+  toast('מאמר חדש נוסף', 'success');
 }
 
 function delArticle(i) {
-  if (!confirm('למחוק את המאמר "' + (S.data.articles[i].titleHe || '') + '"?')) return;
-  S.data.articles.splice(i, 1);
-  renderArticles();
-  updateStats();
-  showToast('מאמר נמחק', 'info');
+  var name = DATA.articles[i].titleHe || 'מאמר ללא שם';
+  confirm2('מחיקת מאמר', 'האם למחוק את "' + name + '"?', function() {
+    DATA.articles.splice(i, 1);
+    renderArticles();
+    toast('מאמר נמחק', 'info');
+  });
 }
 
-async function uploadArticleFile(i, input) {
-  const file = input.files[0];
-  if (!file) return;
-  showToast('מעלה קובץ...', 'info');
-  try {
-    const url = await uploadFile(file, 'uploads/' + file.name);
-    S.data.articles[i].href = url;
-    const hrefInp = document.getElementById('art-href-' + i);
-    if (hrefInp) hrefInp.value = url;
-    showToast('הקובץ הועלה ✓', 'success');
-    pubLog('הועלה: ' + url, 'ok');
-  } catch(e) {
-    showToast('שגיאת העלאה: ' + e.message, 'error');
-    pubLog('שגיאת העלאה: ' + e.message, 'err');
-  }
-  input.value = '';
-}
-
-// ═══ SERVICES ════════════════════════════════════════════════════
-function switchServLang(lang, btn) {
-  S.servLang = lang;
-  document.querySelectorAll('.lang-tab').forEach(t => t.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  document.getElementById('services-he').style.display = lang === 'he' ? '' : 'none';
-  document.getElementById('services-en').style.display = lang === 'en' ? '' : 'none';
-}
-
-function addCurrentService() { addService(S.servLang); }
-
+/* ============================================================
+   SERVICES
+   ============================================================ */
 function renderServices() {
-  renderServiceLang('he');
-  renderServiceLang('en');
+  renderServicesList('he');
+  renderServicesList('en');
 }
 
-function renderServiceLang(lang) {
-  const container = document.getElementById('services-' + lang);
-  if (!container || !S.data) return;
-  container.innerHTML = '';
-  const items = ((S.data.services || {})[lang]) || [];
-  items.forEach((svc, i) => container.appendChild(buildServiceCard(svc, i, lang)));
-}
-
-function buildServiceCard(svc, i, lang) {
-  const div = document.createElement('div');
-  div.className = 'item-card';
-  const isHe = lang === 'he';
-  div.innerHTML = `
-    <div class="item-card-header">
-      <div class="icon-btn" onclick="openEmojiPicker(function(e){S.data.services['${lang}'][${i}].icon=e;this.textContent=e;}.bind(this))">${esc(svc.icon || '🩻')}</div>
-      <input class="item-title" value="${esc(svc.title || '')}" placeholder="${isHe ? 'כותרת שירות' : 'Service title'}" ${isHe ? '' : 'dir="ltr"'}
-        oninput="S.data.services['${lang}'][${i}].title=this.value">
-      <button class="expand-btn" onclick="toggleExpand('svc-body-${lang}-${i}',this)">⚙️ ▾</button>
-      <button class="del-btn" onclick="delService('${lang}',${i})">🗑</button>
-    </div>
-    <div class="item-card-body" id="svc-body-${lang}-${i}">
-      <div class="form-group" style="margin-top:12px;">
-        <label>תיאור / Description</label>
-        <textarea ${isHe ? '' : 'dir="ltr"'} oninput="S.data.services['${lang}'][${i}].desc=this.value">${esc(svc.desc || '')}</textarea>
-      </div>
-    </div>`;
-  return div;
+function renderServicesList(lang) {
+  var el = document.getElementById('list-services-' + lang);
+  if (!el) return;
+  var list = DATA.services[lang];
+  var isHe = (lang === 'he');
+  if (!list.length) {
+    el.innerHTML = '<div style="color:var(--txm);font-size:13px;padding:8px 0">' + (isHe ? 'אין שירותים. לחץ "הוסף שירות".' : 'No services. Click "Add Service".') + '</div>';
+    return;
+  }
+  var html = '';
+  for (var i = 0; i < list.length; i++) {
+    var s = list[i];
+    html +=
+      '<div style="background:var(--sur2);border:1px solid var(--brd);border-radius:10px;padding:12px;margin-bottom:8px;display:flex;gap:8px;align-items:center">' +
+        '<button onclick="pickEmoji(' + i + ',\'svc-' + lang + '\',event)" title="בחר אמוג\'י" style="font-size:20px;background:var(--sur);border:1px solid var(--brd);border-radius:7px;width:36px;height:36px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:0">' + h(s.icon || '🩻') + '</button>' +
+        '<input style="' + inp + 'font-weight:600;flex:1;" value="' + h(s.title || '') + '" placeholder="' + (isHe ? 'שם שירות' : 'Service name') + '" dir="' + (isHe ? 'rtl' : 'ltr') + '" oninput="DATA.services[\'' + lang + '\'][' + i + '].title=this.value">' +
+        '<input style="' + inp + 'flex:1;" value="' + h(s.desc || '') + '" placeholder="' + (isHe ? 'תיאור' : 'Description') + '" dir="' + (isHe ? 'rtl' : 'ltr') + '" oninput="DATA.services[\'' + lang + '\'][' + i + '].desc=this.value">' +
+        '<button onclick="delService(\'' + lang + '\',' + i + ')" style="flex-shrink:0;background:rgba(248,81,73,0.08);color:#f85149;border:1px solid rgba(248,81,73,0.25);border-radius:7px;padding:6px 8px;cursor:pointer;font-size:12px">🗑</button>' +
+      '</div>';
+  }
+  el.innerHTML = html;
 }
 
 function addService(lang) {
-  if (!S.data) { showToast('טען נתונים תחילה', 'error'); return; }
-  if (!S.data.services) S.data.services = { he: [], en: [] };
-  if (!S.data.services[lang]) S.data.services[lang] = [];
-  S.data.services[lang].push({ icon: '🩻', title: lang === 'he' ? 'שירות חדש' : 'New Service', desc: '' });
-  renderServiceLang(lang);
-  updateStats();
-  showToast('שירות חדש נוסף', 'success');
+  DATA.services[lang].push({ icon: '🩻', title: '', desc: '' });
+  renderServices();
+  toast('שירות חדש נוסף', 'success');
 }
 
 function delService(lang, i) {
-  if (!confirm('למחוק שירות זה?')) return;
-  S.data.services[lang].splice(i, 1);
-  renderServiceLang(lang);
-  updateStats();
-  showToast('שירות נמחק', 'info');
+  var name = DATA.services[lang][i].title || 'שירות ללא שם';
+  confirm2('מחיקת שירות', 'האם למחוק את "' + name + '"?', function() {
+    DATA.services[lang].splice(i, 1);
+    renderServices();
+    toast('שירות נמחק', 'info');
+  });
 }
 
-// ═══ GUIDES ══════════════════════════════════════════════════════
+/* ============================================================
+   GUIDES
+   ============================================================ */
 function renderGuides() {
-  const list = document.getElementById('guides-list');
-  if (!list || !S.data) return;
-  list.innerHTML = '';
-  (S.data.guides || []).forEach((g, i) => list.appendChild(buildGuideCard(g, i)));
-}
-
-function buildGuideCard(g, i) {
-  const div = document.createElement('div');
-  div.className = 'item-card';
-  div.innerHTML = `
-    <div class="item-card-header">
-      <div class="icon-btn" onclick="openEmojiPicker(function(e){S.data.guides[${i}].icon=e;this.textContent=e;}.bind(this))">${esc(g.icon || '📚')}</div>
-      <input class="item-title" value="${esc(g.titleHe || '')}" placeholder="כותרת (עברית)"
-        oninput="S.data.guides[${i}].titleHe=this.value">
-      <button class="expand-btn" onclick="toggleExpand('guide-body-${i}',this)">⚙️ ▾</button>
-      <button class="del-btn" onclick="delGuide(${i})">🗑</button>
-    </div>
-    <div class="item-card-body" id="guide-body-${i}">
-      <div class="grid-2" style="margin-top:12px;">
-        <div class="form-group">
-          <label>כותרת (עברית)</label>
-          <input value="${esc(g.titleHe || '')}" oninput="S.data.guides[${i}].titleHe=this.value">
-        </div>
-        <div class="form-group">
-          <label>Title (English)</label>
-          <input value="${esc(g.titleEn || '')}" dir="ltr" oninput="S.data.guides[${i}].titleEn=this.value">
-        </div>
-        <div class="form-group">
-          <label>כתובית (עברית)</label>
-          <input value="${esc(g.subHe || '')}" oninput="S.data.guides[${i}].subHe=this.value">
-        </div>
-        <div class="form-group">
-          <label>Subtitle (English)</label>
-          <input value="${esc(g.subEn || '')}" dir="ltr" oninput="S.data.guides[${i}].subEn=this.value">
-        </div>
-      </div>
-      <div class="form-group">
-        <label>קישור / URL</label>
-        <div class="input-row">
-          <input id="guide-href-${i}" value="${esc(g.href || '')}" dir="ltr"
-            oninput="S.data.guides[${i}].href=this.value">
-          <label class="btn btn-ghost btn-xs" style="cursor:pointer;flex-shrink:0;" title="העלה קובץ">
-            📎
-            <input type="file" accept=".pdf,.html" style="display:none;"
-              onchange="uploadGuideFile(${i},this)">
-          </label>
-        </div>
-      </div>
-    </div>`;
-  return div;
+  var el = document.getElementById('list-guides');
+  if (!el) return;
+  if (!DATA.guides.length) {
+    el.innerHTML = '<div class="card" style="text-align:center;color:var(--txm);padding:30px">אין מדריכים. לחץ "הוסף מדריך".</div>';
+    return;
+  }
+  var html = '';
+  for (var i = 0; i < DATA.guides.length; i++) {
+    var g = DATA.guides[i];
+    html +=
+      '<div style="background:var(--sur2);border:1px solid var(--brd);border-radius:12px;padding:16px;margin-bottom:10px;border-right:3px solid #58a6ff">' +
+        '<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:12px">' +
+          '<button onclick="pickEmoji(' + i + ',\'guide\',event)" title="בחר אמוג\'י" style="font-size:22px;background:var(--sur);border:1px solid var(--brd);border-radius:8px;width:40px;height:40px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:0">' + h(g.icon || '📖') + '</button>' +
+          '<input style="' + inp + 'font-weight:700;flex:1;" value="' + h(g.titleHe || '') + '" placeholder="כותרת בעברית" oninput="DATA.guides[' + i + '].titleHe=this.value">' +
+          '<button onclick="delGuide(' + i + ')" style="flex-shrink:0;background:rgba(248,81,73,0.08);color:#f85149;border:1px solid rgba(248,81,73,0.25);border-radius:7px;padding:7px 10px;cursor:pointer;font-size:13px;height:38px">🗑</button>' +
+        '</div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">' +
+          '<div>' +
+            '<label style="font-size:11px;color:var(--txm);display:block;margin-bottom:4px">Title (English)</label>' +
+            '<input style="' + inp + '" value="' + h(g.titleEn || '') + '" dir="ltr" placeholder="Guide title" oninput="DATA.guides[' + i + '].titleEn=this.value">' +
+          '</div>' +
+          '<div>' +
+            '<label style="font-size:11px;color:var(--txm);display:block;margin-bottom:4px">קובץ (href)</label>' +
+            '<input style="' + inp + '" value="' + h(g.href || '') + '" dir="ltr" placeholder="guide.html" oninput="DATA.guides[' + i + '].href=this.value">' +
+          '</div>' +
+          '<div>' +
+            '<label style="font-size:11px;color:var(--txm);display:block;margin-bottom:4px">תת-כותרת (עברית)</label>' +
+            '<input style="' + inp + '" value="' + h(g.subHe || '') + '" placeholder="תיאור קצר" oninput="DATA.guides[' + i + '].subHe=this.value">' +
+          '</div>' +
+          '<div>' +
+            '<label style="font-size:11px;color:var(--txm);display:block;margin-bottom:4px">Subtitle (English)</label>' +
+            '<input style="' + inp + '" value="' + h(g.subEn || '') + '" dir="ltr" placeholder="Short description" oninput="DATA.guides[' + i + '].subEn=this.value">' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+  }
+  el.innerHTML = html;
 }
 
 function addGuide() {
-  if (!S.data) { showToast('טען נתונים תחילה', 'error'); return; }
-  S.data.guides.push({ icon: '📚', titleHe: 'מדריך חדש', titleEn: 'New Guide', subHe: '', subEn: '', href: '' });
+  DATA.guides.push({ icon: '📖', titleHe: '', titleEn: '', subHe: '', subEn: '', href: '' });
   renderGuides();
-  updateStats();
-  showToast('מדריך חדש נוסף', 'success');
+  toast('מדריך חדש נוסף', 'success');
 }
 
 function delGuide(i) {
-  if (!confirm('למחוק מדריך זה?')) return;
-  S.data.guides.splice(i, 1);
-  renderGuides();
-  updateStats();
-  showToast('מדריך נמחק', 'info');
+  var name = DATA.guides[i].titleHe || 'מדריך ללא שם';
+  confirm2('מחיקת מדריך', 'האם למחוק את "' + name + '"?', function() {
+    DATA.guides.splice(i, 1);
+    renderGuides();
+    toast('מדריך נמחק', 'info');
+  });
 }
 
-async function uploadGuideFile(i, input) {
-  const file = input.files[0];
-  if (!file) return;
-  showToast('מעלה קובץ...', 'info');
-  try {
-    const url = await uploadFile(file, 'uploads/' + file.name);
-    S.data.guides[i].href = url;
-    const el = document.getElementById('guide-href-' + i);
-    if (el) el.value = url;
-    showToast('הקובץ הועלה ✓', 'success');
-    pubLog('הועלה: ' + url, 'ok');
-  } catch(e) {
-    showToast('שגיאת העלאה: ' + e.message, 'error');
-    pubLog('שגיאה: ' + e.message, 'err');
-  }
-  input.value = '';
-}
-
-// ═══ BRANCHES ════════════════════════════════════════════════════
+/* ============================================================
+   BRANCHES
+   ============================================================ */
 function renderBranches() {
-  const list = document.getElementById('branches-list');
-  if (!list || !S.data) return;
-  list.innerHTML = '';
-  (S.data.branches || []).forEach((b, i) => list.appendChild(buildBranchCard(b, i)));
-}
-
-function buildBranchCard(b, i) {
-  const div = document.createElement('div');
-  div.className = 'branch-card';
-  div.id = 'branch-card-' + i;
-  div.innerHTML = `
-    <div class="branch-header">
-      <span class="branch-title" id="branch-title-${i}">📍 סניף ${i + 1}${b.nameHe ? ': ' + esc(b.nameHe) : ''}</span>
-      <button class="btn btn-danger btn-xs" onclick="delBranch(${i})">🗑 מחק</button>
-    </div>
-    <div class="grid-2">
-      <div class="form-group">
-        <label>שם (עברית)</label>
-        <input value="${esc(b.nameHe || '')}"
-          oninput="S.data.branches[${i}].nameHe=this.value; var t=document.getElementById('branch-title-${i}'); if(t) t.textContent='📍 סניף ${i+1}: '+this.value;">
-      </div>
-      <div class="form-group">
-        <label>Name (English)</label>
-        <input value="${esc(b.nameEn || '')}" dir="ltr"
-          oninput="S.data.branches[${i}].nameEn=this.value">
-      </div>
-      <div class="form-group">
-        <label>כתובת (עברית)</label>
-        <input value="${esc(b.addrHe || '')}"
-          oninput="S.data.branches[${i}].addrHe=this.value">
-      </div>
-      <div class="form-group">
-        <label>Address (English)</label>
-        <input value="${esc(b.addrEn || '')}" dir="ltr"
-          oninput="S.data.branches[${i}].addrEn=this.value">
-      </div>
-      <div class="form-group">
-        <label>טלפון</label>
-        <input value="${esc(b.phone || '')}" dir="ltr"
-          oninput="S.data.branches[${i}].phone=this.value">
-      </div>
-      <div class="form-group">
-        <label>תצוגת טלפון</label>
-        <input value="${esc(b.phoneDisplay || '')}" dir="ltr"
-          oninput="S.data.branches[${i}].phoneDisplay=this.value">
-      </div>
-      <div class="form-group">
-        <label>שעות (עברית)</label>
-        <input value="${esc(b.hoursHe || '')}"
-          oninput="S.data.branches[${i}].hoursHe=this.value">
-      </div>
-      <div class="form-group">
-        <label>Hours (English)</label>
-        <input value="${esc(b.hoursEn || '')}" dir="ltr"
-          oninput="S.data.branches[${i}].hoursEn=this.value">
-      </div>
-      <div class="form-group">
-        <label>Waze URL</label>
-        <input value="${esc(b.waze || '')}" dir="ltr"
-          oninput="S.data.branches[${i}].waze=this.value">
-      </div>
-      <div class="form-group">
-        <label>Google Maps URL</label>
-        <input value="${esc(b.maps || '')}" dir="ltr"
-          oninput="S.data.branches[${i}].maps=this.value">
-      </div>
-      <div class="form-group">
-        <label>WhatsApp (עם קידומת)</label>
-        <input value="${esc(b.wa || '')}" dir="ltr" placeholder="972501234567"
-          oninput="S.data.branches[${i}].wa=this.value">
-      </div>
-    </div>`;
-  return div;
+  var el = document.getElementById('list-branches');
+  if (!el) return;
+  if (!DATA.branches.length) {
+    el.innerHTML = '<div class="card" style="text-align:center;color:var(--txm);padding:30px">אין סניפים. לחץ "הוסף סניף".</div>';
+    return;
+  }
+  var html = '';
+  for (var i = 0; i < DATA.branches.length; i++) {
+    var b = DATA.branches[i];
+    html +=
+      '<div style="background:var(--sur2);border:1px solid var(--brd);border-radius:12px;padding:16px;margin-bottom:12px;border-right:3px solid var(--acc)">' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">' +
+          '<strong style="color:var(--acc);font-size:15px">📍 ' + h(b.nameHe || 'סניף ' + (i + 1)) + '</strong>' +
+          '<button onclick="delBranch(' + i + ')" style="background:rgba(248,81,73,0.08);color:#f85149;border:1px solid rgba(248,81,73,0.25);border-radius:7px;padding:7px 12px;cursor:pointer;font-size:13px;font-weight:600">🗑 הסר</button>' +
+        '</div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">' +
+          '<div>' +
+            '<label style="font-size:11px;color:var(--txm);display:block;margin-bottom:4px;font-weight:500">שם סניף (עברית)</label>' +
+            '<input style="' + inp + '" value="' + h(b.nameHe || '') + '" placeholder="כפר סבא" oninput="DATA.branches[' + i + '].nameHe=this.value">' +
+          '</div>' +
+          '<div>' +
+            '<label style="font-size:11px;color:var(--txm);display:block;margin-bottom:4px;font-weight:500">Branch Name (English)</label>' +
+            '<input style="' + inp + '" value="' + h(b.nameEn || '') + '" dir="ltr" placeholder="Kfar Saba" oninput="DATA.branches[' + i + '].nameEn=this.value">' +
+          '</div>' +
+          '<div>' +
+            '<label style="font-size:11px;color:var(--txm);display:block;margin-bottom:4px;font-weight:500">כתובת (עברית)</label>' +
+            '<input style="' + inp + '" value="' + h(b.addrHe || '') + '" placeholder="רחוב ויצמן 83..." oninput="DATA.branches[' + i + '].addrHe=this.value">' +
+          '</div>' +
+          '<div>' +
+            '<label style="font-size:11px;color:var(--txm);display:block;margin-bottom:4px;font-weight:500">Address (English)</label>' +
+            '<input style="' + inp + '" value="' + h(b.addrEn || '') + '" dir="ltr" placeholder="83 Weizmann St..." oninput="DATA.branches[' + i + '].addrEn=this.value">' +
+          '</div>' +
+          '<div>' +
+            '<label style="font-size:11px;color:var(--txm);display:block;margin-bottom:4px;font-weight:500">טלפון</label>' +
+            '<input style="' + inp + '" value="' + h(b.phone || '') + '" dir="ltr" type="tel" placeholder="09-XXXXXXX" oninput="DATA.branches[' + i + '].phone=this.value">' +
+          '</div>' +
+          '<div>' +
+            '<label style="font-size:11px;color:var(--txm);display:block;margin-bottom:4px;font-weight:500">WhatsApp URL</label>' +
+            '<input style="' + inp + '" value="' + h(b.wa || '') + '" dir="ltr" placeholder="https://wa.me/972..." oninput="DATA.branches[' + i + '].wa=this.value">' +
+          '</div>' +
+          '<div>' +
+            '<label style="font-size:11px;color:var(--txm);display:block;margin-bottom:4px;font-weight:500">שעות פתיחה (עברית)</label>' +
+            '<input style="' + inp + '" value="' + h(b.hoursHe || '') + '" placeholder="א\'-ה\' 9:00-19:00" oninput="DATA.branches[' + i + '].hoursHe=this.value">' +
+          '</div>' +
+          '<div>' +
+            '<label style="font-size:11px;color:var(--txm);display:block;margin-bottom:4px;font-weight:500">Hours (English)</label>' +
+            '<input style="' + inp + '" value="' + h(b.hoursEn || '') + '" dir="ltr" placeholder="Sun-Thu 9:00-19:00" oninput="DATA.branches[' + i + '].hoursEn=this.value">' +
+          '</div>' +
+          '<div style="grid-column:1/-1">' +
+            '<label style="font-size:11px;color:var(--txm);display:block;margin-bottom:4px;font-weight:500">קישור מפה (Google Maps URL)</label>' +
+            '<input style="' + inp + '" value="' + h(b.maps || '') + '" dir="ltr" placeholder="https://maps.google.com/?q=..." oninput="DATA.branches[' + i + '].maps=this.value">' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+  }
+  el.innerHTML = html;
 }
 
 function addBranch() {
-  if (!S.data) { showToast('טען נתונים תחילה', 'error'); return; }
-  S.data.branches.push({
-    nameHe: 'סניף חדש', nameEn: 'New Branch',
-    addrHe: '', addrEn: '', phone: '', phoneDisplay: '',
-    hoursHe: '', hoursEn: '', waze: '', maps: '', wa: ''
-  });
+  DATA.branches.push({ nameHe: '', nameEn: '', addrHe: '', addrEn: '', phone: '', hoursHe: '', hoursEn: '', maps: '', wa: '' });
   renderBranches();
-  updateStats();
-  showToast('סניף חדש נוסף', 'success');
+  toast('סניף חדש נוסף', 'success');
 }
 
 function delBranch(i) {
-  const name = (S.data.branches[i] || {}).nameHe || 'סניף';
-  if (!confirm('למחוק את "' + name + '"?')) return;
-  S.data.branches.splice(i, 1);
-  renderBranches();
-  updateStats();
-  showToast('סניף נמחק', 'info');
-}
-
-// ═══ GALLERY ═════════════════════════════════════════════════════
-function renderGallery() {
-  const list = document.getElementById('gallery-list');
-  if (!list || !S.data) return;
-  list.innerHTML = '';
-  (S.data.photoSamples || []).forEach((item, i) => {
-    const div = document.createElement('div');
-    div.className = 'gallery-item';
-    const src = item.src || item.href || '';
-    div.innerHTML = `
-      <div class="gi-img">
-        <img src="${esc(src)}" alt="" onerror="this.style.opacity='0.3'">
-        <button class="gi-del" onclick="delGalleryItem(${i})">🗑</button>
-      </div>
-      <div class="gi-body">
-        <div class="form-group">
-          <label>URL תמונה</label>
-          <input value="${esc(src)}" dir="ltr" style="font-size:0.72rem;"
-            oninput="S.data.photoSamples[${i}].src=this.value;S.data.photoSamples[${i}].href=this.value">
-        </div>
-      </div>`;
-    list.appendChild(div);
+  var name = DATA.branches[i].nameHe || 'סניף ללא שם';
+  confirm2('מחיקת סניף', 'האם למחוק את סניף "' + name + '"?', function() {
+    DATA.branches.splice(i, 1);
+    renderBranches();
+    toast('סניף נמחק', 'info');
   });
 }
 
-function addGalleryItem() {
-  if (!S.data) { showToast('טען נתונים תחילה', 'error'); return; }
-  S.data.photoSamples.push({ src: '', href: '', alt: '' });
-  renderGallery();
-  updateStats();
+/* ============================================================
+   GALLERY
+   ============================================================ */
+function renderGallery() {
+  var el = document.getElementById('list-gallery');
+  if (!el) return;
+  if (!DATA.photoSamples.length) {
+    el.innerHTML =
+      '<div class="card" style="text-align:center;padding:30px">' +
+        '<div style="font-size:40px;margin-bottom:12px">🖼️</div>' +
+        '<div style="color:var(--txm);font-size:14px;margin-bottom:16px">אין תמונות בגלריה. הוסף תמונות באמצעות URL.</div>' +
+        '<button class="btn-add" onclick="addPhoto()">+ הוסף תמונה</button>' +
+      '</div>';
+    return;
+  }
+  var html = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px">';
+  for (var i = 0; i < DATA.photoSamples.length; i++) {
+    var p = DATA.photoSamples[i];
+    html +=
+      '<div style="background:var(--sur2);border:1px solid var(--brd);border-radius:10px;overflow:hidden">' +
+        (p.url
+          ? '<img src="' + h(p.url) + '" style="width:100%;height:120px;object-fit:cover;display:block" onerror="this.style.display=\'none\'">'
+          : '<div style="width:100%;height:120px;background:var(--sur);display:flex;align-items:center;justify-content:center;font-size:30px">🖼️</div>'
+        ) +
+        '<div style="padding:10px">' +
+          '<input style="' + inp + 'margin-bottom:6px;font-size:12px;" value="' + h(p.caption || '') + '" placeholder="כיתוב תמונה" oninput="DATA.photoSamples[' + i + '].caption=this.value">' +
+          '<input style="' + inp + 'font-size:11px;color:var(--txm);" value="' + h(p.url || '') + '" placeholder="URL תמונה" dir="ltr" oninput="DATA.photoSamples[' + i + '].url=this.value;renderGallery()">' +
+          '<button onclick="delPhoto(' + i + ')" style="width:100%;margin-top:6px;background:rgba(248,81,73,0.08);color:#f85149;border:1px solid rgba(248,81,73,0.25);border-radius:6px;padding:6px;cursor:pointer;font-size:12px">🗑 הסר</button>' +
+        '</div>' +
+      '</div>';
+  }
+  html += '</div>';
+  el.innerHTML = html;
 }
 
-function delGalleryItem(i) {
-  if (!confirm('למחוק תמונה זו מהגלריה?')) return;
-  S.data.photoSamples.splice(i, 1);
+function addPhoto() {
+  DATA.photoSamples.push({ url: '', caption: '' });
   renderGallery();
-  updateStats();
-  showToast('תמונה נמחקה', 'info');
+  toast('תמונה חדשה נוספה', 'success');
 }
 
-async function handleGalleryUpload(input) {
-  const file = input.files[0];
-  if (!file) return;
-  showToast('מעלה תמונה...', 'info');
-  try {
-    const ts = Date.now();
-    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-    const repoPath = 'images/' + ts + '_' + safeName;
-    const url = await uploadFile(file, repoPath);
-    if (!S.data) S.data = { photoSamples: [] };
-    if (!S.data.photoSamples) S.data.photoSamples = [];
-    S.data.photoSamples.push({ src: url, href: url, alt: safeName });
+function delPhoto(i) {
+  confirm2('מחיקת תמונה', 'האם למחוק תמונה זו?', function() {
+    DATA.photoSamples.splice(i, 1);
     renderGallery();
-    updateStats();
-    showToast('תמונה הועלתה ✓', 'success');
-    pubLog('גלריה: הועלתה ' + url, 'ok');
-  } catch(e) {
-    showToast('שגיאת העלאה: ' + e.message, 'error');
-    pubLog('שגיאה: ' + e.message, 'err');
-  }
-  input.value = '';
+    toast('תמונה נמחקה', 'info');
+  });
 }
 
-async function uploadPortrait(input) {
-  const file = input.files[0];
-  if (!file) return;
-  const statusEl = document.getElementById('portrait-upload-status');
-  if (statusEl) statusEl.textContent = 'מעלה...';
-  showToast('מעלה תמונת פרופיל...', 'info');
-  try {
-    await uploadFile(file, 'images/avi.jpg');
-    showToast('תמונת פרופיל עודכנה ✓', 'success');
-    if (statusEl) statusEl.textContent = 'הועלה בהצלחה ✓';
-    pubLog('פרופיל: הועלה images/avi.jpg', 'ok');
-    setTimeout(() => updatePortraitPreview(), 1500);
-  } catch(e) {
-    showToast('שגיאת העלאה: ' + e.message, 'error');
-    if (statusEl) statusEl.textContent = 'שגיאה: ' + e.message;
-  }
-  input.value = '';
-}
-
-// ═══ AGREEMENTS ══════════════════════════════════════════════════
+/* ============================================================
+   AGREEMENTS
+   ============================================================ */
 function renderAgreements() {
-  const list = document.getElementById('agreements-list');
-  if (!list || !S.data) return;
-  list.innerHTML = '';
-  (S.data.agreements || []).forEach((ag, i) => list.appendChild(buildAgreementCard(ag, i)));
-}
-
-function buildAgreementCard(ag, i) {
-  const div = document.createElement('div');
-  div.className = 'item-card';
-  const logoHtml = ag.logo
-    ? `<img src="${esc(ag.logo)}" style="width:28px;height:28px;object-fit:contain;border-radius:4px;" onerror="this.style.display='none'">`
-    : '🤝';
-  div.innerHTML = `
-    <div class="item-card-header">
-      <div class="icon-btn" style="overflow:hidden;">${logoHtml}</div>
-      <input class="item-title" value="${esc(ag.nameHe || '')}" placeholder="שם ההסכם (עברית)"
-        oninput="S.data.agreements[${i}].nameHe=this.value">
-      <button class="expand-btn" onclick="toggleExpand('ag-body-${i}',this)">⚙️ ▾</button>
-      <button class="del-btn" onclick="delAgreement(${i})">🗑</button>
-    </div>
-    <div class="item-card-body" id="ag-body-${i}">
-      <div class="grid-2" style="margin-top:12px;">
-        <div class="form-group">
-          <label>שם (עברית)</label>
-          <input value="${esc(ag.nameHe || '')}" oninput="S.data.agreements[${i}].nameHe=this.value">
-        </div>
-        <div class="form-group">
-          <label>Name (English)</label>
-          <input value="${esc(ag.nameEn || '')}" dir="ltr" oninput="S.data.agreements[${i}].nameEn=this.value">
-        </div>
-        <div class="form-group">
-          <label>תיאור (עברית)</label>
-          <textarea oninput="S.data.agreements[${i}].descHe=this.value">${esc(ag.descHe || '')}</textarea>
-        </div>
-        <div class="form-group">
-          <label>Description (English)</label>
-          <textarea dir="ltr" oninput="S.data.agreements[${i}].descEn=this.value">${esc(ag.descEn || '')}</textarea>
-        </div>
-        <div class="form-group">
-          <label>Logo URL</label>
-          <input value="${esc(ag.logo || '')}" dir="ltr" oninput="S.data.agreements[${i}].logo=this.value">
-        </div>
-        <div class="form-group">
-          <label>Image URL</label>
-          <input value="${esc(ag.img || '')}" dir="ltr" oninput="S.data.agreements[${i}].img=this.value">
-        </div>
-        <div class="form-group" style="grid-column:1/-1;">
-          <label>קישור / URL</label>
-          <input value="${esc(ag.href || '')}" dir="ltr" oninput="S.data.agreements[${i}].href=this.value">
-        </div>
-      </div>
-    </div>`;
-  return div;
+  var el = document.getElementById('list-agreements');
+  if (!el) return;
+  if (!DATA.agreements.length) {
+    el.innerHTML =
+      '<div class="card" style="text-align:center;padding:30px">' +
+        '<div style="font-size:40px;margin-bottom:12px">🤝</div>' +
+        '<div style="color:var(--txm);font-size:14px;margin-bottom:16px">אין הסכמים. הוסף הסכם חדש.</div>' +
+        '<button class="btn-add" onclick="addAgreement()">+ הוסף הסכם</button>' +
+      '</div>';
+    return;
+  }
+  var html = '';
+  for (var i = 0; i < DATA.agreements.length; i++) {
+    var a = DATA.agreements[i];
+    html +=
+      '<div style="background:var(--sur2);border:1px solid var(--brd);border-radius:12px;padding:16px;margin-bottom:10px;border-right:3px solid #3fb950">' +
+        '<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:12px">' +
+          '<button onclick="pickEmoji(' + i + ',\'agr\',event)" title="בחר אמוג\'י" style="font-size:22px;background:var(--sur);border:1px solid var(--brd);border-radius:8px;width:40px;height:40px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:0">' + h(a.icon || '🤝') + '</button>' +
+          '<input style="' + inp + 'font-weight:700;flex:1;" value="' + h(a.titleHe || '') + '" placeholder="שם ההסכם (עברית)" oninput="DATA.agreements[' + i + '].titleHe=this.value">' +
+          '<button onclick="delAgreement(' + i + ')" style="flex-shrink:0;background:rgba(248,81,73,0.08);color:#f85149;border:1px solid rgba(248,81,73,0.25);border-radius:7px;padding:7px 10px;cursor:pointer;font-size:13px;height:38px">🗑</button>' +
+        '</div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">' +
+          '<div>' +
+            '<label style="font-size:11px;color:var(--txm);display:block;margin-bottom:4px">Title (English)</label>' +
+            '<input style="' + inp + '" value="' + h(a.titleEn || '') + '" dir="ltr" placeholder="Agreement title" oninput="DATA.agreements[' + i + '].titleEn=this.value">' +
+          '</div>' +
+          '<div>' +
+            '<label style="font-size:11px;color:var(--txm);display:block;margin-bottom:4px">תאריך</label>' +
+            '<input style="' + inp + '" value="' + h(a.date || '') + '" placeholder="ינואר 2025" oninput="DATA.agreements[' + i + '].date=this.value">' +
+          '</div>' +
+          '<div style="grid-column:1/-1">' +
+            '<label style="font-size:11px;color:var(--txm);display:block;margin-bottom:4px">קישור (URL)</label>' +
+            '<input style="' + inp + '" value="' + h(a.href || '') + '" dir="ltr" placeholder="https://..." oninput="DATA.agreements[' + i + '].href=this.value">' +
+          '</div>' +
+          '<div style="grid-column:1/-1">' +
+            '<label style="font-size:11px;color:var(--txm);display:block;margin-bottom:4px">הערות</label>' +
+            '<textarea style="' + ta + '" placeholder="הערות על ההסכם..." oninput="DATA.agreements[' + i + '].notes=this.value">' + h(a.notes || '') + '</textarea>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+  }
+  el.innerHTML = html;
 }
 
 function addAgreement() {
-  if (!S.data) { showToast('טען נתונים תחילה', 'error'); return; }
-  S.data.agreements.push({ nameHe: 'הסכם חדש', nameEn: 'New Agreement', logo: '', img: '', descHe: '', descEn: '', href: '' });
+  DATA.agreements.push({ icon: '🤝', titleHe: '', titleEn: '', date: '', href: '', notes: '' });
   renderAgreements();
-  updateStats();
-  showToast('הסכם חדש נוסף', 'success');
+  toast('הסכם חדש נוסף', 'success');
 }
 
 function delAgreement(i) {
-  const name = (S.data.agreements[i] || {}).nameHe || 'הסכם';
-  if (!confirm('למחוק את "' + name + '"?')) return;
-  S.data.agreements.splice(i, 1);
-  renderAgreements();
-  updateStats();
-  showToast('הסכם נמחק', 'info');
-}
-
-// ═══ EMOJI PICKER ════════════════════════════════════════════════
-function buildEmojiGrid() {
-  const grid = document.getElementById('emoji-grid');
-  if (!grid) return;
-  EMOJIS.forEach(em => {
-    const btn = document.createElement('button');
-    btn.textContent = em;
-    btn.addEventListener('click', () => {
-      if (S.currentEmojiFn) S.currentEmojiFn(em);
-      closeEmojiPicker();
-    });
-    grid.appendChild(btn);
+  var name = DATA.agreements[i].titleHe || 'הסכם ללא שם';
+  confirm2('מחיקת הסכם', 'האם למחוק את "' + name + '"?', function() {
+    DATA.agreements.splice(i, 1);
+    renderAgreements();
+    toast('הסכם נמחק', 'info');
   });
 }
 
-function openEmojiPicker(fn) {
-  S.currentEmojiFn = fn;
-  document.getElementById('emoji-picker').classList.add('open');
-  document.getElementById('emoji-overlay').classList.add('open');
+/* ============================================================
+   SETTINGS
+   ============================================================ */
+function renderSettings() {
+  var tokenEl   = document.getElementById('gh-token');
+  var ownerEl   = document.getElementById('gh-owner');
+  var repoEl    = document.getElementById('gh-repo');
+  var fileEl    = document.getElementById('gh-file');
+  var adEl      = document.getElementById('anydesk-id');
+  if (tokenEl) tokenEl.value = GH.token || '';
+  if (ownerEl) ownerEl.value = GH.owner || 'avigoldfarb1';
+  if (repoEl)  repoEl.value  = GH.repo  || 'gal-or-card';
+  if (fileEl)  fileEl.value  = GH.file  || 'index.html';
+  if (adEl)    adEl.value    = DATA.anydesk.id || '';
 }
 
-function closeEmojiPicker() {
-  document.getElementById('emoji-picker').classList.remove('open');
-  document.getElementById('emoji-overlay').classList.remove('open');
-  S.currentEmojiFn = null;
+function saveGHSettings() {
+  GH.token = (document.getElementById('gh-token').value || '').trim();
+  GH.owner = (document.getElementById('gh-owner').value || 'avigoldfarb1').trim();
+  GH.repo  = (document.getElementById('gh-repo').value  || 'gal-or-card').trim();
+  GH.file  = (document.getElementById('gh-file').value  || 'index.html').trim();
+  try { localStorage.setItem('gal_or_gh', JSON.stringify(GH)); } catch(e) {}
+  document.getElementById('gh-status').innerHTML = '<span style="color:#3fb950">✅ הגדרות נשמרו</span>';
+  toast('הגדרות GitHub נשמרו', 'success');
 }
 
-// ═══ UI HELPERS ══════════════════════════════════════════════════
-function toggleExpand(bodyId, btn) {
-  const body = document.getElementById(bodyId);
-  if (!body) return;
-  body.classList.toggle('open');
-  const isOpen = body.classList.contains('open');
-  if (btn) btn.textContent = isOpen ? '⚙️ פרטים ▴' : '⚙️ פרטים ▾';
-}
-
-function showToast(msg, type) {
-  const container = document.getElementById('toast-container');
-  if (!container) return;
-  const div = document.createElement('div');
-  div.className = 'toast' + (type ? ' ' + type : '');
-  div.textContent = msg;
-  container.appendChild(div);
-  setTimeout(() => { if(div.parentNode) div.remove(); }, 3500);
-}
-
-function setProgress(pct) {
-  const bar = document.getElementById('progress-bar');
-  if (bar) bar.style.width = Math.max(0, Math.min(100, pct)) + '%';
-}
-
-function pubLog(msg, type) {
-  const log = document.getElementById('pub-log');
-  if (!log) return;
-  const line = document.createElement('div');
-  line.className = 'log-line' + (type ? ' ' + type : '');
-  const time = new Date().toTimeString().slice(0, 8);
-  line.textContent = '[' + time + '] ' + msg;
-  log.appendChild(line);
-  log.scrollTop = log.scrollHeight;
-  // Also navigate to settings to show log if save is happening
-}
-
-function showHomeStatus(msg) {
-  const el  = document.getElementById('home-status');
-  const cnt = document.getElementById('home-status-content');
-  if (el)  el.style.display  = '';
-  if (cnt) cnt.textContent   = msg;
-}
-
-async function testConnection() {
-  const token = document.getElementById('gh-token').value.trim();
-  const owner = document.getElementById('gh-owner').value.trim();
-  const repo  = document.getElementById('gh-repo').value.trim();
-  const file  = document.getElementById('gh-file').value.trim();
-  const statusEl = document.getElementById('conn-status');
-  if (!token) { if(statusEl) statusEl.textContent = 'אין טוקן'; return; }
-  if (statusEl) statusEl.textContent = 'בודק חיבור...';
+function loadGHSettings() {
   try {
-    const resp = await fetch(
-      `https://api.github.com/repos/${owner}/${repo}/contents/${file}`,
-      { headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' } }
-    );
-    const data = await resp.json();
-    if (resp.ok) {
-      if (statusEl) statusEl.innerHTML =
-        `<span style="color:var(--success)">✅ חיבור תקין! SHA: ${data.sha.substring(0,8)}... | גודל: ${(data.size/1024).toFixed(1)}KB</span>`;
+    var s = localStorage.getItem('gal_or_gh');
+    if (s) {
+      var parsed = JSON.parse(s);
+      if (parsed.token) GH.token = parsed.token;
+      if (parsed.owner) GH.owner = parsed.owner;
+      if (parsed.repo)  GH.repo  = parsed.repo;
+      if (parsed.file)  GH.file  = parsed.file;
+    }
+  } catch(e) {}
+}
+
+async function testGH() {
+  var statusEl = document.getElementById('gh-status');
+  if (!GH.token) {
+    if (statusEl) statusEl.innerHTML = '<span style="color:#f85149">❌ Token לא מוגדר</span>';
+    toast('הגדר Token תחילה', 'error');
+    return;
+  }
+  if (statusEl) statusEl.innerHTML = '<span class="spinner"></span> בודק חיבור...';
+  try {
+    var res = await fetch('https://api.github.com/repos/' + GH.owner + '/' + GH.repo, {
+      headers: { 'Authorization': 'Bearer ' + GH.token, 'Accept': 'application/vnd.github.v3+json' }
+    });
+    if (res.ok) {
+      var data = await res.json();
+      if (statusEl) statusEl.innerHTML = '<span style="color:#3fb950">✅ מחובר: ' + h(data.full_name) + '</span>';
+      toast('חיבור תקין!', 'success');
     } else {
-      if (statusEl) statusEl.innerHTML =
-        `<span style="color:var(--danger)">❌ שגיאה: ${data.message}</span>`;
+      var err = await res.json();
+      if (statusEl) statusEl.innerHTML = '<span style="color:#f85149">❌ שגיאה ' + res.status + ': ' + h(err.message || '') + '</span>';
+      toast('שגיאת חיבור: ' + res.status, 'error');
     }
   } catch(e) {
-    if (statusEl) statusEl.innerHTML =
-      `<span style="color:var(--danger)">❌ שגיאת רשת: ${e.message}</span>`;
+    if (statusEl) statusEl.innerHTML = '<span style="color:#f85149">❌ שגיאת רשת</span>';
+    toast('שגיאת רשת', 'error');
   }
 }
 
-function esc(s) {
-  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+/* ============================================================
+   GITHUB API
+   ============================================================ */
+function logPub(line) {
+  var el = document.getElementById('pub-log');
+  if (!el) return;
+  el.style.display = 'block';
+  el.textContent += line + '\n';
+  el.scrollTop = el.scrollHeight;
 }
+
+function extractVar(html, varName) {
+  var marker = 'var ' + varName + ' = ';
+  var si = html.indexOf(marker);
+  if (si === -1) return null;
+  var ob = html.indexOf('{', si);
+  if (ob === -1) return null;
+  var d = 0, i = ob, inStr = false, sc = '', esc = false, lc = false, bc = false, end = -1;
+  for (; i < html.length; i++) {
+    var c = html[i], n = html[i + 1] || '';
+    if (lc) { if (c === '\n') lc = false; continue; }
+    if (bc) { if (c === '*' && n === '/') { bc = false; i++; } continue; }
+    if (esc) { esc = false; continue; }
+    if (c === '\\' && inStr) { esc = true; continue; }
+    if (inStr) { if (c === sc) inStr = false; continue; }
+    if (c === '/' && n === '/') { lc = true; i++; continue; }
+    if (c === '/' && n === '*') { bc = true; i++; continue; }
+    if (c === '"' || c === "'" || c === '`') { inStr = true; sc = c; continue; }
+    if (c === '{') d++;
+    else if (c === '}') { d--; if (d === 0) { end = i; break; } }
+  }
+  if (end === -1) return null;
+  try {
+    var str = html.slice(ob, end + 1);
+    /* jshint evil:true */
+    var val = eval('(' + str + ')');
+    return { val: val, start: ob, end: end + 1 };
+  } catch(e) {
+    return null;
+  }
+}
+
+async function loadGH() {
+  if (!GH.token) { toast('הגדר Token תחילה', 'error'); go('settings'); return; }
+  var btn = document.getElementById('btn-load');
+  if (btn) btn.innerHTML = '☁️ <span class="spinner"></span>';
+  toast('טוען מ-GitHub...', 'info');
+  try {
+    var url = 'https://api.github.com/repos/' + GH.owner + '/' + GH.repo + '/contents/' + GH.file;
+    var res = await fetch(url, {
+      headers: { 'Authorization': 'Bearer ' + GH.token, 'Accept': 'application/vnd.github.v3+json' }
+    });
+    if (!res.ok) {
+      var e1 = await res.json();
+      toast('שגיאה בטעינה: ' + (e1.message || res.status), 'error');
+      if (btn) btn.innerHTML = '☁️ טען';
+      return;
+    }
+    var json = await res.json();
+    SHA = json.sha;
+    RAW_HTML = decodeURIComponent(escape(atob(json.content.replace(/\n/g, ''))));
+    var extracted = extractVar(RAW_HTML, 'DATA');
+    if (extracted && extracted.val) {
+      var ld = extracted.val;
+      if (ld.person)       DATA.person       = Object.assign({}, DATA.person, ld.person);
+      if (ld.anydesk)      DATA.anydesk      = Object.assign({}, DATA.anydesk, ld.anydesk);
+      if (Array.isArray(ld.branches))     DATA.branches     = ld.branches;
+      if (ld.services)     DATA.services     = ld.services;
+      if (Array.isArray(ld.guides))       DATA.guides       = ld.guides;
+      if (Array.isArray(ld.articles))     DATA.articles     = ld.articles;
+      if (Array.isArray(ld.photoSamples)) DATA.photoSamples = ld.photoSamples;
+      if (Array.isArray(ld.agreements))   DATA.agreements   = ld.agreements;
+      toast('נטען מ-GitHub בהצלחה!', 'success');
+    } else {
+      toast('הקובץ נטען. DATA לא נמצא בקובץ.', 'info');
+    }
+    // Re-render current page
+    var curTitle = document.getElementById('page-title').textContent;
+    var curSec = 'home';
+    var keys = Object.keys(TITLES);
+    for (var k = 0; k < keys.length; k++) {
+      if (TITLES[keys[k]] === curTitle) { curSec = keys[k]; break; }
+    }
+    render(curSec);
+  } catch(e) {
+    toast('שגיאת טעינה: ' + e.message, 'error');
+  }
+  if (btn) btn.innerHTML = '☁️ טען';
+}
+
+async function saveGH() {
+  if (!GH.token) { toast('הגדר Token תחילה', 'error'); go('settings'); return; }
+  if (!RAW_HTML) {
+    toast('טוען קובץ מ-GitHub...', 'info');
+    await loadGH();
+    if (!RAW_HTML) { toast('לא ניתן לטעון קובץ', 'error'); return; }
+  }
+  var pubLog = document.getElementById('pub-log');
+  if (pubLog) { pubLog.style.display = 'block'; pubLog.textContent = ''; }
+  logPub('מכין לפרסום...');
+  var extracted2 = extractVar(RAW_HTML, 'DATA');
+  if (!extracted2) { toast('לא נמצא var DATA בקובץ', 'error'); logPub('שגיאה: לא נמצא var DATA'); return; }
+  var dataStr = JSON.stringify(DATA, null, 2);
+  var newHTML = RAW_HTML.slice(0, extracted2.start) + dataStr + RAW_HTML.slice(extracted2.end);
+  logPub('מקודד ושולח ל-GitHub...');
+  try {
+    var encoded = btoa(unescape(encodeURIComponent(newHTML)));
+    var url = 'https://api.github.com/repos/' + GH.owner + '/' + GH.repo + '/contents/' + GH.file;
+    var body = {
+      message: 'backoffice: update ' + new Date().toLocaleString('he-IL'),
+      content: encoded,
+      sha: SHA
+    };
+    var res = await fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'Bearer ' + GH.token,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+    if (res.ok) {
+      var rj = await res.json();
+      SHA = rj.content.sha;
+      RAW_HTML = newHTML;
+      logPub('נשמר בהצלחה!');
+      logPub('GitHub Pages מתעדכן (עד 2 דקות)...');
+      toast('פורסם לאוויר!', 'success');
+    } else {
+      var er = await res.json();
+      logPub('שגיאה: ' + (er.message || res.status));
+      toast('שגיאה: ' + (er.message || res.status), 'error');
+    }
+  } catch(e) {
+    logPub('שגיאת רשת: ' + e.message);
+    toast('שגיאת רשת: ' + e.message, 'error');
+  }
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+window.onload = function() {
+  loadGHSettings();
+  // Show home page immediately
+  document.querySelectorAll('.page').forEach(function(p) { p.style.display = 'none'; });
+  document.getElementById('page-home').style.display = 'block';
+  renderHome();
+  // Auto-load from GitHub if token exists
+  if (GH.token) {
+    setTimeout(function() { loadGH(); }, 500);
+  }
+};
+
+// Close emoji picker on outside click
+document.addEventListener('click', function(e) {
+  var picker = document.getElementById('emoji-picker');
+  if (!picker || picker.style.display !== 'block') return;
+  if (picker.contains(e.target)) return;
+  if (e.target.closest && e.target.closest('[onclick*="pickEmoji"]')) return;
+  closeEmoji();
+});
 </script>
 </body>
 </html>
