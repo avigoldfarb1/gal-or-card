@@ -710,16 +710,84 @@ const EMOJIS = [
 ];
 
 // ═══ INIT ════════════════════════════════════════════════════════
+function initDefaultData() {
+  S.data = {
+    person: {
+      nameHe:'אבי גולדפרב', nameEn:'Avi Goldfarb',
+      jobHe:'מנכ"ל הרשת', jobEn:'CEO, Gal Or Network',
+      companyHe:'גל אור מכוני רנטגן בע"מ', companyEn:'Gal Or X-Ray Centers Ltd.',
+      mobilePhone:'0527474949', networkPhone:'0747840744',
+      waPhone:'972527474949', email:'avigoldfarb1@gmail.com',
+      website:'https://galorx-ray.co.il'
+    },
+    anydesk: { id: '123 456 789' },
+    branches: [
+      { nameHe:'כפר סבא', nameEn:'Kfar Saba', addrHe:'רחוב ויצמן 83, מרכז אהרוני, קומה 1', addrEn:'83 Weizmann St., Aharoni Center, Floor 1', phone:'0974469547', phoneDisplay:'09-7469547', hoursHe:"א'-ה' 9:00-19:00 | ו' וחגים 9:00-13:00", hoursEn:'Sun–Thu 9:00–19:00 | Fri & holidays 9:00–13:00', waze:'', maps:'https://maps.google.com/?q=ויצמן+83+כפר+סבא', wa:'https://wa.me/972532315716' },
+      { nameHe:'רעננה', nameEn:"Ra'anana", addrHe:"אחוזה 124, מרכז פוזין, קומה קרקע", addrEn:'124 Ahuzah St., Pozin Center, Ground Floor', phone:'0974190068', phoneDisplay:'09-7419068', hoursHe:"א'-ה' 9:00-19:00 | ו' וחגים 9:00-13:00", hoursEn:'Sun–Thu 9:00–19:00 | Fri & holidays 9:00–13:00', waze:'', maps:'https://maps.google.com/?q=אחוזה+124+רעננה', wa:'https://wa.me/972533203015' },
+      { nameHe:'הוד השרון', nameEn:'Hod HaSharon', addrHe:'סוקולוב 46, כיכר המושבה, קומה 8, חדר 812', addrEn:'46 Sokolov St., Kikar HaMoshava, Floor 8, Room 812', phone:'0974017015', phoneDisplay:'09-7401715', hoursHe:"א'-ה' 9:00-18:00 | ו' וחגים 9:00-13:00", hoursEn:'Sun–Thu 9:00–18:00 | Fri & holidays 9:00–13:00', waze:'', maps:'https://maps.google.com/?q=סוקולוב+46+הוד+השרון', wa:'https://wa.me/972533022818' },
+      { nameHe:'תל מונד', nameEn:'Tel Mond', addrHe:'רחוב הדקל 47, קומה 2, חדר 3, מרכז מונד', addrEn:'47 Palm St., Mond Center, Floor 2, Room 3', phone:'0988440070', phoneDisplay:'09-8844070', hoursHe:"א'-ה' 9:00-19:00 | ו' וחגים 9:00-13:00", hoursEn:'Sun–Thu 9:00–19:00 | Fri & holidays 9:00–13:00', waze:'', maps:'https://maps.google.com/?q=הדקל+47+תל+מונד', wa:'https://wa.me/972532315717' }
+    ],
+    services: {
+      he: [
+        {icon:'🩻',title:'צילום פנורמי',desc:'צילום פנורמי ותיעוד פה מלא'},
+        {icon:'🔬',title:'CT / CBCT דנטלי',desc:'הדמיה תלת-ממדית עם ניתוח מקצועי'},
+        {icon:'😁',title:'סט אורתודונטיה',desc:'תכנון טיפול ומעקב התקדמות'},
+        {icon:'📱',title:'סריקה אינטראורלית',desc:'תיעוד דיגיטלי ללא קרינה'},
+        {icon:'🦷',title:'צילום סטטוס',desc:'צילומי ביקורת ותיעוד מלא של הפה'},
+        {icon:'🏃',title:'סד ספורט מקצועי',desc:'סדי הגנה מותאמים אישית לספורטאים'}
+      ],
+      en: [
+        {icon:'🩻',title:'Panoramic X-Ray',desc:'Panoramic X-ray and full oral documentation'},
+        {icon:'🔬',title:'CT / CBCT Dental',desc:'3D imaging with professional analysis'},
+        {icon:'😁',title:'Orthodontic Set',desc:'Treatment planning and progress monitoring'},
+        {icon:'📱',title:'Intraoral Scan',desc:'Digital documentation without radiation'},
+        {icon:'🦷',title:'Status X-Ray',desc:'Full mouth X-ray series for complete documentation'},
+        {icon:'🏃',title:'Sports Mouthguard',desc:'Custom-fitted protective mouthguards for athletes'}
+      ]
+    },
+    trust: {
+      he: [
+        {icon:'🏆',num:'1982',label:'שנת הקמה',desc:'מעל 40 שנות ניסיון'},
+        {icon:'📍',num:'4',label:'סניפים',desc:'ברחבי השרון והמרכז'},
+        {icon:'⚡',num:'עדכני',label:'ציוד מתקדם',desc:'מתחדש כל 3 שנים'},
+        {icon:'🛡️',num:'מינימלית',label:'קרינה',desc:'תקנים בינלאומיים מחמירים'},
+        {icon:'⭐',num:'אישי',label:'שירות ייחודי',desc:'ליווי אישי לכל מטופל'}
+      ],
+      en: [
+        {icon:'🏆',num:'1982',label:'Founded',desc:'Over 40 years of experience'},
+        {icon:'📍',num:'4',label:'Branches',desc:'Sharon & Central Israel'},
+        {icon:'⚡',num:'Modern',label:'Equipment',desc:'Updated every 3 years'},
+        {icon:'🛡️',num:'Minimal',label:'Radiation',desc:'Strict international standards'},
+        {icon:'⭐',num:'Personal',label:'Service',desc:'Personal care for every patient'}
+      ]
+    },
+    guides: [
+      {icon:'🖥️',titleHe:'מדריך OnDemand3D',titleEn:'OnDemand3D Guide',subHe:'מדריך מלא לתוכנה',subEn:'Full software guide',href:'ondemand3d-guide-gal-or.html'},
+      {icon:'📥',titleHe:'התקנת Viewer',titleEn:'Install Viewer',subHe:'מדריך התקנת OnDemand3D',subEn:'OnDemand3D installation guide',href:'מדריך_גל_אור_מלא.html'},
+      {icon:'🦷',titleHe:'מדריך פורטל רופאים',titleEn:'Doctor Portal Guide',subHe:'כניסה והסבר שימוש במערכת',subEn:'Login and system usage',href:'gal-or-doctor-guide.html'}
+    ],
+    articles: [
+      {icon:'🔬',titleHe:'CT דנטלי (CBCT) — המדריך המקצועי השלם',titleEn:'Dental CT (CBCT) — The Complete Professional Guide',descHe:'כל מה שרופאי שיניים צריכים לדעת על הדמיית CBCT',descEn:'Everything dental professionals need to know about CBCT imaging',date:'מרץ 2025',href:'https://avigoldfarb1.github.io/gal-or-card/gal_or_cbct_v3.html',tags:['CBCT','CT דנטלי','הדמיה']},
+      {icon:'🦷',titleHe:'צילומי שיניים ו-CBCT דנטלי',titleEn:'Dental X-Rays and CBCT',descHe:'מדריך מקיף על סוגי צילומי השיניים והדמיית CBCT דנטלי',descEn:'A comprehensive guide to dental X-ray types and CBCT imaging',date:'מרץ 2025',href:'./צילומי שיניים ו-CBCT דנטלי _ גל אור מכוני רנטגן.html',tags:['צילומי שיניים','CBCT','רנטגן']},
+      {icon:'🤰',titleHe:'צילומי רנטגן ו-CBCT דנטלי בנשים בהריון',titleEn:'Dental X-Rays & CBCT in Pregnant Women',descHe:'כל מה שחשוב לדעת על בטיחות צילומי שיניים ו-CBCT במהלך הריון',descEn:'Everything important to know about dental X-ray safety during pregnancy',date:'מרץ 2025',href:'./צילומי רנטגן ו-CBCT דנטלי בנשים בהריון _ גל אור מכוני רנטגן.html',tags:['הריון','בטיחות','רנטגן']}
+    ],
+    photoSamples: [],
+    agreements: []
+  };
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   loadGhSettings();
+  initDefaultData();
   buildEmojiGrid();
   setupSidebarNav();
+  updateStats();
   updateQuickLinks();
 
   if (S.gh && S.gh.token) {
     loadFromGitHub();
   } else {
-    showToast('הגדר טוקן GitHub בהגדרות', 'info');
+    showToast('טיפ: טען נתונים מ-GitHub לסנכרון מלא', 'info');
   }
 });
 
