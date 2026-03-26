@@ -783,6 +783,13 @@ window.addEventListener('DOMContentLoaded', () => {
   setupSidebarNav();
   updateStats();
   updateQuickLinks();
+  populateForms();
+  renderArticles();
+  renderServices();
+  renderGuides();
+  renderBranches();
+  renderGallery();
+  renderAgreements();
 
   if (S.gh && S.gh.token) {
     loadFromGitHub();
@@ -851,6 +858,16 @@ function navigate(sec) {
   document.querySelectorAll('#bottom-nav .bn-item').forEach(b => b.classList.toggle('active', b.dataset.sec === sec));
   const titleEl = document.getElementById('top-title');
   if (titleEl) titleEl.textContent = SECTION_NAMES[sec] || sec;
+
+  // Render section content
+  if (sec === 'articles')   renderArticles();
+  if (sec === 'services')   renderServices();
+  if (sec === 'guides')     renderGuides();
+  if (sec === 'branches')   renderBranches();
+  if (sec === 'gallery')    renderGallery();
+  if (sec === 'agreements') renderAgreements();
+  if (sec === 'profile')    populateForms();
+  if (sec === 'home')       updateStats();
 }
 
 // ═══ GITHUB API ══════════════════════════════════════════════════
@@ -1045,6 +1062,12 @@ async function loadFromGitHub() {
     setProgress(80);
     ensureDefaults();
     populateForms();
+    renderArticles();
+    renderServices();
+    renderGuides();
+    renderBranches();
+    renderGallery();
+    renderAgreements();
     updateStats();
     setProgress(100);
 
