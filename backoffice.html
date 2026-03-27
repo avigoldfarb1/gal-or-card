@@ -553,8 +553,9 @@
       <input id="gh-owner" class="settings-input" value="avigoldfarb1" dir="ltr">
       <label class="settings-label">Repository</label>
       <input id="gh-repo" class="settings-input" value="gal-or-card" dir="ltr">
-      <label class="settings-label">קובץ להעלאה</label>
-      <input id="gh-file" class="settings-input" value="index.html" dir="ltr">
+      <label class="settings-label">קובץ הכרטיס (אל תשנה)</label>
+      <input id="gh-file" class="settings-input" value="index.html" dir="ltr" readonly style="opacity:0.6;cursor:not-allowed" title="זהו קובץ הכרטיס — אל תשנה שדה זה">
+      <div style="font-size:11px;color:#e6b800;margin-top:4px">⚠️ שדה זה הוא קובץ כרטיס הביקור — תמיד index.html. להוספת קבצים כמו PDF או מדריכים — השתמשי בקטגוריות מאמרים/מדריכים.</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
         <button class="btn-settings" onclick="saveGHSettings()">💾 שמור הגדרות</button>
         <button class="btn-settings" onclick="testGH()">🔌 בדוק חיבור</button>
@@ -1328,7 +1329,7 @@ function saveGHSettings(silent) {
   GH.token = (document.getElementById('gh-token').value || '').trim();
   GH.owner = (document.getElementById('gh-owner').value || 'avigoldfarb1').trim();
   GH.repo  = (document.getElementById('gh-repo').value  || 'gal-or-card').trim();
-  GH.file  = (document.getElementById('gh-file').value  || 'index.html').trim();
+  GH.file  = 'index.html'; // תמיד קובץ הכרטיס
   try { localStorage.setItem('gal_or_gh', JSON.stringify(GH)); } catch(e) {}
   var statusEl = document.getElementById('gh-status');
   if (statusEl) statusEl.innerHTML = GH.token
