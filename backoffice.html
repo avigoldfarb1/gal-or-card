@@ -1324,14 +1324,17 @@ function renderSettings() {
   if (adEl)    adEl.value    = DATA.anydesk.id || '';
 }
 
-function saveGHSettings() {
+function saveGHSettings(silent) {
   GH.token = (document.getElementById('gh-token').value || '').trim();
   GH.owner = (document.getElementById('gh-owner').value || 'avigoldfarb1').trim();
   GH.repo  = (document.getElementById('gh-repo').value  || 'gal-or-card').trim();
   GH.file  = (document.getElementById('gh-file').value  || 'index.html').trim();
   try { localStorage.setItem('gal_or_gh', JSON.stringify(GH)); } catch(e) {}
-  document.getElementById('gh-status').innerHTML = '<span style="color:#3fb950">✅ הגדרות נשמרו</span>';
-  toast('הגדרות GitHub נשמרו', 'success');
+  var statusEl = document.getElementById('gh-status');
+  if (statusEl) statusEl.innerHTML = GH.token
+    ? '<span style="color:#3fb950">✅ Token נשמר' + (silent ? ' (אוטומטי)' : '') + '</span>'
+    : '<span style="color:#e6b800">⚠️ Token ריק</span>';
+  if (!silent) toast('הגדרות GitHub נשמרו', 'success');
 }
 
 function loadGHSettings() {
@@ -1519,10 +1522,19 @@ async function saveGH() {
    ============================================================ */
 window.onload = function() {
   loadGHSettings();
+  renderSettings(); // מאכלס שדות אפילו לפני שהמשתמש פותח את הדף
+
   // Show home page immediately
   document.querySelectorAll('.page').forEach(function(p) { p.style.display = 'none'; });
   document.getElementById('page-home').style.display = 'block';
   renderHome();
+
+  // שמירה אוטומטית בכל שינוי בשדות ההגדרות
+  ['gh-token','gh-owner','gh-repo','gh-file'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('input', function() { saveGHSettings(true); });
+  });
+
   // Auto-load from GitHub if token exists
   if (GH.token) {
     setTimeout(function() { loadGH(); }, 500);
