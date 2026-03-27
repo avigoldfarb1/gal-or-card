@@ -1437,7 +1437,11 @@ async function loadGH() {
     }
     var json = await res.json();
     SHA = json.sha;
-    RAW_HTML = decodeURIComponent(escape(atob(json.content.replace(/\n/g, ''))));
+    var b64clean = json.content.replace(/\n/g, '');
+    var binaryStr = atob(b64clean);
+    var bytes = new Uint8Array(binaryStr.length);
+    for (var bi = 0; bi < binaryStr.length; bi++) bytes[bi] = binaryStr.charCodeAt(bi);
+    RAW_HTML = new TextDecoder('utf-8').decode(bytes);
     var extracted = extractVar(RAW_HTML, 'DATA');
     if (extracted && extracted.val) {
       var ld = extracted.val;
@@ -1483,7 +1487,10 @@ async function saveGH() {
   var newHTML = RAW_HTML.slice(0, extracted2.start) + dataStr + RAW_HTML.slice(extracted2.end);
   logPub('מקודד ושולח ל-GitHub...');
   try {
-    var encoded = btoa(unescape(encodeURIComponent(newHTML)));
+    var encBytes = new TextEncoder().encode(newHTML);
+    var encBin = '';
+    encBytes.forEach(function(b) { encBin += String.fromCharCode(b); });
+    var encoded = btoa(encBin);
     var url = 'https://api.github.com/repos/' + GH.owner + '/' + GH.repo + '/contents/' + GH.file;
     var body = {
       message: 'backoffice: update ' + new Date().toLocaleString('he-IL'),
